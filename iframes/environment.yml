@@ -1,0 +1,13 @@
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - ipython
+  - numpy
+  - scipy
+  - matplotlib
+  - notebook
+  - console_shortcut
+  - ipywidgets
+  - pip:
+    - gekko
