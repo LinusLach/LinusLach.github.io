@@ -13121,11 +13121,11 @@ div#notebook {
   
 
   <div class="
-      cell border-box-sizing code_cell rendered" style="display:none">
+      cell border-box-sizing code_cell rendered">
     <div class="input">
 
 <div class="inner_cell">
-    <div class="input_area">
+    <div class="input_area" style="display:none">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">solve_ivp</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -13146,7 +13146,7 @@ div#notebook {
     <div class="input">
 
 <div class="inner_cell">
-    <div class="input_area" style="display:none">
+    <div class="input_area"  style="display:none">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">model</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.4</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
                      <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
@@ -13170,7 +13170,7 @@ div#notebook {
 
 <span class="n">style</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;description_width&#39;</span><span class="p">:</span> <span class="s1">&#39;initial&#39;</span><span class="p">}</span>
 <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="s2">&quot;400px&quot;</span><span class="p">)</span>
-<span class="n">slid1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Initial Prey Population&#39;</span><span class="p">,</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">style</span> <span class="o">=</span> <span class="n">style</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span><span class="p">)</span>
+<span class="n">slid1</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Initial Prey Population $\quad$&#39;</span><span class="p">,</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">style</span> <span class="o">=</span> <span class="n">style</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span><span class="p">)</span>
 <span class="n">slid2</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">FloatSlider</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Initial Predator Population&#39;</span><span class="p">,</span><span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">style</span> <span class="o">=</span> <span class="n">style</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span><span class="p">)</span>
 <span class="n">interact</span><span class="p">(</span><span class="n">plot_pp</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span> <span class="n">slid1</span> <span class="p">,</span><span class="n">b</span><span class="o">=</span><span class="n">slid2</span><span class="p">)</span>
 </pre></div>
@@ -13185,23 +13185,26 @@ div#notebook {
 
 <div class="output_area">
 
-    
+
 
 
 
   <div class="output_subarea output_widget_view ">
-    <button class="js-nbinteract-widget">
+    <button class="js-nbinteract-widget" style="display:none">
       Loading widgets...
     </button>
   </div>
 
 </div>
 
+<div class="output_area">
+
+</div>
+
 </div>
 </div>
 
   </div>
-
 
 
 <!-- Loads nbinteract package -->
