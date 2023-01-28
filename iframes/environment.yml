@@ -1,6 +1,5 @@
 channels:
   - defaults
-  - conda-forge
 dependencies:
   - ipython
   - numpy
@@ -9,5 +8,3 @@ dependencies:
   - notebook
   - console_shortcut
   - ipywidgets
-  - pip:
-    - gekko
