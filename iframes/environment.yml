@@ -8,3 +8,6 @@ dependencies:
   - notebook
   - console_shortcut
   - ipywidgets
+  - pip
+  - pip:
+    - gekko
