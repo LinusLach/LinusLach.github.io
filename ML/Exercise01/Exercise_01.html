@@ -101,10 +101,50 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-1-visual-data-exploration" id="toc-exercise-1-visual-data-exploration" class="nav-link" data-scroll-target="#exercise-1-visual-data-exploration">Exercise 1: Visual Data Exploration</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1a" id="toc-exercise-1a" class="nav-link" data-scroll-target="#exercise-1a">Exercise 1a:</a></li>
+  <li><a href="#exercise-1b" id="toc-exercise-1b" class="nav-link" data-scroll-target="#exercise-1b">Exercise 1b:</a></li>
+  <li><a href="#exercise-1c" id="toc-exercise-1c" class="nav-link" data-scroll-target="#exercise-1c">Exercise 1c:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1c-i" id="toc-exercise-1c-i" class="nav-link" data-scroll-target="#exercise-1c-i">Exercise 1c i:</a></li>
+  <li><a href="#exercise-1c-ii" id="toc-exercise-1c-ii" class="nav-link" data-scroll-target="#exercise-1c-ii">Exercise 1c ii:</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exercise-2-statistical-data-exploration-and-manipulation" id="toc-exercise-2-statistical-data-exploration-and-manipulation" class="nav-link" data-scroll-target="#exercise-2-statistical-data-exploration-and-manipulation">Exercise 2: Statistical Data Exploration and Manipulation</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a" id="toc-exercise-2a" class="nav-link" data-scroll-target="#exercise-2a">Exercise 2a:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a i:</a></li>
+  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2b" id="toc-exercise-2b" class="nav-link" data-scroll-target="#exercise-2b">Exercise 2b:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
+  <li><a href="#exercise-2b-ii" id="toc-exercise-2b-ii" class="nav-link" data-scroll-target="#exercise-2b-ii">Exercise 2b ii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2c" id="toc-exercise-2c" class="nav-link" data-scroll-target="#exercise-2c">Exercise 2c:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2c-i" id="toc-exercise-2c-i" class="nav-link" data-scroll-target="#exercise-2c-i">Exercise 2c i:</a></li>
+  <li><a href="#exercise-2c-ii" id="toc-exercise-2c-ii" class="nav-link" data-scroll-target="#exercise-2c-ii">Exercise 2c ii:</a></li>
+  <li><a href="#exercise-2c-iii" id="toc-exercise-2c-iii" class="nav-link" data-scroll-target="#exercise-2c-iii">Exercise 2c iii:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
@@ -225,9 +265,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3 class="anchored" data-anchor-id="exercise-2a">Exercise 2a:</h3>
 <p>One important aspect of Data Exploration is already visible in Exercise 1. The <code>Income_Category</code> of many customers is not known. That is not only the case for this variable but many others! However, instead of using the standard values <code>NA</code> or <code>NaN</code>, missing values are encoded by <code>Unknown</code>. The following code converts all the “Unknown” values to <code>NA</code>. By changing the values to <code>NA</code> we can filter them more conveniently in the later exercises.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>credit_info_clean <span class="ot">&lt;-</span>credit_info <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">na_if</span>(.,<span class="st">"Unknown"</span>)))</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(credit_info_clean<span class="sc">$</span>Income_Category)[<span class="fu">levels</span>(credit_info_clean<span class="sc">$</span>Income_Category)<span class="sc">==</span><span class="st">"Unknown"</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>credit_info_clean <span class="ot">&lt;-</span>credit_info <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span><span class="fu">na_if</span>(.,<span class="st">"Unknown"</span>)),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Income_Category =</span> <span class="fu">factor</span>(Income_Category,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="cn">NA</span>,<span class="st">"Less than $40K"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$40K - $60K"</span>,<span class="st">"$60K - $80K"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$80K - $120K"</span>,<span class="st">"$120K +"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="exercise-2a-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a i:</h4>
