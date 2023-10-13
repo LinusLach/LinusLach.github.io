@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.2.313">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,10 +17,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -47,13 +46,43 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -68,7 +97,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="Exercise_02_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Exercise_02_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -77,75 +105,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+  <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
   <ul>
-  <li><a href="#exercise-1-metrics" id="toc-exercise-1-metrics" class="nav-link" data-scroll-target="#exercise-1-metrics">Exercise 1: Metrics</a>
+  <li><a href="#exercise-1-bias-variance-trade-off" id="toc-exercise-1-bias-variance-trade-off" class="nav-link" data-scroll-target="#exercise-1-bias-variance-trade-off">Exercise 1: Bias-Variance Trade-Off</a>
   <ul class="collapse">
-  <li><a href="#exercise-1a" id="toc-exercise-1a" class="nav-link" data-scroll-target="#exercise-1a">Exercise 1a:</a>
+  <li><a href="#exercise-1a-data-exploration-and-manipulation" id="toc-exercise-1a-data-exploration-and-manipulation" class="nav-link" data-scroll-target="#exercise-1a-data-exploration-and-manipulation">Exercise 1a: Data exploration and manipulation</a>
   <ul class="collapse">
   <li><a href="#exercise-1a-i" id="toc-exercise-1a-i" class="nav-link" data-scroll-target="#exercise-1a-i">Exercise 1a i:</a></li>
   <li><a href="#exercise-1a-ii" id="toc-exercise-1a-ii" class="nav-link" data-scroll-target="#exercise-1a-ii">Exercise 1a ii:</a></li>
   </ul></li>
-  <li><a href="#exercise-1b" id="toc-exercise-1b" class="nav-link" data-scroll-target="#exercise-1b">Exercise 1b:</a>
+  <li><a href="#exercise-2b-training-a-simple-model" id="toc-exercise-2b-training-a-simple-model" class="nav-link" data-scroll-target="#exercise-2b-training-a-simple-model">Exercise 2b: Training a simple model</a>
   <ul class="collapse">
   <li><a href="#exercise-1b-i" id="toc-exercise-1b-i" class="nav-link" data-scroll-target="#exercise-1b-i">Exercise 1b i:</a></li>
   <li><a href="#exercise-1b-ii" id="toc-exercise-1b-ii" class="nav-link" data-scroll-target="#exercise-1b-ii">Exercise 1b ii:</a></li>
   <li><a href="#exercise-1b-iii" id="toc-exercise-1b-iii" class="nav-link" data-scroll-target="#exercise-1b-iii">Exercise 1b iii:</a></li>
+  <li><a href="#exercise-1b-iv" id="toc-exercise-1b-iv" class="nav-link" data-scroll-target="#exercise-1b-iv">Exercise 1b iv:</a></li>
   </ul></li>
-  </ul></li>
-  <li><a href="#exercise-2-bias-variance-trade-off" id="toc-exercise-2-bias-variance-trade-off" class="nav-link" data-scroll-target="#exercise-2-bias-variance-trade-off">Exercise 2: Bias-Variance Trade-Off</a>
+  <li><a href="#exercise-1c-overfitting-a-model" id="toc-exercise-1c-overfitting-a-model" class="nav-link" data-scroll-target="#exercise-1c-overfitting-a-model">Exercise 1c: Overfitting a model</a>
   <ul class="collapse">
-  <li><a href="#exercise-2a-data-exploration-and-manipulation" id="toc-exercise-2a-data-exploration-and-manipulation" class="nav-link" data-scroll-target="#exercise-2a-data-exploration-and-manipulation">Exercise 2a: Data exploration and manipulation</a>
-  <ul class="collapse">
-  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a i:</a></li>
-  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
-  </ul></li>
-  <li><a href="#exercise-2b-training-a-simple-model" id="toc-exercise-2b-training-a-simple-model" class="nav-link" data-scroll-target="#exercise-2b-training-a-simple-model">Exercise 2b: Training a simple model</a>
-  <ul class="collapse">
-  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
-  <li><a href="#exercise-2b-ii" id="toc-exercise-2b-ii" class="nav-link" data-scroll-target="#exercise-2b-ii">Exercise 2b ii:</a></li>
-  <li><a href="#exercise-2b-iii" id="toc-exercise-2b-iii" class="nav-link" data-scroll-target="#exercise-2b-iii">Exercise 2b iii:</a></li>
-  <li><a href="#exercise-2b-iv" id="toc-exercise-2b-iv" class="nav-link" data-scroll-target="#exercise-2b-iv">Exercise 2b iv:</a></li>
-  </ul></li>
-  <li><a href="#exercise-2c-overfitting-a-model" id="toc-exercise-2c-overfitting-a-model" class="nav-link" data-scroll-target="#exercise-2c-overfitting-a-model">Exercise 2c: Overfitting a model</a>
-  <ul class="collapse">
-  <li><a href="#exercise-2c-i" id="toc-exercise-2c-i" class="nav-link" data-scroll-target="#exercise-2c-i">Exercise 2c i:</a></li>
-  <li><a href="#exercise-2c-ii" id="toc-exercise-2c-ii" class="nav-link" data-scroll-target="#exercise-2c-ii">Exercise 2c ii:</a></li>
-  <li><a href="#exercise-2c-iii" id="toc-exercise-2c-iii" class="nav-link" data-scroll-target="#exercise-2c-iii">Exercise 2c iii:</a></li>
+  <li><a href="#exercise-1c-i" id="toc-exercise-1c-i" class="nav-link" data-scroll-target="#exercise-1c-i">Exercise 1c i:</a></li>
+  <li><a href="#exercise-1c-ii" id="toc-exercise-1c-ii" class="nav-link" data-scroll-target="#exercise-1c-ii">Exercise 1c ii:</a></li>
+  <li><a href="#exercise-1c-iii" id="toc-exercise-1c-iii" class="nav-link" data-scroll-target="#exercise-1c-iii">Exercise 1c iii:</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#intermezzo-good-practices-for-applied-machine-learning" id="toc-intermezzo-good-practices-for-applied-machine-learning" class="nav-link" data-scroll-target="#intermezzo-good-practices-for-applied-machine-learning">Intermezzo: Good practices for applied Machine Learning</a>
   <ul class="collapse">
-  <li><a href="#specifying-a-model-what-we-have-done-so-far" id="toc-specifying-a-model-what-we-have-done-so-far" class="nav-link" data-scroll-target="#specifying-a-model-what-we-have-done-so-far">Specifying a model (What we have done so far!):</a></li>
+  <li><a href="#developing-a-model-what-we-have-done-so-far" id="toc-developing-a-model-what-we-have-done-so-far" class="nav-link" data-scroll-target="#developing-a-model-what-we-have-done-so-far">Developing a model (What we have done so far!):</a></li>
   <li><a href="#developing-a-model-what-we-want-to-do-moving-forward" id="toc-developing-a-model-what-we-want-to-do-moving-forward" class="nav-link" data-scroll-target="#developing-a-model-what-we-want-to-do-moving-forward">Developing a model (What we want to do moving forward!):</a></li>
   </ul></li>
-  <li><a href="#exercise-3-cross-validation" id="toc-exercise-3-cross-validation" class="nav-link" data-scroll-target="#exercise-3-cross-validation">Exercise 3: Cross-Validation</a>
+  <li><a href="#exercise-2-cross-validation" id="toc-exercise-2-cross-validation" class="nav-link" data-scroll-target="#exercise-2-cross-validation">Exercise 2: Cross-Validation</a>
   <ul class="collapse">
-  <li><a href="#exercise-3a" id="toc-exercise-3a" class="nav-link" data-scroll-target="#exercise-3a">Exercise 3a:</a>
+  <li><a href="#exercise-2a" id="toc-exercise-2a" class="nav-link" data-scroll-target="#exercise-2a">Exercise 2a:</a>
   <ul class="collapse">
-  <li><a href="#exercise-3a-i" id="toc-exercise-3a-i" class="nav-link" data-scroll-target="#exercise-3a-i">Exercise 3a: i</a></li>
-  <li><a href="#exercise-3a-ii" id="toc-exercise-3a-ii" class="nav-link" data-scroll-target="#exercise-3a-ii">Exercise 3a ii:</a></li>
-  <li><a href="#exercise-3a-iii" id="toc-exercise-3a-iii" class="nav-link" data-scroll-target="#exercise-3a-iii">Exercise 3a iii:</a></li>
-  <li><a href="#exercise-3a-iv" id="toc-exercise-3a-iv" class="nav-link" data-scroll-target="#exercise-3a-iv">Exercise 3a iv:</a></li>
+  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a: i</a></li>
+  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
+  <li><a href="#exercise-2a-iii" id="toc-exercise-2a-iii" class="nav-link" data-scroll-target="#exercise-2a-iii">Exercise 2a iii:</a></li>
+  <li><a href="#exercise-2a-iv" id="toc-exercise-2a-iv" class="nav-link" data-scroll-target="#exercise-2a-iv">Exercise 2a iv:</a></li>
   </ul></li>
-  <li><a href="#exercise-3b" id="toc-exercise-3b" class="nav-link" data-scroll-target="#exercise-3b">Exercise 3b:</a>
+  <li><a href="#exercise-2b" id="toc-exercise-2b" class="nav-link" data-scroll-target="#exercise-2b">Exercise 2b:</a>
   <ul class="collapse">
-  <li><a href="#exercise-3b-i" id="toc-exercise-3b-i" class="nav-link" data-scroll-target="#exercise-3b-i">Exercise 3b i:</a></li>
-  <li><a href="#exercise-3b-ii" id="toc-exercise-3b-ii" class="nav-link" data-scroll-target="#exercise-3b-ii">Exercise 3b ii:</a></li>
-  <li><a href="#exercise-3b-iii" id="toc-exercise-3b-iii" class="nav-link" data-scroll-target="#exercise-3b-iii">Exercise 3b iii:</a></li>
-  <li><a href="#exercise-3b-iii-1" id="toc-exercise-3b-iii-1" class="nav-link" data-scroll-target="#exercise-3b-iii-1">Exercise 3b iii:</a></li>
-  <li><a href="#exercise-3b-iv" id="toc-exercise-3b-iv" class="nav-link" data-scroll-target="#exercise-3b-iv">Exercise 3b iv:</a></li>
+  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
+  <li><a href="#exercise-2b-ii" id="toc-exercise-2b-ii" class="nav-link" data-scroll-target="#exercise-2b-ii">Exercise 2b ii:</a></li>
+  <li><a href="#exercise-2b-iii" id="toc-exercise-2b-iii" class="nav-link" data-scroll-target="#exercise-2b-iii">Exercise 2b iii:</a></li>
+  <li><a href="#exercise-2b-iii-1" id="toc-exercise-2b-iii-1" class="nav-link" data-scroll-target="#exercise-2b-iii-1">Exercise 2b iii:</a></li>
+  <li><a href="#exercise-2b-iv" id="toc-exercise-2b-iv" class="nav-link" data-scroll-target="#exercise-2b-iv">Exercise 2b iv:</a></li>
   </ul></li>
-  <li><a href="#exercise-3c" id="toc-exercise-3c" class="nav-link" data-scroll-target="#exercise-3c">Exercise 3c:</a>
+  <li><a href="#exercise-2c" id="toc-exercise-2c" class="nav-link" data-scroll-target="#exercise-2c">Exercise 2c:</a>
   <ul class="collapse">
-  <li><a href="#exercise-3c-i" id="toc-exercise-3c-i" class="nav-link" data-scroll-target="#exercise-3c-i">Exercise 3c i:</a></li>
-  <li><a href="#exercise-3c-ii" id="toc-exercise-3c-ii" class="nav-link" data-scroll-target="#exercise-3c-ii">Exercise 3c ii:</a></li>
-  <li><a href="#exercise-3c-iii" id="toc-exercise-3c-iii" class="nav-link" data-scroll-target="#exercise-3c-iii">Exercise 3c iii:</a></li>
+  <li><a href="#exercise-2c-i" id="toc-exercise-2c-i" class="nav-link" data-scroll-target="#exercise-2c-i">Exercise 2c i:</a></li>
+  <li><a href="#exercise-2c-ii" id="toc-exercise-2c-ii" class="nav-link" data-scroll-target="#exercise-2c-ii">Exercise 2c ii:</a></li>
+  <li><a href="#exercise-2c-iii" id="toc-exercise-2c-iii" class="nav-link" data-scroll-target="#exercise-2c-iii">Exercise 2c iii:</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -178,181 +192,138 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
-<section id="exercise-1-metrics" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-1-metrics">Exercise 1: Metrics</h2>
-<section id="exercise-1a" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1a">Exercise 1a:</h3>
-<p>In the lecture, we talked about different loss functions, as well as their advantages and disadvantages. The goal of this exercise is to review some of the loss functions introduced.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-1-bias-variance-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-bias-variance-trade-off">Exercise 1: Bias-Variance Trade-Off</h2>
+<p>In the lecture, we have already briefly discussed the issue of overfitting by considering a simple example. The goal of this exercise is to examine a real-world dataset and see how we can recreate the phenomenon of under and overfitting with a simple linear model.</p>
+<section id="exercise-1a-data-exploration-and-manipulation" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1a-data-exploration-and-manipulation">Exercise 1a: Data exploration and manipulation</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"rent_aux.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>rent_aux</code> dataset is a preprocessed subset of the <a href="https://www.kaggle.com/datasets/corrieaar/apartment-rental-offers-in-germany">Apartment rental offers in Germany</a> dataset. It contains 239 unique rental listings for flats in Augsburg. The data was sourced at three different dates in 2018 and 2019 and contains 28 different variables.</p>
+<p>Instead of focusing on a comprehensive data cleaning and manipulation process, we will simply use the two variables <code>livingSpace</code> measuring the area of living in <span class="math inline">\(m^2\)</span> of a listing and <code>totalRent</code> in EUR, representing the total amount of rent for a month (base rent + utilities).</p>
 <section id="exercise-1a-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1a-i">Exercise 1a i:</h4>
-<p>Write three different functions <code>loss_mse, loss_mae</code>, and <code>loss_rmse</code> that calculate the respective loss value. Each function should take two vectors <code>y</code> and <code>yhat</code> as an input and return the respective loss value.</p>
-<p>Test the loss functions with the following inputs. You can check your answers below.</p>
+<p>Visualize the relationship between the two variables <code>livingSpace</code> and <code>totalRent</code>. The output could look like the plot below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">97</span>, <span class="dv">4</span>, <span class="dv">25</span>, <span class="dv">15</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">111</span>, <span class="dv">92</span>, <span class="dv">9</span>, <span class="dv">29</span>, <span class="dv">20</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_mse</span>(targets,predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 34.4</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_mae</span>(targets,predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.6</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_rmse</span>(targets,predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.865151</code></pre>
+<div class="cell-output-display">
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 <section id="exercise-1a-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1a-ii">Exercise 1a ii:</h4>
-<p>Write a function <code>loss_huber</code> that returns the Huber loss for two given vectors <code>y</code>, <code>yhat</code>, and a threshold <span class="math inline">\(\delta\)</span>. The Huber loss of two vectors can be calculated as follows:</p>
-<p><span class="math display">\[
-\mathrm{loss_{huber}} = \sum_{i=1}^{\mathrm{length(y)}} \mathcal{L}(y_i,\hat y_i)
-\]</span></p>
-<p>where</p>
-<p><span class="math display">\[
-\mathcal{L}(y_i,\hat y_i) = \begin{cases} \frac{1}{2}(y_i-\hat y_i)^2, \quad&amp;\text{if } |y-\hat y| &lt;\delta\\ \delta (|y-\hat y|-\frac{1}{2}\delta),\quad &amp;\text{else}.   \end{cases}
-\]</span></p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_huber</span>(targets,predictions,<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.5</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="exercise-1b" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1b">Exercise 1b:</h3>
-<p>The goal of this exercise is to gain a deeper understanding of the different loss types calculated in the previous exercises. Consider the following scenarios and argue which loss function should be used.</p>
-<section id="exercise-1b-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-1b-i">Exercise 1b i:</h4>
-<p>Decide between MSE and RMSE:</p>
-<ul>
-<li>You are developing a predictive model for housing prices. Given various features of a house like size (in <span class="math inline">\(m^2\)</span>) , number of floors, and the name of the neighborhood. You want to estimate its market value in EUR.</li>
-</ul>
-</section>
-<section id="exercise-1b-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-1b-ii">Exercise 1b ii:</h4>
-<p>Decide between MAE and MSE:</p>
-<ul>
-<li>Imagine you are working on a weather prediction model, where you aim to forecast daily temperatures for a location with strong and sudden changes in weather. The data contains <code>average wind velocity</code>, <code>air pressure</code>, <code>humidity</code>, and many more. You also have historical temperature data for training and the overall goal is to minimize prediction errors.</li>
-</ul>
-</section>
-<section id="exercise-1b-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-1b-iii">Exercise 1b iii:</h4>
-<p>Decide between MAE, MSE, and Huber loss</p>
-<ul>
-<li>You are building a machine-learning model for autonomous vehicle control. The vehicles have to navigate through complex environments with all sorts of different obstacles varying in size and shape. The goal is to ensure the vehicle makes safe decisions based on some numerical value calculated based on the obstacles observed.</li>
-</ul>
-</section>
-</section>
-</section>
-<section id="exercise-2-bias-variance-trade-off" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-2-bias-variance-trade-off">Exercise 2: Bias-Variance Trade-Off</h2>
-<p>In the lecture, we have already briefly discussed the issue of overfitting by considering a simple example. The goal of this exercise is to examine a real-world dataset and see how we can recreate the phenomenon of under and overfitting with a simple linear model.</p>
-<section id="exercise-2a-data-exploration-and-manipulation" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2a-data-exploration-and-manipulation">Exercise 2a: Data exploration and manipulation</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"rent_aux.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The <code>rent_aux</code> dataset is a preprocessed subset of the <a href="https://www.kaggle.com/datasets/corrieaar/apartment-rental-offers-in-germany">Apartment rental offers in Germany</a> dataset. It contains 239 unique rental listings for flats in Augsburg. The data was sourced at three different dates in 2018 and 2018 and contains 28 different variables.</p>
-<p>Instead of focusing on a comprehensive data cleaning and manipulation process, we will simply use the two variables <code>livingSpace</code> measuring the area of living in <span class="math inline">\(m^2\)</span> of a listing and <code>totalRent</code> in EUR, representing the total amount of rent for a month (base rent + utilities).</p>
-<section id="exercise-2a-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a i:</h4>
-<p>Visualize the relationship between the two variables <code>livingSpace</code> and <code>totalRent</code>. The output could look like the plot below.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="exercise-2a-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
 <p>Without conducting a thorough outlier analysis we decide to remove every listing that either costs more than <span class="math inline">\(2500\)</span> EUR or is bigger than <span class="math inline">\(200\: m^2\)</span>. Use the <code>filter</code> function to remove those outliers.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="ot">&lt;-</span> data_aux_filtered <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(totalRent <span class="sc">&lt;=</span> <span class="dv">2500</span>, livingSpace <span class="sc">&lt;</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="ot">&lt;-</span> data_aux_filtered <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(totalRent <span class="sc">&lt;=</span> <span class="dv">2500</span>, livingSpace <span class="sc">&lt;=</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
 <section id="exercise-2b-training-a-simple-model" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2b-training-a-simple-model">Exercise 2b: Training a simple model</h3>
 <p>In this exercise, we want to fit an overly simple model to demonstrate it’s low performance on both, a training and test set.</p>
-<section id="exercise-2b-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
-<p>To ensure consistent results, we set <code>seed</code>. Furthermore, the logical vector <code>sample</code> that is filled <span class="math inline">\(70\%\)</span> with <code>True</code> values and <span class="math inline">\(30 \%\)</span> <code>False</code> values is given. Its length matches the length of the <code>data_aux_filtered</code> dataset. The goal is to create a simple training and testing set by randomly splitting the <code>data_aux_filtered</code> dataset into two subsets.</p>
+<section id="exercise-1b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-i">Exercise 1b i:</h4>
+<p>In order to ensure consistent results, we set a <code>seed</code>. Furthermore, the vector <code>sampled</code> that is filled <span class="math inline">\(70\%\)</span> with <code>TRUE</code> values and <span class="math inline">\(30 \%\)</span> <code>FALSE</code> values is given. Its length matches the length of the <code>data_aux_filtered</code> dataset. The goal is to create a simple training and testing set by randomly splitting the <code>data_aux_filtered</code> dataset into two subsets.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sample <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>),</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nrow</span>(data_aux_filtered),</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.7</span>,<span class="fl">0.3</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sampled <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">nrow</span>(data_aux_filtered),</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">replace=</span><span class="cn">TRUE</span>, <span class="at">prob=</span><span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.3</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                 )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="exercise-2b-i-a" class="level5">
-<h5 class="anchored" data-anchor-id="exercise-2b-i-a">Exercise 2b i a:</h5>
-<p>Use the vector <code>sample</code> to create a list <code>rent_train</code> consisting of all samples in <code>data_aux_filtered</code> that match the position of <code>True</code> values in the vector <code>sample</code>. Subsequently, create a list <code>rent_test</code> that consists of all samples in <code>data_aux_filtered</code> that match the position of <code>False</code> values in the vector <code>sample</code>.</p>
+<section id="exercise-1b-i-a" class="level5">
+<h5 class="anchored" data-anchor-id="exercise-1b-i-a">Exercise 1b i a:</h5>
+<p>Use the vector <code>sampled</code> to create a tibble <code>rent_train</code> consisting of all samples in <code>data_aux_filtered</code> that match the position of <code>TRUE</code> values in the vector <code>sample</code>. Subsequently, create a list <code>rent_test</code> that consists of all samples in <code>data_aux_filtered</code> that match the position of <code>FALSE</code> values in the vector <code>sampled</code>.</p>
+<div class="cell">
+
+</div>
 </section>
-<section id="exercise-2b-i-b" class="level5">
-<h5 class="anchored" data-anchor-id="exercise-2b-i-b">Exercise 2b i b:</h5>
-<p>Using the <code>ifelse</code> function and <code>%in%</code> operator, add a column called <code>label</code> to <code>data_aux_filtered</code> that consists of the strings <code>"train"</code> and <code>"test"</code> at the respective positions where a sample is either in <code>rent_train</code> or <code>rent_test</code>. You can use the variable <code>scoutId</code> to match the samples in <code>rent_train</code> and <code>rent_test</code> with samples in <code>data_aux_fixed</code>.</p>
+<section id="exercise-1b-i-b" class="level5">
+<h5 class="anchored" data-anchor-id="exercise-1b-i-b">Exercise 1b i b:</h5>
+<p>Using the <code>if_else</code> function and <code>%in%</code> operator, add a column called <code>label</code> to <code>data_aux_filtered</code> that consists of the strings <code>"train"</code> and <code>"test"</code> at the respective positions where a sample is either in <code>rent_train</code> or <code>rent_test</code>. You can use the variable <code>scoutId</code> to match the samples in <code>rent_train</code> and <code>rent_test</code> with samples in <code>data_aux_filtered</code>.</p>
+<div class="cell">
+
+</div>
 </section>
 </section>
-<section id="exercise-2b-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2b-ii">Exercise 2b ii:</h4>
-<p>Create a model <code>simple_model</code> using the <code>lm</code> function and fit the variable <code>totalRent</code> on <code>totalRent</code>. The underlying data should be the previously created list <code>rent_train</code>. By following this kind of weird procedure, we create a model that simply returns the mean of <code>totalRent</code> as a predictor. There will most likely be a warning that we can (at least this time) safely ignore.</p>
+<section id="exercise-1b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-ii">Exercise 1b ii:</h4>
+<p>Create a model <code>simple_model</code> using the <code>lm</code> function and fit the variable <code>totalRent</code> on <code>totalRent</code>. The underlying data should be the previously created list <code>rent_train</code>. By following this kind of weird procedure, we create a model that simply returns the mean of <code>totalRent</code> as a predictor. There will most likely be a warning that we can (at least this time) safely ignore. Also, watch out that the output of <code>lm()</code> will show a rounded value as an intercept but in further calculations, the output <code>simple_model</code> contains the exact value.</p>
+<div class="cell">
+
+</div>
 </section>
-<section id="exercise-2b-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2b-iii">Exercise 2b iii:</h4>
-<p>Calculate the RMSE loss of the training set <code>rent_train</code> and the testing set <code>rent_test</code> by using the <code>loss_rmse</code> function created in Exercise 1a. The fitted values on the training set can be accessed by using <code>simple_model$fitted.values</code>. In order to predict the values of the <code>rent_train</code> set, familiarize yourself with the <code>predict</code> function. For reference, you can find some plausible values below.</p>
+<section id="exercise-1b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-iii">Exercise 1b iii:</h4>
+<p>Calculate the RMSE loss of the training set <code>rent_train</code> and the testing set <code>rent_test</code> by using the <code>loss_rmse</code> function below. The fitted values on the training set can be accessed by using <code>simple_model$fitted.values</code>. In order to predict the values of the <code>rent_train</code> set, familiarize yourself with the <code>predict</code> function. For reference, you can find some plausible values below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>loss_rmse <span class="ot">&lt;-</span> <span class="cf">function</span>(y, yhat){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">mean</span>((y <span class="sc">-</span> yhat)<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>training error: 419.43
+<pre><code>Training error: 419.43
 
-testing error: 474.93</code></pre>
+Testing error: 474.93</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2b-iv" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2b-iv">Exercise 2b iv:</h4>
+<section id="exercise-1b-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-iv">Exercise 1b iv:</h4>
 <p>Complete the following code snippet such that the plot looks like the one displayed below. What does the graph below show?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a> data_aux_filtered <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="do">##Fill Here##</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>   )) <span class="sc">+</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> simple_model<span class="sc">$</span>coefficients,</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">linetype =</span> <span class="st">"estimate train/test"</span>),</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"red"</span>)<span class="sc">+</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">name =</span> <span class="st">" "</span>,<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))<span class="sc">+</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"living Space"</span>,</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"total Rent"</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="do">###############</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="do">## Fill Here ##</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="do">###############</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">yintercept =</span> simple_model<span class="sc">$</span>coefficients),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">2</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Living space (in sq.m)"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total rent (in Euro)"</span>,</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">'Data Set'</span>,</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Our Model's fitted line doesn't fit particularly well"</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)<span class="sc">+</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette =</span> <span class="st">'Set2'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="exercise-2c-overfitting-a-model" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2c-overfitting-a-model">Exercise 2c: Overfitting a model</h3>
+<section id="exercise-1c-overfitting-a-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1c-overfitting-a-model">Exercise 1c: Overfitting a model</h3>
 <p>Now that we have seen how robust (low variance) a simple model is, we will consider a more complex linear model in this exercise.</p>
-<section id="exercise-2c-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2c-i">Exercise 2c i:</h4>
+<section id="exercise-1c-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1c-i">Exercise 1c i:</h4>
 <p>Create a model named <code>model</code> on the <code>rent_train</code> dataset, again, with <code>totalRent</code> as the response variable, but instead of simply using the <code>livingSpace</code> variable as a single predictor, use the <code>poly(livingSpace,20)</code> object instead.</p>
+<div class="cell">
+
+</div>
 </section>
-<section id="exercise-2c-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2c-ii">Exercise 2c ii:</h4>
-<p>Calculate the RMSE of this model analogously to Exercise 2b iii. For reference, you can find some plausible values below.</p>
+<section id="exercise-1c-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1c-ii">Exercise 1c ii:</h4>
+<p>Calculate the RMSE. For reference, you can find some plausible values below.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>training error: 125.43
@@ -361,12 +332,12 @@ testing error: 839.96</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-2c-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-2c-iii">Exercise 2c iii:</h4>
+<section id="exercise-1c-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1c-iii">Exercise 1c iii:</h4>
 <p>Explain in your own words the phenomenon observed in the following plot.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -375,8 +346,8 @@ testing error: 839.96</code></pre>
 <section id="intermezzo-good-practices-for-applied-machine-learning" class="level2">
 <h2 class="anchored" data-anchor-id="intermezzo-good-practices-for-applied-machine-learning">Intermezzo: Good practices for applied Machine Learning</h2>
 <p>In previous courses, we mainly focused on how to fit a certain model to a given dataset. However, this process could be described as model specification, rather than model development. So, what’s the difference between specifying a model and actually building a model?</p>
-<section id="specifying-a-model-what-we-have-done-so-far" class="level3">
-<h3 class="anchored" data-anchor-id="specifying-a-model-what-we-have-done-so-far">Specifying a model (What we have done so far!):</h3>
+<section id="developing-a-model-what-we-have-done-so-far" class="level3">
+<h3 class="anchored" data-anchor-id="developing-a-model-what-we-have-done-so-far">Developing a model (What we have done so far!):</h3>
 <ul>
 <li><p>The given dataset has been cleaned, transformed, and manipulated using a multitude of different packages and libraries.</p></li>
 <li><p>Resampling methods have been applied but training the model on each subset or newly generated dataset is usually performed by using a loop or similar methods.</p></li>
@@ -399,74 +370,69 @@ testing error: 839.96</code></pre>
 <p>We will introduce and explore some of the aforementioned concepts in the next exercise and dive deeper in later sessions.</p>
 </section>
 </section>
-<section id="exercise-3-cross-validation" class="level2">
-<h2 class="anchored" data-anchor-id="exercise-3-cross-validation">Exercise 3: Cross-Validation</h2>
+<section id="exercise-2-cross-validation" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-cross-validation">Exercise 2: Cross-Validation</h2>
 <p>Our first step down the <code>{tidymodels}</code> rabbit hole has already been broached in the lecture. By splitting the data into a training set and test set we can effectively evaluate our trained model on previously unseen data. However, how can we ensure that splitting the data once into a training set and test set yields a good model? A simple answer is: We can’t.</p>
 <p>That is where cross-validation comes into play.</p>
-<section id="exercise-3a" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3a">Exercise 3a:</h3>
+<section id="exercise-2a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2a">Exercise 2a:</h3>
 <p>Similar to the lecture slides we want to build a simple model for predicting the response variable <code>totalRent</code> in Augsburg by using the single predictor <code>livingSpace</code>.</p>
-<section id="exercise-3a-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3a-i">Exercise 3a: i</h4>
+<section id="exercise-2a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a: i</h4>
 <p>Familiarize yourself with the <code>initial_split</code> function and create a split named <code>split</code> on the dataset <code>data_aux_filtered</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(data_aux_filtered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
 </section>
-<section id="exercise-3a-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3a-ii">Exercise 3a ii:</h4>
-<p>Utilizing the newly created <code>split</code>, create the objects <code>data_train</code> and <code>data_test</code> by using the <code>training</code> and <code>testing</code> functions respectively. Note, that we are basically doing the same thing as in Exercise 2b, but instead of using the base R function <code>sample</code>, we’re now working with the <code>{rsample}</code> package that is part of the <code>{tidyverse}</code> framework.</p>
+<section id="exercise-2a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
+<p>Utilizing the newly created <code>split</code>, create the objects <code>data_train</code> and <code>data_test</code> by using the <code>training</code> and <code>testing</code> functions respectively. Note, that we are basically doing the same thing as in Exercise 1b, but instead of using the base R function <code>sample</code>, we’re now working with the <code>{rsample}</code> package that is part of the <code>{tidyverse}</code> framework.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#echo: false</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
 </div>
 </section>
-<section id="exercise-3a-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3a-iii">Exercise 3a iii:</h4>
+<section id="exercise-2a-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-iii">Exercise 2a iii:</h4>
 <p>Familiarize yourself with the functionality of the <code>vfold_cv</code> function and create an instance named <code>folds</code> with the dataset <code>data_train</code> and the parameter <code>v = 10</code>.</p>
+<div class="cell">
+
+</div>
 <p>The function <code>vfold_cv</code> randomly splits the data into <code>v</code> roughly equally sized subsets. One resample then consists of <code>v-1</code> of those subsets. The picture below depicts how that process works for <code>v = 5</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="grid_search_cv.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">5-fold Cross Validation</figcaption>
+<p></p><figcaption class="figure-caption">5-fold Cross Validation</figcaption><p></p>
 </figure>
 </div>
 </section>
-<section id="exercise-3a-iv" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3a-iv">Exercise 3a iv:</h4>
+<section id="exercise-2a-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-iv">Exercise 2a iv:</h4>
 <p>Each split in the <code>fold</code> can be accessed as a variable by using the <code>$</code> operator. In order to access split <code>i</code>, we have to use the notation <code>folds$splits[[i]]</code>. By using the <code>analysis</code> function we can then access the <code>v-1</code> subsets of the original data set that are returned as a data frame. The <code>assessment</code> function returns the hold-out subset of the split.</p>
 <p>Familiarize yourself with the functionality of the <code>analysis</code> and <code>assessment</code> function. For the first split, create a scatter plot for both of the subsets subsets. An example of what such plots could look like can be found below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|echo: false</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> assessment <span class="sc">%&gt;%</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> livingSpace, <span class="at">y =</span> totalRent))<span class="sc">+</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"living space"</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"total rent"</span>,</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Testing sample in split 1"</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
 </section>
-<section id="exercise-3b" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3b">Exercise 3b:</h3>
+<section id="exercise-2b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2b">Exercise 2b:</h3>
 <p>Now that we have set up our data set for cross-validation, we can continue developing our model. The next step is to assemble the model that we wish to use. In this case, we will choose a simple linear model once again.</p>
-<section id="exercise-3b-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3b-i">Exercise 3b i:</h4>
-<p>Instead of using a model created with the <code>lm</code> function of the <code>{stats}</code> package as in Exercise 2b ii, we will continue working with the <code>{tidymodels}</code> framework. The <code>{parsnip}</code> package offers a standardized interface for fitting models as well as the return values. A linear model can be created with the <code>linear_reg</code> function. Create a linear model called <code>lm_mod</code> using the <code>linear_reg</code> function. Note, that you do not have to pass any arguments to the function <code>linear_reg</code> at this point.</p>
+<section id="exercise-2b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
+<p>Instead of using a model created with the <code>lm</code> function of the <code>{stats}</code> package as in Exercise 1b ii, we will continue working with the <code>{tidymodels}</code> framework. The <code>{parsnip}</code> package offers a standardized interface for fitting models as well as the return values. A linear model can be created with the <code>linear_reg</code> function. Create a linear model called <code>lm_mod</code> using the <code>linear_reg</code> function. Note, that you do not have to pass any arguments to the function <code>linear_reg</code> at this point.</p>
+<div class="cell">
+
+</div>
 <p>If calling the <code>lm_mod</code> object returns the same output as the one you can find below, you have solved this exercise correctly!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>lm_mod </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lm_mod </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear Regression Model Specification (regression)
 
@@ -474,12 +440,12 @@ Computational engine: lm </code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3b-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3b-ii">Exercise 3b ii:</h4>
+<section id="exercise-2b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-ii">Exercise 2b ii:</h4>
 <p>As a next step, we want to create a so-called <code>recipe</code>. According to the R Documentation, a recipe is a description of the steps to be applied to a data set in order to prepare it for data analysis. So a recipe can be thought of figuratively as a sequential procedure to cook our model!</p>
 <p>In this exercise, our recipe is rather simple. Create a recipe called <code>lm_recipe</code> by using the <code>recipe</code> function. As arguments for the <code>recipe</code> function, you can pass the following formula. The second argument concerns the data that is given by the <code>data_train</code> dataset in our case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> totalRent <span class="sc">~</span> livingSpace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> totalRent <span class="sc">~</span> livingSpace</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If calling the <code>lm_recipe</code> object returns the same output as the one you can find below, you have solved this exercise correctly!</p>
 <div class="cell">
@@ -504,16 +470,16 @@ predictor: 1</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3b-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3b-iii">Exercise 3b iii:</h4>
+<section id="exercise-2b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iii">Exercise 2b iii:</h4>
 <p>After creating our recipe, we create a so-called workflow. The workflow object aggregates information required to fit and predict from a model. In this case, our model <code>lm_mod</code> and the recipe <code>lm_recipe</code>. This whole procedure might seem quite complicated by now. However, later on, it will prove much more efficient and consistent this way.</p>
 <p>Given the following code chunk, complete the workflow by adding the model <code>lm_mod</code> using the <code>add_model</code> function and the <code>lm_recipe</code> using the function <code>add_recipe</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lm_wf <span class="ot">&lt;-</span> </span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">#################</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">##Continue here##</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">#################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>lm_wf <span class="ot">&lt;-</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="do">###################</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Continue here ##</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="do">###################</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As above, you can check whether your workflow is correct by calling it and comparing it to the following output.</p>
 <div class="cell">
@@ -532,13 +498,16 @@ Computational engine: lm </code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3b-iii-1" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3b-iii-1">Exercise 3b iii:</h4>
+<section id="exercise-2b-iii-1" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iii-1">Exercise 2b iii:</h4>
 <p>As a next step, we will specify the metrics we want to use for evaluating our model. The <code>metric_set</code> function allows us to combine multiple metric functions such as the RMSE, MAE, and Huber Loss.</p>
 <p>Create an instance called <code>multi_metric</code> using the <code>metric_set</code> function. As arguments, you can pass <code>rmse,mae</code>, and, <code>huber_loss</code>.</p>
+<div class="cell">
+
+</div>
 <p>As above, you can check whether your metric set <code>multi_metric</code> is correct by calling it and comparing it to the following output.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>multi_metric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>multi_metric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
   metric     class          direction
@@ -549,15 +518,15 @@ Computational engine: lm </code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3b-iv" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3b-iv">Exercise 3b iv:</h4>
+<section id="exercise-2b-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iv">Exercise 2b iv:</h4>
 <p>Now that we have fully specified our model development process we can fit the model by piping the workflow <code>lm_wf</code> to the <code>fit_resamples</code> function. As the name suggests, the <code>fit_resamples</code> function fits the linear model on each of the folds provided. We simply have to specify the <code>vfold_cv</code> object and the <code>metric_set</code> in order to train the model and calculate the metrics.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lm_fit_rs <span class="ot">&lt;-</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  lm_wf <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(folds, <span class="at">metrics =</span> multi_metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>lm_fit_rs <span class="ot">&lt;-</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  lm_wf <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_resamples</span>(folds, <span class="at">metrics =</span> multi_metric)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Familiarize yourself with the <code>collect_metrics</code> function and apply it to the <code>lm_fit_rs</code> object. The function returns the average for the respective metrics over all folds and a few more key figures such as the standard deviation of the metric across all folds and the number of folds. A possible output can be found below.</p>
+<p>Familiarize yourself with the <code>collect_metrics</code> function and apply it to the <code>lm_fit_rs</code> object. The function returns the average for the respective metrics over all <strong>hold-out folds</strong> of all the splits (i.e.&nbsp;the average of all the blue cells in the illustration in Exercise 2a iii) and a few more key figures such as the standard deviation of the metric across all folds and the number of folds. A possible output can be found below.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 6
@@ -570,83 +539,71 @@ Computational engine: lm </code></pre>
 </div>
 </section>
 </section>
-<section id="exercise-3c" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-3c">Exercise 3c:</h3>
-<p>In this last exercise, we want to compare the cross-validation in-sample error to a linear model trained without cross-validation. The following code chunk already trains both models and saves the metrics.</p>
+<section id="exercise-2c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2c">Exercise 2c:</h3>
+<p>In this last exercise, we will first look at a demonstration of how to properly train multiple models within the <code>{tidymodels}</code> framework. The idea is to fit multiple polynomial regressions using cross-validation. Subsequently, it is your task to extract different hold-out sample losses and visualize them properly.</p>
+<section id="exercise-2c-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-i">Exercise 2c i:</h4>
+<p>Carefully read the following paragraph and insert the code chunks into your own worksheet in order to solve the subsequent exercises.</p>
+<hr>
+<p>We first set the degree values for the polynomials we wish to fit. Similar to Exercise 2 b ii, we then create a recipe, by setting a formula and the data we want to train on. The recipe <code>rec_poly</code> is then passed to the <code>step_poly</code> function that basically creates new columns that are basis expansions of the <code>livinSpace</code> variable. Note, that as for the degree of the <code>step_poly</code> function, we did not pass <code>degree_values</code> rather than the <code>{hardhat}</code> function <code>tune()</code>. <code>tune()</code> is a placeholder for the grid <code>degree_values</code>. Why this is important will be elaborated in the explanation of the next cell (🐻 with me). The <code>raw = TRUE</code> parameter is passed because, in this specific example, we want to use the original (or in this case raw) values of the variable <code>livingSpace</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>degree_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2</span>,<span class="dv">10</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>all_metrics <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>all_metrics_CV <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (degree <span class="cf">in</span> degree_values) {</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  rec_poly <span class="ot">&lt;-</span> <span class="fu">recipe</span>(totalRent <span class="sc">~</span> livingSpace, <span class="at">data =</span> data_train) <span class="sc">%&gt;%</span> </span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_poly</span>(livingSpace, <span class="at">degree =</span> degree, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">raw =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  poly_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(lm_mod) <span class="sc">%&gt;%</span></span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(rec_poly)</span>
-<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  poly_fit <span class="ot">&lt;-</span>poly_wf <span class="sc">%&gt;%</span> <span class="fu">fit</span>(<span class="at">data =</span> data_train)</span>
-<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  metrics <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">rmse =</span> <span class="fu">loss_rmse</span>(data_train<span class="sc">$</span>totalRent,</span>
-<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>                         <span class="fu">predict</span>(poly_fit,data_train)<span class="sc">$</span>.pred),</span>
-<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">mae =</span> <span class="fu">loss_mae</span>(data_train<span class="sc">$</span>totalRent,</span>
-<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>                       <span class="fu">predict</span>(poly_fit,data_train)<span class="sc">$</span>.pred),</span>
-<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">huber_loss =</span> <span class="fu">loss_huber</span>(data_train<span class="sc">$</span>totalRent,</span>
-<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">predict</span>(poly_fit,data_train)<span class="sc">$</span>.pred,</span>
-<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>                                <span class="dv">1</span>)</span>
-<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>  all_metrics[[degree]] <span class="ot">&lt;-</span> metrics</span>
-<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>  poly_fit_cv <span class="ot">&lt;-</span>poly_wf <span class="sc">%&gt;%</span> <span class="fu">fit_resamples</span>(folds, <span class="at">metrics =</span> multi_metric)</span>
-<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>  metrics_cv <span class="ot">&lt;-</span> poly_fit_cv <span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span>
-<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>  all_metrics_CV[[degree]] <span class="ot">&lt;-</span> metrics_cv</span>
-<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>tib_cv <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">model_nr =</span> <span class="fu">rep</span>(degree_values, <span class="at">each =</span> <span class="dv">3</span>),</span>
-<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>              <span class="fu">bind_rows</span>(all_metrics_CV))</span>
-<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>tib <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">model_nr =</span> <span class="fu">rep</span>(degree_values), <span class="fu">bind_rows</span>(all_metrics))</span>
-<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>rmse_vals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">"Without CV"</span> <span class="ot">=</span> tib<span class="sc">$</span>rmse,</span>
-<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"With CV"</span> <span class="ot">=</span> tib_cv<span class="sc">$</span>mean[tib_cv<span class="sc">$</span>.metric <span class="sc">==</span> <span class="st">"rmse"</span>],</span>
-<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"Degree"</span> <span class="ot">=</span> degree_values) <span class="sc">%&gt;%</span></span>
-<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Without CV"</span>,<span class="st">"With CV"</span>))</span>
-<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>mae_vals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">"Without CV"</span> <span class="ot">=</span> tib<span class="sc">$</span>mae,</span>
-<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"With CV"</span> <span class="ot">=</span> tib_cv<span class="sc">$</span>mean[tib_cv<span class="sc">$</span>.metric <span class="sc">==</span> <span class="st">"mae"</span>],</span>
-<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>                   <span class="st">"Degree"</span> <span class="ot">=</span> degree_values) <span class="sc">%&gt;%</span></span>
-<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Without CV"</span>,<span class="st">"With CV"</span>))</span>
-<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>huber_vals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="st">"Without CV"</span> <span class="ot">=</span> tib<span class="sc">$</span>huber_loss,</span>
-<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"With CV"</span> <span class="ot">=</span> tib_cv<span class="sc">$</span>mean[tib_cv<span class="sc">$</span>.metric <span class="sc">==</span> <span class="st">"huber_loss"</span>],</span>
-<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"Degree"</span> <span class="ot">=</span> degree_values) <span class="sc">%&gt;%</span></span>
-<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"Without CV"</span>,<span class="st">"With CV"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>degree_values <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>rec_poly <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    totalRent <span class="sc">~</span> livingSpace, </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_train</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_poly</span>(</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>      livingSpace, </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">degree =</span> <span class="fu">tune</span>(), </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">options =</span> <span class="fu">list</span>(<span class="at">raw =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The goal of this exercise is to recreate the following three plots using the tibbles <code>rmse_vals</code>, <code>mae_vals</code>, and <code>huber_vals</code>.</p>
-<section id="exercise-3c-i" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3c-i">Exercise 3c i:</h4>
+<p>Similarly to Exercise 2b iii, we then create a workflow where we pass the model <code>lm_mod</code> we created in Exercise 2b i.</p>
+<p>The real magic then happens when passing the workflow <code>poly_wf</code> to the <code>tune_grid</code> function. The <code>tune_grid</code> function basically iterates along the <code>degree_values</code>, trains the model on all the folds sequentially, and even saves the previously specified metrics in the <code>multi_metric</code> vector to the <code>tune_poly</code> object.</p>
 <div class="cell">
-<div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>poly_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(lm_mod) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(rec_poly)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>tune_poly <span class="ot">&lt;-</span> poly_wf <span class="sc">|&gt;</span> </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> <span class="fu">tibble</span>(<span class="at">degree =</span> degree_values),</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">metrics =</span> multi_metric,</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> folds</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Similarly to Exercise 2b iv, we can collect the metrics for the average of all hold-out samples by using the <code>collect_metrics</code> function. However, as we have trained polynomials up to degree <code>n = 10</code>, the function returns the metrics for all polynomials with degree <code>n = 2,…,10</code>.</p>
+<hr>
+</section>
+<section id="exercise-2c-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-ii">Exercise 2c ii:</h4>
+<p>Given the <code>tune_poly</code> tibble from the paragraph above, we now want to evaluate the metrics graphically. To do so, create a tibble <code>metrics_cv</code> by applying the <code>collect_metrics()</code> to the <code>tune_poly</code> tibble. The result should look similar to the output below.</p>
+<div class="cell">
+
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metrics_cv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 7
+  degree .metric    .estimator  mean     n std_err .config             
+   &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+1      2 huber_loss standard    120.    10    5.12 Preprocessor1_Model1
+2      2 mae        standard    121.    10    5.12 Preprocessor1_Model1
+3      2 rmse       standard    158.    10    8.55 Preprocessor1_Model1
+4      3 huber_loss standard    122.    10    4.86 Preprocessor2_Model1
+5      3 mae        standard    122.    10    4.86 Preprocessor2_Model1
+6      3 rmse       standard    160.    10    8.29 Preprocessor2_Model1</code></pre>
 </div>
 </div>
 </section>
-<section id="exercise-3c-ii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3c-ii">Exercise 3c ii:</h4>
+<section id="exercise-2c-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-iii">Exercise 2c iii:</h4>
+<p>Using the <code>metrics_cv</code> tibble, create a line plot that displays different mean losses for each polynomial model. The plot should look similar to the one shown below.</p>
 <div class="cell">
 <div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="exercise-3c-iii" class="level4">
-<h4 class="anchored" data-anchor-id="exercise-3c-iii">Exercise 3c iii:</h4>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="Exercise_02_files/figure-html/unnamed-chunk-41-1.png" class="img-fluid" width="672"></p>
+<p><img src="Exercise_02_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -683,23 +640,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -764,92 +707,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
