@@ -141,6 +141,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#exercise-2c-iii" id="toc-exercise-2c-iii" class="nav-link" data-scroll-target="#exercise-2c-iii">Exercise 2c iii:</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#exercise-3-losses" id="toc-exercise-3-losses" class="nav-link" data-scroll-target="#exercise-3-losses">Exercise 3: Losses</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3a" id="toc-exercise-3a" class="nav-link" data-scroll-target="#exercise-3a">Exercise 3a:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3a-i" id="toc-exercise-3a-i" class="nav-link" data-scroll-target="#exercise-3a-i">Exercise 3a i:</a></li>
+  <li><a href="#exercise-3a-ii" id="toc-exercise-3a-ii" class="nav-link" data-scroll-target="#exercise-3a-ii">Exercise 3a ii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-3b" id="toc-exercise-3b" class="nav-link" data-scroll-target="#exercise-3b">Exercise 3b:</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3b-i" id="toc-exercise-3b-i" class="nav-link" data-scroll-target="#exercise-3b-i">Exercise 3b i:</a></li>
+  <li><a href="#exercise-3b-ii" id="toc-exercise-3b-ii" class="nav-link" data-scroll-target="#exercise-3b-ii">Exercise 3b ii:</a></li>
+  <li><a href="#exercise-3b-iii" id="toc-exercise-3b-iii" class="nav-link" data-scroll-target="#exercise-3b-iii">Exercise 3b iii:</a></li>
+  </ul></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -166,7 +180,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="foreword" class="level1">
 <h1>Foreword</h1>
-<p>The goal of this initial problem set is to recap some key concepts in the <code>R</code> programming language. We will specifically focus on data manipulation and visualization. The packages we use during the lectures, encompass training machine learning models and assessing their performance. They are generally user-friendly, however, it is crucial not to underestimate the role of effectively visualizing your findings. Visualizing results and data manipulation are closely related, so it is important to spend some time reviewing these fundamental concepts. We do expect you to have some experience with <code>R</code>, but courses like Statistics I/II are a sufficient prerequisite.</p>
+<p>The goal of this initial problem set is to recap some key concepts in the <code>R</code> programming language. We will specifically focus on data manipulation and visualization. Additionally, we will explore different metrics for calculating losses.</p>
+<p>The packages we use during the lectures, encompass training machine learning models and assessing their performance. They are generally user-friendly, however, it is crucial not to underestimate the role of effectively visualizing your findings. Visualizing results and data manipulation are closely related, so it is important to spend some time reviewing these fundamental concepts. We do expect you to have some experience with <code>R</code>, but courses like Statistics I/II are a sufficient prerequisite.</p>
 <p>As for the exam, we will not expect you to write multiple lines of <code>R</code> code on paper, rather than potentially filling in some gaps or interpreting code chunks. It is important, however, that you understand the different models, methodologies, and code introduced throughout the semester since we will ask you to answer questions regarding those concepts.</p>
 <p>As a rule of thumb, I recommend using the <code>help</code> function for most packages, as they are generally well-written and provide useful examples for understanding a function. Another simple solution for tackling problems in your code is to simply Google your problem and resort to platforms like <a href="https://stackoverflow.com/">Stackoverflow</a> (usually Stackoverflow is within the first five search results anyway).</p>
 </section>
@@ -360,6 +375,93 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="exercise-2c-iii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2c-iii">Exercise 2c iii:</h4>
 <p>Find the number of Female Customers holding the Blue Card, that are at most 40 years old and have a credit limit above 10,000 USD.</p>
+<div class="cell">
+
+</div>
+</section>
+</section>
+</section>
+<section id="exercise-3-losses" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-3-losses">Exercise 3: Losses</h2>
+<section id="exercise-3a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3a">Exercise 3a:</h3>
+<p>In the lecture, we talked about different loss functions, as well as their advantages and disadvantages. The goal of this exercise is to review some of the loss functions introduced.</p>
+<section id="exercise-3a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-i">Exercise 3a i:</h4>
+<p>Write three different functions <code>loss_mse</code>, <code>loss_mae</code>, and <code>loss_rmse</code> that calculate the respective loss value. Each function should take two vectors <code>y</code> and <code>yhat</code> as an input and return the respective loss value.</p>
+<div class="cell">
+
+</div>
+<p>Test the loss functions with the following inputs. You can check your answers below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">97</span>, <span class="dv">4</span>, <span class="dv">25</span>, <span class="dv">15</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">111</span>, <span class="dv">92</span>, <span class="dv">9</span>, <span class="dv">29</span>, <span class="dv">20</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_mse</span>(targets, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 34.4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_mae</span>(targets, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.6</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_rmse</span>(targets, predictions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.865151</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-3a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-ii">Exercise 3a ii:</h4>
+<p>Write a function <code>loss_huber</code> that returns the Huber loss for two given vectors <code>y</code>, <code>yhat</code>, and a threshold <span class="math inline">\(\delta\)</span>. The Huber loss of two vectors can be calculated as follows:</p>
+<p><span class="math display">\[
+\mathrm{loss_{huber}} =\frac{1}{\text{length(y)}} \sum_{i=1}^{\mathrm{length(y)}} \mathcal{L}(y_i,\hat y_i)
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\mathcal{L}(y_i,\hat y_i) = \begin{cases} \frac{1}{2}(y_i-\hat y_i)^2, \quad&amp;\text{if } |y_i-\hat y_i| &lt;\delta\\ \delta (|y_i-\hat y_i|-\frac{1}{2}\delta),\quad &amp;\text{else}.   \end{cases}
+\]</span></p>
+<div class="cell">
+
+</div>
+<p>You can test your function with the vectors <code>targets</code> and <code>predictions</code> with <code>d=1</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">loss_huber</span>(targets, predictions, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.1</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3b">Exercise 3b:</h3>
+<p>The goal of this exercise is to gain a deeper understanding of the different loss types calculated in the previous exercises. Consider the following scenarios and argue which loss function should be used.</p>
+<section id="exercise-3b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-i">Exercise 3b i:</h4>
+<p>Decide between MSE and RMSE:</p>
+<ul>
+<li>You are developing a predictive model for housing prices. Given various features of a house like size (in <span class="math inline">\(m^2\)</span>) , number of floors, and the name of the neighborhood. You want to estimate its market value in EUR.</li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+<section id="exercise-3b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-ii">Exercise 3b ii:</h4>
+<p>Decide between MAE and MSE:</p>
+<ul>
+<li>Imagine you are working on a weather prediction model, where you aim to forecast daily temperatures for a location with strong and sudden changes in weather. The data contains <code>average wind velocity</code>, <code>air pressure</code>, <code>humidity</code>, and many more. You also have historical temperature data for training and the overall goal is to minimize prediction errors.</li>
+</ul>
+<div class="cell">
+
+</div>
+</section>
+<section id="exercise-3b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-iii">Exercise 3b iii:</h4>
+<p>Decide between MAE, MSE, and Huber loss</p>
+<ul>
+<li>You are building a machine-learning model for autonomous vehicle control. The vehicles have to navigate through complex environments with all sorts of different obstacles varying in size and shape. The goal is to ensure the vehicle makes safe decisions based on some numerical value calculated based on the obstacles observed.</li>
+</ul>
 <div class="cell">
 
 </div>
