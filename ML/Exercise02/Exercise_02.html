@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.313">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,9 +17,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -46,43 +47,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -97,6 +68,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link href="Exercise_02_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="Exercise_02_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
@@ -105,7 +77,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
@@ -119,7 +91,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#exercise-1a-i" id="toc-exercise-1a-i" class="nav-link" data-scroll-target="#exercise-1a-i">Exercise 1a i:</a></li>
   <li><a href="#exercise-1a-ii" id="toc-exercise-1a-ii" class="nav-link" data-scroll-target="#exercise-1a-ii">Exercise 1a ii:</a></li>
   </ul></li>
-  <li><a href="#exercise-2b-training-a-simple-model" id="toc-exercise-2b-training-a-simple-model" class="nav-link" data-scroll-target="#exercise-2b-training-a-simple-model">Exercise 2b: Training a simple model</a>
+  <li><a href="#exercise-1b-training-a-simple-model" id="toc-exercise-1b-training-a-simple-model" class="nav-link" data-scroll-target="#exercise-1b-training-a-simple-model">Exercise 1b: Training a simple model</a>
   <ul class="collapse">
   <li><a href="#exercise-1b-i" id="toc-exercise-1b-i" class="nav-link" data-scroll-target="#exercise-1b-i">Exercise 1b i:</a></li>
   <li><a href="#exercise-1b-ii" id="toc-exercise-1b-ii" class="nav-link" data-scroll-target="#exercise-1b-ii">Exercise 1b ii:</a></li>
@@ -192,9 +164,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -227,8 +196,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="exercise-2b-training-a-simple-model" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-2b-training-a-simple-model">Exercise 2b: Training a simple model</h3>
+<section id="exercise-1b-training-a-simple-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1b-training-a-simple-model">Exercise 1b: Training a simple model</h3>
 <p>In this exercise, we want to fit an overly simple model to demonstrate it’s low performance on both, a training and test set.</p>
 <section id="exercise-1b-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1b-i">Exercise 1b i:</h4>
@@ -243,24 +212,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="exercise-1b-i-a" class="level5">
 <h5 class="anchored" data-anchor-id="exercise-1b-i-a">Exercise 1b i a:</h5>
 <p>Use the vector <code>sampled</code> to create a tibble <code>rent_train</code> consisting of all samples in <code>data_aux_filtered</code> that match the position of <code>TRUE</code> values in the vector <code>sample</code>. Subsequently, create a list <code>rent_test</code> that consists of all samples in <code>data_aux_filtered</code> that match the position of <code>FALSE</code> values in the vector <code>sampled</code>.</p>
-<div class="cell">
-
-</div>
 </section>
 <section id="exercise-1b-i-b" class="level5">
 <h5 class="anchored" data-anchor-id="exercise-1b-i-b">Exercise 1b i b:</h5>
 <p>Using the <code>if_else</code> function and <code>%in%</code> operator, add a column called <code>label</code> to <code>data_aux_filtered</code> that consists of the strings <code>"train"</code> and <code>"test"</code> at the respective positions where a sample is either in <code>rent_train</code> or <code>rent_test</code>. You can use the variable <code>scoutId</code> to match the samples in <code>rent_train</code> and <code>rent_test</code> with samples in <code>data_aux_filtered</code>.</p>
-<div class="cell">
-
-</div>
 </section>
 </section>
 <section id="exercise-1b-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1b-ii">Exercise 1b ii:</h4>
 <p>Create a model <code>simple_model</code> using the <code>lm</code> function and fit the variable <code>totalRent</code> on <code>totalRent</code>. The underlying data should be the previously created list <code>rent_train</code>. By following this kind of weird procedure, we create a model that simply returns the mean of <code>totalRent</code> as a predictor. There will most likely be a warning that we can (at least this time) safely ignore. Also, watch out that the output of <code>lm()</code> will show a rounded value as an intercept but in further calculations, the output <code>simple_model</code> contains the exact value.</p>
-<div class="cell">
-
-</div>
 </section>
 <section id="exercise-1b-iii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1b-iii">Exercise 1b iii:</h4>
@@ -317,9 +277,6 @@ Testing error: 474.93</code></pre>
 <section id="exercise-1c-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1c-i">Exercise 1c i:</h4>
 <p>Create a model named <code>model</code> on the <code>rent_train</code> dataset, again, with <code>totalRent</code> as the response variable, but instead of simply using the <code>livingSpace</code> variable as a single predictor, use the <code>poly(livingSpace,20)</code> object instead.</p>
-<div class="cell">
-
-</div>
 </section>
 <section id="exercise-1c-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-1c-ii">Exercise 1c ii:</h4>
@@ -380,28 +337,19 @@ testing error: 839.96</code></pre>
 <section id="exercise-2a-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a: i</h4>
 <p>Familiarize yourself with the <code>initial_split</code> function and create a split named <code>split</code> on the dataset <code>data_aux_filtered</code>.</p>
-<div class="cell">
-
-</div>
 </section>
 <section id="exercise-2a-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
 <p>Utilizing the newly created <code>split</code>, create the objects <code>data_train</code> and <code>data_test</code> by using the <code>training</code> and <code>testing</code> functions respectively. Note, that we are basically doing the same thing as in Exercise 1b, but instead of using the base R function <code>sample</code>, we’re now working with the <code>{rsample}</code> package that is part of the <code>{tidyverse}</code> framework.</p>
-<div class="cell">
-
-</div>
 </section>
 <section id="exercise-2a-iii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2a-iii">Exercise 2a iii:</h4>
 <p>Familiarize yourself with the functionality of the <code>vfold_cv</code> function and create an instance named <code>folds</code> with the dataset <code>data_train</code> and the parameter <code>v = 10</code>.</p>
-<div class="cell">
-
-</div>
 <p>The function <code>vfold_cv</code> randomly splits the data into <code>v</code> roughly equally sized subsets. One resample then consists of <code>v-1</code> of those subsets. The picture below depicts how that process works for <code>v = 5</code>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="grid_search_cv.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">5-fold Cross Validation</figcaption><p></p>
+<figcaption class="figure-caption">5-fold Cross Validation</figcaption>
 </figure>
 </div>
 </section>
@@ -427,9 +375,6 @@ testing error: 839.96</code></pre>
 <section id="exercise-2b-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
 <p>Instead of using a model created with the <code>lm</code> function of the <code>{stats}</code> package as in Exercise 1b ii, we will continue working with the <code>{tidymodels}</code> framework. The <code>{parsnip}</code> package offers a standardized interface for fitting models as well as the return values. A linear model can be created with the <code>linear_reg</code> function. Create a linear model called <code>lm_mod</code> using the <code>linear_reg</code> function. Note, that you do not have to pass any arguments to the function <code>linear_reg</code> at this point.</p>
-<div class="cell">
-
-</div>
 <p>If calling the <code>lm_mod</code> object returns the same output as the one you can find below, you have solved this exercise correctly!</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>lm_mod </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -502,9 +447,6 @@ Computational engine: lm </code></pre>
 <h4 class="anchored" data-anchor-id="exercise-2b-iii-1">Exercise 2b iii:</h4>
 <p>As a next step, we will specify the metrics we want to use for evaluating our model. The <code>metric_set</code> function allows us to combine multiple metric functions such as the RMSE, MAE, and Huber Loss.</p>
 <p>Create an instance called <code>multi_metric</code> using the <code>metric_set</code> function. As arguments, you can pass <code>rmse,mae</code>, and, <code>huber_loss</code>.</p>
-<div class="cell">
-
-</div>
 <p>As above, you can check whether your metric set <code>multi_metric</code> is correct by calling it and comparing it to the following output.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>multi_metric</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -581,9 +523,6 @@ Computational engine: lm </code></pre>
 <h4 class="anchored" data-anchor-id="exercise-2c-ii">Exercise 2c ii:</h4>
 <p>Given the <code>tune_poly</code> tibble from the paragraph above, we now want to evaluate the metrics graphically. To do so, create a tibble <code>metrics_cv</code> by applying the <code>collect_metrics()</code> to the <code>tune_poly</code> tibble. The result should look similar to the output below.</p>
 <div class="cell">
-
-</div>
-<div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(metrics_cv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 7
@@ -640,9 +579,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -707,6 +660,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
