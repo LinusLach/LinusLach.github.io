@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set 05</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Exercise_05_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exercise_05_files/libs/quarto-html/quarto.js"></script>
+<script src="Exercise_05_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exercise_05_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exercise_05_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exercise_05_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exercise_05_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exercise_05_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exercise_05_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exercise_05_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-1-bootstrap-bagging-and-random-forests" id="toc-exercise-1-bootstrap-bagging-and-random-forests" class="nav-link" data-scroll-target="#exercise-1-bootstrap-bagging-and-random-forests">Exercise 1: Bootstrap, bagging and random forests</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1a-bootstrap-sampling" id="toc-exercise-1a-bootstrap-sampling" class="nav-link" data-scroll-target="#exercise-1a-bootstrap-sampling">Exercise 1a: Bootstrap sampling</a></li>
+  <li><a href="#exercise-1b-bagging" id="toc-exercise-1b-bagging" class="nav-link" data-scroll-target="#exercise-1b-bagging">Exercise 1b: Bagging</a></li>
+  <li><a href="#exercise-1c-random-forests" id="toc-exercise-1c-random-forests" class="nav-link" data-scroll-target="#exercise-1c-random-forests">Exercise 1c: Random Forests</a></li>
+  </ul></li>
+  <li><a href="#intermezzo-evaluation-of-binary-classifiers" id="toc-intermezzo-evaluation-of-binary-classifiers" class="nav-link" data-scroll-target="#intermezzo-evaluation-of-binary-classifiers">Intermezzo: Evaluation of binary classifiers</a>
+  <ul class="collapse">
+  <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix">Confusion Matrix</a></li>
+  <li><a href="#roc-curve-and-precision-recall-curve" id="toc-roc-curve-and-precision-recall-curve" class="nav-link" data-scroll-target="#roc-curve-and-precision-recall-curve">ROC Curve and Precision-Recall Curve</a></li>
+  </ul></li>
+  <li><a href="#exercise-2-binary-classification---a-case-study" id="toc-exercise-2-binary-classification---a-case-study" class="nav-link" data-scroll-target="#exercise-2-binary-classification---a-case-study">Exercise 2: Binary classification - A case study</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-data-preparation-and-exploration" id="toc-exercise-2a-data-preparation-and-exploration" class="nav-link" data-scroll-target="#exercise-2a-data-preparation-and-exploration">Exercise 2a: Data preparation and exploration</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a i:</a></li>
+  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
+  <li><a href="#exercise-2a-iii" id="toc-exercise-2a-iii" class="nav-link" data-scroll-target="#exercise-2a-iii">Exercise 2a iii:</a></li>
+  <li><a href="#exercise-2a-iv" id="toc-exercise-2a-iv" class="nav-link" data-scroll-target="#exercise-2a-iv">Exercise 2a iv:</a></li>
+  <li><a href="#exercise-2a-v" id="toc-exercise-2a-v" class="nav-link" data-scroll-target="#exercise-2a-v">Exercise 2a v:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2b-training-a-base-model-penalized-logistic-regression" id="toc-exercise-2b-training-a-base-model-penalized-logistic-regression" class="nav-link" data-scroll-target="#exercise-2b-training-a-base-model-penalized-logistic-regression">Exercise 2b: Training a base model (penalized logistic regression)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
+  <li><a href="#exercise-2b-ii" id="toc-exercise-2b-ii" class="nav-link" data-scroll-target="#exercise-2b-ii">Exercise 2b ii:</a></li>
+  <li><a href="#exercise-2b-iii" id="toc-exercise-2b-iii" class="nav-link" data-scroll-target="#exercise-2b-iii">Exercise 2b iii:</a></li>
+  <li><a href="#exercise-2b-iv" id="toc-exercise-2b-iv" class="nav-link" data-scroll-target="#exercise-2b-iv">Exercise 2b iv:</a></li>
+  <li><a href="#exercise-2b-v" id="toc-exercise-2b-v" class="nav-link" data-scroll-target="#exercise-2b-v">Exercise 2b v:</a></li>
+  <li><a href="#exercise-2b-vi" id="toc-exercise-2b-vi" class="nav-link" data-scroll-target="#exercise-2b-vi">Exercise 2b vi:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2c-training-a-more-advanced-model-classification-tree" id="toc-exercise-2c-training-a-more-advanced-model-classification-tree" class="nav-link" data-scroll-target="#exercise-2c-training-a-more-advanced-model-classification-tree">Exercise 2c: Training a more advanced model (classification tree)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2c-i" id="toc-exercise-2c-i" class="nav-link" data-scroll-target="#exercise-2c-i">Exercise 2c i:</a></li>
+  <li><a href="#exercise-2c-ii" id="toc-exercise-2c-ii" class="nav-link" data-scroll-target="#exercise-2c-ii">Exercise 2c ii:</a></li>
+  <li><a href="#exercise-2c-iii" id="toc-exercise-2c-iii" class="nav-link" data-scroll-target="#exercise-2c-iii">Exercise 2c iii:</a></li>
+  <li><a href="#exercise-2c-iv" id="toc-exercise-2c-iv" class="nav-link" data-scroll-target="#exercise-2c-iv">Exercise 2c iv:</a></li>
+  <li><a href="#exercise-2c-v" id="toc-exercise-2c-v" class="nav-link" data-scroll-target="#exercise-2c-v">Exercise 2c v:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2d-training-a-complex-model-random-forest" id="toc-exercise-2d-training-a-complex-model-random-forest" class="nav-link" data-scroll-target="#exercise-2d-training-a-complex-model-random-forest">Exercise 2d: Training a complex model (random forest)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2d-i" id="toc-exercise-2d-i" class="nav-link" data-scroll-target="#exercise-2d-i">Exercise 2d i:</a></li>
+  <li><a href="#exercise-2d-ii" id="toc-exercise-2d-ii" class="nav-link" data-scroll-target="#exercise-2d-ii">Exercise 2d ii:</a></li>
+  <li><a href="#exercise-2d-iii" id="toc-exercise-2d-iii" class="nav-link" data-scroll-target="#exercise-2d-iii">Exercise 2d iii:</a></li>
+  <li><a href="#exercise-2d-iv" id="toc-exercise-2d-iv" class="nav-link" data-scroll-target="#exercise-2d-iv">Exercise 2d iv:</a></li>
+  <li><a href="#exercise-2d-v" id="toc-exercise-2d-v" class="nav-link" data-scroll-target="#exercise-2d-v">Exercise 2d v:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2e-evaluating-all-models" id="toc-exercise-2e-evaluating-all-models" class="nav-link" data-scroll-target="#exercise-2e-evaluating-all-models">Exercise 2e: Evaluating all models</a></li>
+  <li><a href="#exercise-2f-confusion-matrices" id="toc-exercise-2f-confusion-matrices" class="nav-link" data-scroll-target="#exercise-2f-confusion-matrices">Exercise 2f: Confusion matrices</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set 05</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>In this exercise session we will briefly talk about some theoretical considerations when applying bootstrap sampling, bagging and training a random forest before performing a more in-depth case study of binary classification. The case-study assumes that you are familiar with <em>penalized logistic regressions</em> (similar to lasso regression on Exercise Sheet 03) and <em>classification trees</em> (similar to regression trees introduced on Exercise Sheet 04). We will however, revisit different evaluation metrics for a binary classifier before training any of the models which should help you to develop a feeling for model performance.</p>
+<p>Note, that some of the models we train might take a few (up to many) minutes depending on your hardware.</p>
+<p>If you get stuck at any of the steps for preparing the data or training the models, I recommend checking out the solutions to the previous exercise sheets, since they are almost identical to this one.</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<section id="exercise-1-bootstrap-bagging-and-random-forests" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-bootstrap-bagging-and-random-forests">Exercise 1: Bootstrap, bagging and random forests</h2>
+<p>In this exercise we will discuss some aspects of bootsrap sampling, bagging and random forest.</p>
+<section id="exercise-1a-bootstrap-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1a-bootstrap-sampling">Exercise 1a: Bootstrap sampling</h3>
+<p>When creating a bootstrap sample we create a new sample by drawing from the initial population with replacement.</p>
+<ol type="1">
+<li>Explain why it only makes sense to draw those samples with replacement.</li>
+<li>What distribution is used to draw those samples from the initial population?</li>
+</ol>
+</section>
+<section id="exercise-1b-bagging" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1b-bagging">Exercise 1b: Bagging</h3>
+<p>In terms of bagging, explain the following sentence from the lecture:</p>
+<p>“Having similar trees leads to correlated estimates.”</p>
+</section>
+<section id="exercise-1c-random-forests" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1c-random-forests">Exercise 1c: Random Forests</h3>
+<p>Random forests can solve the problem of having trees that are too similar. Describe how this is achieved!</p>
+</section>
+</section>
+<section id="intermezzo-evaluation-of-binary-classifiers" class="level2">
+<h2 class="anchored" data-anchor-id="intermezzo-evaluation-of-binary-classifiers">Intermezzo: Evaluation of binary classifiers</h2>
+<p>Before we start with the actual exercise, let us quickly review some important metrics and concepts for evaluating binary classifiers.</p>
+<section id="confusion-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="confusion-matrix">Confusion Matrix</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Confusion_Matrix.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Confusion Matrix, Source: Wikipedia</figcaption>
+</figure>
+</div>
+</section>
+<section id="roc-curve-and-precision-recall-curve" class="level4">
+<h4 class="anchored" data-anchor-id="roc-curve-and-precision-recall-curve">ROC Curve and Precision-Recall Curve</h4>
+<p>When passing a sample into the classification model, the return-value is usually a probability <span class="math inline">\(p\in[0,1]\)</span> that denotes the probability of the sample belonging to the Positives (in this hypothetical setting we assume that there are two classes “Positives” and “Negatives”). Intuitively it makes sense to say, that a given sample <span class="math inline">\(x\)</span> belongs to the Positives if <span class="math inline">\(p\geq q = 0.5\)</span>. However, this threshold <span class="math inline">\(q = 0.5\)</span> can be adjusted. Depending on this threshold <span class="math inline">\(q\)</span> , the values in our confusion matrix change.</p>
+<p><strong>Example:</strong></p>
+<p>Set <span class="math inline">\(q = 0\)</span>, then <span class="math inline">\(p\)</span> is always larger or equal to <span class="math inline">\(q\)</span>, which means that we assign every value to the Positives. Then, our True Positive Rate (<span class="math inline">\(\mathrm{TPR} = \frac{\mathrm{TP}}{\mathrm{P}}\)</span>) will be equal to <span class="math inline">\(1\)</span> since all samples are assigned to the Positives. However, the True Negative Rate (<span class="math inline">\(\mathrm{TNR} = \frac{\mathrm{TN}}{\mathrm{N}}\)</span>) will be equal to 0, since not one sample has been assigned to the Negatives, meaning that <span class="math inline">\(\mathrm{TN} = 0\)</span> .</p>
+<p>A way to visualize the change in our confusion matrix depending on the threshold <span class="math inline">\(q\)</span> is given by the so-called ROC (Receiver-Operator Curve) curve and Precision-Recall Curve.</p>
+<p><strong>ROC Curve:</strong></p>
+<p>The ROC curve shows the <span class="math inline">\(\mathrm{TPR}\)</span> plotted against the <span class="math inline">\(\mathrm{TNR}\)</span>. By plotting these two values against each other, we can identify a good model by checking whether the curve generated by all the thresholds is approaching the left top corner of a plot, indicating that both <span class="math inline">\(\mathrm{TPR}\)</span> and <span class="math inline">\(\mathrm{TNR}\)</span> are equal to 1, i.e.&nbsp;the model perfectly classifies all True Positives and all True Negatives. An exemplary plot can be found below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="ROCCurve.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption class="figure-caption">ROC Curve, Source: developers.google.com</figcaption>
+</figure>
+</div>
+<p><strong>PR Curve:</strong></p>
+<p>The Precision-Recall Curve on the other hand shows the Precision (<span class="math inline">\(\mathrm{Precision} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FP}}\)</span> ) plotted against the Recall (<span class="math inline">\(\mathrm{Recall} = \frac{\mathrm{TP}}{\mathrm{TP}+\mathrm{FN}}\)</span>). Precision basically measures the proportion of correctly identified Positives, while Recall measures the proportion of correctly identified actual Positives. If the line generated by a model is close to the top right corner, the model is relevant, has a high precision, and sensitivity.</p>
+<p>An exemplary plot can be found below.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="PR-Curve.svg" class="img-fluid figure-img" width="350"></p>
+<figcaption class="figure-caption">PR Curve, Source: I made it myself :’)</figcaption>
+</figure>
+</div>
+<p>What does a high precision and recall actually mean (I find the definition above kind of hard to grasp)? Let us consider a simple example:</p>
+<p><strong>Example:</strong></p>
+<p>Imagine you are developing a classification model for detecting a rare disease (Positves corresponds to detecting the decease). There are 10000 people in the observed data and only 10 of them are infected with said disease. One way to set up a model (regardless of the features) can be to simply label everyone as not having the disease which would effectively result in an accuracy of 99.9%, <em>Hurray</em> . However, this model is obviously not the best since we failed to identify any of the sick people correctly. So, after tweaking the model we now have a model that might be less accurate but identifies sick patients better. What does <em>better</em> in this context mean? By looking at the definition of Precision and Recall above, you may notice that they only differ by the second summand in the denominator of the fraction, namely <em>False Positives</em> and <em>False Negatives</em>. Before we continue, think for yourself, which of those are worse in the scenario of detecting a disease? The right answer would be <em>False Negatives</em>, since we fail to identify a sick patient! That is why a sensitive model is crucial here as well. Maybe you can come up with an exemplary scenario where a high precision is crucial?</p>
+<p>In summary: especially for imbalanced datasets, we do not only want to achieve a high accuracy since that is fairly easy to achieve. We Also want a high precision or recall, focusing on one or the other depending on the model objective.</p>
+</section>
+</section>
+<section id="exercise-2-binary-classification---a-case-study" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-2-binary-classification---a-case-study">Exercise 2: Binary classification - A case study</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'Session 5'</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vip"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"finetune"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this exercise we want to utilize our newly gained knowledge about Bagging and compare a random forest model to a single classification tree and penalized logistic regression.</p>
+<p>The dataset we will consider in this exercise will be the <a href="https://www.kaggle.com/datasets/sakshigoyal7/credit-card-customers">Credit Card customers</a> dataset we briefly explored in the first exercise session. The goal is to build different binary classifiers to predict, whether a customer will get churned or not. Note, that a churned customer is basically a customer who has discontinued or stopped using the credit card service.</p>
+<p>The main idea for such classification tasks is the following:</p>
+<ol type="1">
+<li><p>Start out by building a simple base model, which allows for an easy interpretation of parameters. A penalized logistic regression will be this base model in our case.</p></li>
+<li><p>Move to a slightly more complex model where the derivation of model parameters is less straight forward but the model performance increases. The model we will consider for this scenario is a decision tree.</p></li>
+<li><p>As a last step, a highly complex model is trained where the focus is no longer on explainability rather than getting the best possible out of sample performance. An example of such a model is a random forest, which will also be our model of choice for this step.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>credit_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"BankChurners.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-2a-data-preparation-and-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2a-data-preparation-and-exploration">Exercise 2a: Data preparation and exploration</h3>
+<section id="exercise-2a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a i:</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(credit_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10,127
+Columns: 21
+$ CLIENTNUM                &lt;int&gt; 768805383, 818770008, 713982108, 769911858, 7…
+$ Attrition_Flag           &lt;chr&gt; "Existing Customer", "Existing Customer", "Ex…
+$ Customer_Age             &lt;int&gt; 45, 49, 51, 40, 40, 44, 51, 32, 37, 48, 42, 6…
+$ Gender                   &lt;chr&gt; "M", "F", "M", "F", "M", "M", "M", "M", "M", …
+$ Dependent_count          &lt;int&gt; 3, 5, 3, 4, 3, 2, 4, 0, 3, 2, 5, 1, 1, 3, 2, …
+$ Education_Level          &lt;chr&gt; "High School", "Graduate", "Graduate", "High …
+$ Marital_Status           &lt;chr&gt; "Married", "Single", "Married", "Unknown", "M…
+$ Income_Category          &lt;chr&gt; "$60K - $80K", "Less than $40K", "$80K - $120…
+$ Card_Category            &lt;chr&gt; "Blue", "Blue", "Blue", "Blue", "Blue", "Blue…
+$ Months_on_book           &lt;int&gt; 39, 44, 36, 34, 21, 36, 46, 27, 36, 36, 31, 5…
+$ Total_Relationship_Count &lt;int&gt; 5, 6, 4, 3, 5, 3, 6, 2, 5, 6, 5, 6, 3, 5, 5, …
+$ Months_Inactive_12_mon   &lt;int&gt; 1, 1, 1, 4, 1, 1, 1, 2, 2, 3, 3, 2, 6, 1, 2, …
+$ Contacts_Count_12_mon    &lt;int&gt; 3, 2, 0, 1, 0, 2, 3, 2, 0, 3, 2, 3, 0, 3, 2, …
+$ Credit_Limit             &lt;dbl&gt; 12691.0, 8256.0, 3418.0, 3313.0, 4716.0, 4010…
+$ Total_Revolving_Bal      &lt;int&gt; 777, 864, 0, 2517, 0, 1247, 2264, 1396, 2517,…
+$ Avg_Open_To_Buy          &lt;dbl&gt; 11914.0, 7392.0, 3418.0, 796.0, 4716.0, 2763.…
+$ Total_Amt_Chng_Q4_Q1     &lt;dbl&gt; 1.335, 1.541, 2.594, 1.405, 2.175, 1.376, 1.9…
+$ Total_Trans_Amt          &lt;int&gt; 1144, 1291, 1887, 1171, 816, 1088, 1330, 1538…
+$ Total_Trans_Ct           &lt;int&gt; 42, 33, 20, 20, 28, 24, 31, 36, 24, 32, 42, 2…
+$ Total_Ct_Chng_Q4_Q1      &lt;dbl&gt; 1.625, 3.714, 2.333, 2.333, 2.500, 0.846, 0.7…
+$ Avg_Utilization_Ratio    &lt;dbl&gt; 0.061, 0.105, 0.000, 0.760, 0.000, 0.311, 0.0…</code></pre>
+</div>
+</div>
+<p>Given this initial glimpse into the dataset, let us briefly talk about the some of the different features and what they mean, since some of them are kind of ambiguous.</p>
+<table class="table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 63%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CLIENTNUM</td>
+<td>Client number. Unique identifier for the customer holding the account</td>
+</tr>
+<tr class="even">
+<td>Attrition_Flag</td>
+<td>Internal event (customer activity) variable - if the account is closed then 1 else 0</td>
+</tr>
+<tr class="odd">
+<td>Months_on_book</td>
+<td>Period of relationship with bank</td>
+</tr>
+<tr class="even">
+<td>Months_Inactive_12_mon</td>
+<td>No.&nbsp;of months inactive in the last 12 months</td>
+</tr>
+<tr class="odd">
+<td>Credit_Limit</td>
+<td>Credit Limit on the Credit Card</td>
+</tr>
+<tr class="even">
+<td>Total_Revolving_Bal</td>
+<td>Portion of credit card spending that goes unpaid at the end of a billing cycle</td>
+</tr>
+<tr class="odd">
+<td>Avg_Open_To_Buy</td>
+<td>Open to Buy Credit Line (Average of last 12 months)</td>
+</tr>
+<tr class="even">
+<td>Total_Amt_Chng_Q4_Q1</td>
+<td>Change in Transaction Amount (Q4 over Q1)</td>
+</tr>
+<tr class="odd">
+<td>Total_Trans_Amt</td>
+<td>Total Transaction Amount (Last 12 months)</td>
+</tr>
+<tr class="even">
+<td>Total_Trans_Ct</td>
+<td>Total Transaction Count (Last 12 months)</td>
+</tr>
+<tr class="odd">
+<td>Total_Ct_Chng_Q4_Q1</td>
+<td>Change in Transaction Count (Q4 over Q1)</td>
+</tr>
+<tr class="even">
+<td>Avg_Utilization_Ratio</td>
+<td>Average Card Utilization Ratio (Divide the total balance by the total credit limit)</td>
+</tr>
+</tbody>
+</table>
+<p>We can now directly with preparing our data for the modelling pipeline.</p>
+<p>Create a new dataset called <code>credit_info_clean</code> by applying the following transformations to the initial dataset <code>credit_info</code>:</p>
+<ol type="1">
+<li>Convert the features <code>Income_Category</code> and <code>Education_Level</code> into ordered factors.</li>
+<li>Convert the features <code>Marital_Status</code>, <code>Card_Category</code>, <code>Gender</code>, <code>CLIENTNUM</code>, and the outcome variable <code>Attrition_Flag</code> into factors.</li>
+</ol>
+</section>
+<section id="exercise-2a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
+<p>Familiarize yourself with the <code>gt_plt_summary</code> function of the <code>{gtExtras}</code> package and apply it to the newly created <code>credit_info_clean</code>. What can be said about the balance or imbalance of the given dataset?</p>
+</section>
+<section id="exercise-2a-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-iii">Exercise 2a iii:</h4>
+<p>Create a <code>initial_split</code> object called <code>split</code> with the <code>credit_info_clean</code> dataset. When creating the split, use the option <code>strata = Attrition_Flag</code> in order to make sure that the ration of attrited customers in the training and test dataset are the same.</p>
+<p>Afterwards, create a training dataset called <code>data_train</code> and testing dataset called <code>data_test</code> using the <code>initial_split</code> object <code>split</code>.</p>
+<p>Finally, for the <code>data_train</code> dataset, create a <code>vfold_cv</code> object called <code>folds</code> with additional parameter <code>v = 10</code>.</p>
+</section>
+<section id="exercise-2a-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-iv">Exercise 2a iv:</h4>
+<p>Create a recipe called <code>rec_ci</code> by following the steps described below.</p>
+<ol type="1">
+<li><p>As a formula, fit the variable <code>Attrition_Flag</code> on every other feature and set the <code>data</code> parameter to <code>data_train</code>.</p></li>
+<li><p>Update the role of the variable <code>CLIENTNUM</code> by setting it to <code>"ID"</code>.</p></li>
+<li><p>Create ordinal scores for all ordered predictors.</p></li>
+<li><p>Create dummy variables for all factor predictors.</p></li>
+<li><p>Apply a zero variance filter on all predictors.</p></li>
+<li><p>Familiarize yourself with the <code>step_corr</code> function, add it to the recipe, and apply it to all predictors.</p></li>
+</ol>
+</section>
+<section id="exercise-2a-v" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-v">Exercise 2a v:</h4>
+<p>Create a workflow object called <code>ci_wf</code> and add the newly created recipe <code>rec_ci</code>. Afterwards, create a <code>metric_set</code>called <code>eval_set</code> that contains the metric <code>roc_auc</code>.</p>
+</section>
+</section>
+<section id="exercise-2b-training-a-base-model-penalized-logistic-regression" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2b-training-a-base-model-penalized-logistic-regression">Exercise 2b: Training a base model (penalized logistic regression)</h3>
+<section id="exercise-2b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
+<p>Utilize the <code>logistic_reg</code> function to create a pure lasso model called <code>log_mod</code> with <code>penalty = tune()</code>. Make sure you set the engine of the model to <code>"glmnet"</code>! Then, add the model to the newly created workflow object called <code>ci_wf</code> using the <code>add_model</code> function.</p>
+<p><em>Note, that we usually use the <code>update_model</code> function for specifying the model, however when initializing the workflow the model object is set to <code>NONE</code> so wee need to add a model first before we can update it later.</em></p>
+</section>
+<section id="exercise-2b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-ii">Exercise 2b ii:</h4>
+<p>Create a regular grid called <code>lr_grid</code> for the logistic model penalty with <span class="math inline">\(30\)</span> levels. Recall, that you can select the tuning parameters by piping the workflow object to the <code>extract_parameter_set_dials</code> function.</p>
+</section>
+<section id="exercise-2b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iii">Exercise 2b iii:</h4>
+<p>In this sub-exercise we want to train the penalized logistic model. However, instead of simply using the <code>tune_grid</code> function with the specified grid, metrics and resample method, we add an additional option called <code>control</code> which we set to <code>control_grid(save_pred = TRUE)</code>. This allows us to access the out-of-sample cross validation predictions directly after tuning the model. We will need those to create an ROC curve after successfully training and tuning the model.</p>
+<p>In accordance with the steps outlined above, train the linear model using the <code>tune_grid</code> function and save the results in a tibble called <code>lr_res</code>.</p>
+</section>
+<section id="exercise-2b-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iv">Exercise 2b iv:</h4>
+<p>Given the results in the <code>lr_res</code> tibble, select the best model according to the “one-standard” rule based on the <code>"roc_auc"</code> metric, and call it <code>lr_res_best</code>. Then, train a final model on the whole training data called <code>last_lr_fit</code> by using the <code>finalize_workflow</code> and <code>last_fit</code> function.</p>
+</section>
+<section id="exercise-2b-v" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-v">Exercise 2b v:</h4>
+<p>Given the following two tibbles that contain the metrics <code>specifity</code>, <code>sensetivity</code>, <code>recall</code>, and <code>precision</code> create two plots that display the ROC Curve and Precision-Recall curve for the penalized logistic model. You can either use the <code>autoplot</code> function or create the plots from scratch using <code>ggplot</code>. An example of what those plots could look like can be found below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lr_auc<span class="ot">&lt;-</span> lr_res <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameter =</span> lr_res_best) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Logistic Regression"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>lr_pr<span class="ot">&lt;-</span> lr_res <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameter =</span> lr_res_best) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Logistic Regression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_05_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2b-vi" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-vi">Exercise 2b vi:</h4>
+<p>Since we have used a lasso logistic regression, some of the parameters might have been driven to 0. Find if there were any!</p>
+<p><em>Hint: You can use the <code>extract_fit_parsnip() %&gt;% tidy()</code> on your final model to extract the model parameters.</em></p>
+</section>
+</section>
+<section id="exercise-2c-training-a-more-advanced-model-classification-tree" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2c-training-a-more-advanced-model-classification-tree">Exercise 2c: Training a more advanced model (classification tree)</h3>
+<p>The following sub-tasks will be very similar to the ones from the penalized logistic regression, as we only have to define a new model, update our workflow with this new model and define a new tunegrid.</p>
+<section id="exercise-2c-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-i">Exercise 2c i:</h4>
+<p>Create a classification tree called <code>ct_model</code> by using the <code>decision_tree</code> function with the parameters <code>min_n = tune()</code>, <code>tree_depth = tune()</code>, <code>cost_complexity = tune()</code>. Set the mode to <code>"classification"</code> and the engine to <code>"rpart"</code>.</p>
+</section>
+<section id="exercise-2c-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-ii">Exercise 2c ii:</h4>
+<p>Update the workflow <code>ci_wf</code> by using the <code>update_model</code> function. Then, create a regular grid called <code>ct_grid</code> for all the parameters we set to <code>tune()</code> in the previous exercise and set the level to <span class="math inline">\(4\)</span>. Finally, train the model using the <code>tune_grid</code> function with the newly defined grid <code>ct_grid</code>. The other parameters ( <code>metrics</code>, <code>resamples</code>, and <code>control</code>) are the same as in Exercise 2b iii. Save the results in a tibble called <code>ct_res</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning: Training the model might take a few minutes.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+</section>
+<section id="exercise-2c-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-iii">Exercise 2c iii:</h4>
+<p>Given the results in the <code>ct_res</code> tibble, select the best model based on the <code>"roc_auc"</code> metric, and call it <code>ct_res_best</code>.</p>
+</section>
+<section id="exercise-2c-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-iv">Exercise 2c iv:</h4>
+<p>Given the following two tibbles that contain the metrics <code>specifity</code>, <code>sensetivity</code>, <code>recall</code>, and <code>precision</code>, create two plots that display the ROC Curve and Precision-Recall curve for the classification tree. You can either use the <code>autoplot</code> function or create the plots from scratch using <code>ggplot</code>. An example of what those plots could look like can be found below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ct_auc<span class="ot">&lt;-</span> ct_res <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameter =</span> ct_res_best) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Classification Tree"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>ct_pr<span class="ot">&lt;-</span> ct_res <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameter =</span> ct_res_best) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Classification Tree"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_05_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2c-v" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-v">Exercise 2c v:</h4>
+<p>Using the <code>finalize_worflow</code> and <code>last_fit</code> function, train a final classification tree based on the <code>ct_res_best</code> model on the whole training dataset. Then, by utilizing the <code>vip::vip</code> function, find the most important features of this last regression tree.</p>
+<p><em>Hint: You first have to extract the fit engine by using the <code>extract_fit_engine</code> function and passing this output to the <code>vip::vip</code> function.</em></p>
+</section>
+</section>
+<section id="exercise-2d-training-a-complex-model-random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2d-training-a-complex-model-random-forest">Exercise 2d: Training a complex model (random forest)</h3>
+<p>Last but not least, we want to train a random forest which hopefully performs the best for our classification task. The process is fairly similar to training the classification tree and penalized logistic regression, thanks to the standardized <code>{tidymodels}</code> workflow.</p>
+<section id="exercise-2d-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2d-i">Exercise 2d i:</h4>
+<p>Create a random forest model called <code>rf_model</code> by using the <code>rand_forest</code> function with the parameters <code>mode = "classification"</code>, <code>mtry = tune()</code>, <code>min_n = tune()</code> and <code>trees = 1000</code>. Pipe this model to the <code>set_engine</code> function, where you pass <code>"ranger"</code> and <code>importance = "impurity"</code> as an argument. Let us briefly talk about the different parameters we have specified.</p>
+<p><code>mtry</code> stands for the number of randomly sampled predictors, i.e., the number of predictors that will be randomly sampled at each split when creating tree models. Note, that this number depends on the number of predictors in our recipe. We can however, still tune this parameter!</p>
+<p><code>min_n</code> stands for the minimum number of data points in a node that is required for the node to be split further.</p>
+<p><code>trees</code> stands for the number of trees contained in a random forest.</p>
+<p><code>importance = "impurity"</code> calculates the importance of a variable by considering its impurity, i.e., the total decrease in node impurities from splitting on the variable, averaged over all trees.</p>
+</section>
+<section id="exercise-2d-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2d-ii">Exercise 2d ii:</h4>
+<p>Update the model in the workflow object to the newly created random forest model <code>rf_model</code>. Afterwards, train the model using the <code>tune_grid</code> function with the parameters <code>grid = 10</code>, <code>metrics = eval_set</code>, <code>resamples = folds</code>, and <code>control = control_grid(save_pred = TRUE)</code>. Save the results in a tibble called <code>rf_res</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning: Training the model might take a up to 15 minutes.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>i Creating pre-processing data to finalize unknown parameter: mtry</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-2d-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2d-iii">Exercise 2d iii:</h4>
+<p>Given the results in the <code>rf_res</code> tibble, select the best model based on the <code>"roc_auc"</code> metric, and call it <code>rf_res_best</code>.</p>
+</section>
+<section id="exercise-2d-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2d-iv">Exercise 2d iv:</h4>
+<p>Given the following two tibbles that contain the metrics <code>specifity</code>, <code>sensetivity</code>, <code>recall</code>, and <code>precision</code>, create two plots that display the ROC Curve and Precision-Recall curve for the random forest. You can either use the <code>autoplot</code> function or create the plots from scratch using <code>ggplot</code>. An example of what those plots could look like can be found below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rf_auc <span class="ot">&lt;-</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  rf_res <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> rf_res_best) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Random Forest"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>rf_pr <span class="ot">&lt;-</span> </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  rf_res <span class="sc">%&gt;%</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>(<span class="at">parameters =</span> rf_res_best) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"Random Forest"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_05_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2d-v" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2d-v">Exercise 2d v:</h4>
+<p>Using the <code>finalize_worflow</code> and <code>last_fit</code> function, train a final random forest based on the <code>rf_res_best</code> model on the whole training dataset. Then, by utilizing the <code>vip::vip</code> function, find the most important features of this last random forest.</p>
+<p><em>Hint: You first have to use the <code>extract_fit_engine</code> function and passing this output to the <code>vip::vip</code> function.</em></p>
+</section>
+</section>
+<section id="exercise-2e-evaluating-all-models" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2e-evaluating-all-models">Exercise 2e: Evaluating all models</h3>
+<p>Given the following plots, answer the following questions:</p>
+<ol type="1">
+<li>What can be said about the discriminatory power of the classes?</li>
+<li>Which curve should be considered for assessing the accurracy of the models?</li>
+<li>Which model performs the best?</li>
+</ol>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_05_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2f-confusion-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2f-confusion-matrices">Exercise 2f: Confusion matrices</h3>
+<p>Below, you can find the confusion matrix for the previously trained final random forest. Calculate the following metrics:</p>
+<ol type="1">
+<li><p>Precision</p></li>
+<li><p>Accuracy</p></li>
+<li><p>Negative Predictive Value</p></li>
+</ol>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] Inactive Active   Inactive Active  
+Levels: Active Inactive</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exercise_05_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
