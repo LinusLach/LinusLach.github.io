@@ -718,6 +718,7 @@ Solution
 </div>
 <p>In order to do so, you have to proceed as follows:</p>
 <ol type="1">
+<li>Derive the order statistics of <span class="math inline">\(\{x_1,...,x_n\}\)</span></li>
 <li>Derive the set <span class="math inline">\(S := \left\{\frac{1}{2}(x_{(r)}+x_{(r+1)}):r=1,...,n-1\right\}\)</span> of all potential splitting points.</li>
 <li>For each potential splitting point, derive the regions <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> and calculate the estimate <span class="math inline">\(\hat y_1\)</span> and <span class="math inline">\(\hat y_2\)</span> for the respective regions.</li>
 <li>Calculate the loss <span class="math inline">\(\mathcal{L}(y,\hat y) := \sum_{i:x_i\in R_1} (y_i-\hat y)^2 + \sum_{i:x_i\in R_2}(y_i-\hat y)^2\)</span>.</li>
@@ -745,8 +746,10 @@ Solution
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Since we are interested in finding the optimal split with respect to <span class="math inline">\(x_2\)</span>, consider the sets of all possible splits <span class="math display">\[
-S := \left\{\frac{1}{2}(x_{(r)}+x_{(r+1)}):r=1,...,n-1\right\} = \{0.75,1.5,4,5\}
-\]</span> For <span class="math inline">\(r=1\)</span> we have <span class="math inline">\(s = 0.75\)</span> and <span class="math display">\[
+S := \left\{\frac{1}{2}(x_{(r)}+x_{(r+1)}):r=1,...,n-1\right\} = \{0.75,1.5,3.25,5\}.
+\]</span></p>
+<p>Here, <span class="math inline">\(\{x_{(r)},\, r = 1,...,n\} = \{0.5,1,2,4.5,5.5\}\)</span> denotes the order statistic of <span class="math inline">\(x\)</span>.</p>
+<p>For <span class="math inline">\(r=1\)</span> we have <span class="math inline">\(s = 0.75\)</span> and <span class="math display">\[
 \begin{align*}
 R_1(2,0.75) &amp;= \{x: x \leq 0.75\} = \{0.5\},\\
 R_2(2,0.75) &amp;= \{x: x &gt; 0.75\} = \{1.0,2.5,5.5,4.5\}.
@@ -794,7 +797,7 @@ R_2(2,1.5) &amp;= \{x: x &gt; 1.5\} = \{2.5,5.5,4.5\}.
 <pre><code>[1] 18.5</code></pre>
 </div>
 </div>
-<p>For <span class="math inline">\(r=3\)</span> we have <span class="math inline">\(s_2 = 4\)</span> and <span class="math display">\[
+<p>For <span class="math inline">\(r=3\)</span> we have <span class="math inline">\(s_2 = 3.25\)</span> and <span class="math display">\[
 \begin{align*}
 R_1(2,4) &amp;= \{x: x \leq 4\} = \{0.5,1.0, 2.5 \},\\
 R_2(2,4) &amp;= \{x: x &gt; 4\} = \{5.5,4.5\}.
@@ -842,7 +845,7 @@ R_2(2,5) &amp;= \{x: x &gt; 5\} = \{5.5\}.
 <pre><code>[1] 18.75</code></pre>
 </div>
 </div>
-<p>Since <span class="math inline">\(\mathcal{L}(y,\hat y)\)</span> is the lowest for <span class="math inline">\(r=3\)</span>, i.e., <span class="math inline">\(\mathcal{L}(y,\hat y) = 5.167\)</span>, <span class="math inline">\(s = 4\)</span> is the optimal splitting point with respect to <span class="math inline">\(x\)</span>.</p>
+<p>Since <span class="math inline">\(\mathcal{L}(y,\hat y)\)</span> is the lowest for <span class="math inline">\(r=3\)</span>, i.e., <span class="math inline">\(\mathcal{L}(y,\hat y) = 5.167\)</span>, <span class="math inline">\(s = 3.25\)</span> is the optimal splitting point with respect to <span class="math inline">\(x\)</span>.</p>
 </div>
 </div>
 </section>
@@ -854,7 +857,7 @@ R_2(2,5) &amp;= \{x: x &gt; 5\} = \{5.5\}.
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>data <span class="sc">|&gt;</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(x,y))<span class="sc">+</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">4</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">3.25</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_markdown</span>()</span>
@@ -1158,7 +1161,7 @@ Solution
 <p>Points that are closely scattered around this line have been well predicted, whereas points further away from this line indicate that the model performed badly.</p>
 <p>The goal of this exercise is for you to rebuild the plot that is depicted below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>title_text <span class="ot">&lt;-</span> <span class="st">"Predictions of the test set plotted agains the actual values"</span></span>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>title_text <span class="ot">&lt;-</span> <span class="st">"Predictions of the test set plotted against the actual values"</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>last_rt_fit <span class="sc">%&gt;%</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(baseRent, .pred)) <span class="sc">+</span></span>
