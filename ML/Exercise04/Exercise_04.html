@@ -752,14 +752,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ol>
 <p>You can check whether you successfully created the recipe by calling <code>rec_rt</code> and comparing it to the output below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rec_rt <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> baseRent <span class="sc">~</span>., </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_train</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(scoutId, <span class="at">new_role =</span> <span class="st">"ID"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ordinalscore</span>(interiorQual, condition)<span class="sc">%&gt;%</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_plz)<span class="sc">%&gt;%</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Inputs </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Number of variables by role</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>outcome:    1
+predictor: 12
+ID:         1</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Operations </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Scoring for: interiorQual, condition</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Dummy variables from: geo_plz</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• Zero variance filter on: all_predictors()</code></pre>
+</div>
 </div>
 </section>
 <section id="exercise-2a-ii-specifying-the-model" class="level4">
@@ -817,7 +844,7 @@ Computational engine: rpart </code></pre>
 <h4 class="anchored" data-anchor-id="exercise-2a-iv-setting-up-a-tune-grid">Exercise 2a iv: Setting up a tune-grid</h4>
 <p>Now, that we have set up the model, specified the recipe, and created a workflow, we need to define a grid for the grid search of the tuning parameters <code>min_n</code>,<code>tree_depth</code>, and <code>cost_complexity</code>. Instead of defining one manually, we can use the <code>grid_regular</code> function of the <code>{dials}</code> package instead. The <code>grid_regular</code> function creates a tibble with one column for each parameter and a row for every parameter combination. One advantage of this function is, that we can pass our tuning parameters directly into it and the <code>grid_regular</code> function creates a range of valid values. Consider the following example: The <code>min_n</code> parameter, which determines the minimum number of data points in a node that is required for the node to be split further, takes values between <span class="math inline">\(0\)</span> and <span class="math inline">\(40\)</span>. Calling the <code>grid_regular</code> function with <code>min_n()</code> and <code>levels = 5</code>, creates a grid with five values ranging from <span class="math inline">\(0\)</span> to <span class="math inline">\(40\)</span>, as you can see in the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid_regular</span>(<span class="fu">min_n</span>(),<span class="at">levels =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid_regular</span>(<span class="fu">min_n</span>(),<span class="at">levels =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 1
   min_n
