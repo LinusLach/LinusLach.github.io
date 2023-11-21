@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set 06</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Exercise_06_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exercise_06_files/libs/quarto-html/quarto.js"></script>
+<script src="Exercise_06_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exercise_06_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exercise_06_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exercise_06_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exercise_06_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exercise_06_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exercise_06_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exercise_06_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-1-boosting-vs.-bagging-vs.-random-forests" id="toc-exercise-1-boosting-vs.-bagging-vs.-random-forests" class="nav-link" data-scroll-target="#exercise-1-boosting-vs.-bagging-vs.-random-forests">Exercise 1: Boosting vs.&nbsp;Bagging vs.&nbsp;Random Forests</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1a" id="toc-exercise-1a" class="nav-link" data-scroll-target="#exercise-1a">Exercise 1a:</a></li>
+  <li><a href="#exercise-1b" id="toc-exercise-1b" class="nav-link" data-scroll-target="#exercise-1b">Exercise 1b:</a></li>
+  <li><a href="#exercise-1c" id="toc-exercise-1c" class="nav-link" data-scroll-target="#exercise-1c">Exercise 1c:</a></li>
+  </ul></li>
+  <li><a href="#exercise-02-random-forest-vs.-xgboost-vs.-lightgbm" id="toc-exercise-02-random-forest-vs.-xgboost-vs.-lightgbm" class="nav-link" data-scroll-target="#exercise-02-random-forest-vs.-xgboost-vs.-lightgbm">Exercise 02: Random Forest vs.&nbsp;XGBoost vs.&nbsp;LightGBM</a>
+  <ul class="collapse">
+  <li><a href="#reading-data-and-initial-transformations" id="toc-reading-data-and-initial-transformations" class="nav-link" data-scroll-target="#reading-data-and-initial-transformations">Reading Data and initial transformations</a></li>
+  <li><a href="#creating-a-trainingtest-split-and-setting-up-a-recipe" id="toc-creating-a-trainingtest-split-and-setting-up-a-recipe" class="nav-link" data-scroll-target="#creating-a-trainingtest-split-and-setting-up-a-recipe">Creating a training/test split and setting up a recipe</a></li>
+  <li><a href="#exercise-2a-training-a-random-forest" id="toc-exercise-2a-training-a-random-forest" class="nav-link" data-scroll-target="#exercise-2a-training-a-random-forest">Exercise 2a: Training a random forest</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a i:</a></li>
+  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
+  <li><a href="#exercise-2a-iii" id="toc-exercise-2a-iii" class="nav-link" data-scroll-target="#exercise-2a-iii">Exercise 2a iii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2b-training-a-xgboost-model" id="toc-exercise-2b-training-a-xgboost-model" class="nav-link" data-scroll-target="#exercise-2b-training-a-xgboost-model">Exercise 2b: Training a XGBoost model</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
+  <li><a href="#exercise-2b-ii" id="toc-exercise-2b-ii" class="nav-link" data-scroll-target="#exercise-2b-ii">Exercise 2b ii:</a></li>
+  <li><a href="#exercise-2b-ii-1" id="toc-exercise-2b-ii-1" class="nav-link" data-scroll-target="#exercise-2b-ii-1">Exercise 2b ii:</a></li>
+  <li><a href="#exercise-2b-iii" id="toc-exercise-2b-iii" class="nav-link" data-scroll-target="#exercise-2b-iii">Exercise 2b iii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2c-training-a-lightgbm-model" id="toc-exercise-2c-training-a-lightgbm-model" class="nav-link" data-scroll-target="#exercise-2c-training-a-lightgbm-model">Exercise 2c: Training a LightGBM model</a></li>
+  <li><a href="#exercise-2d" id="toc-exercise-2d" class="nav-link" data-scroll-target="#exercise-2d">Exercise 2d:</a></li>
+  <li><a href="#exercise-2e" id="toc-exercise-2e" class="nav-link" data-scroll-target="#exercise-2e">Exercise 2e:</a></li>
+  <li><a href="#exercise-2f" id="toc-exercise-2f" class="nav-link" data-scroll-target="#exercise-2f">Exercise 2f:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set 06</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>In this exercise session, we will consider multiple advanced machine learning models. Our base model will not be a penalized logistic regression rather than a random forest. The models we are considering subsequently, are also widely used in application as their performance on classification tasks is superb! However, similar to random forests, their explainability is still subpar compared to a simple logistic regression or classification tree. Before we learn how to train and finetune these models, we will discuss some theoretical aspects.</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<section id="exercise-1-boosting-vs.-bagging-vs.-random-forests" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-1-boosting-vs.-bagging-vs.-random-forests">Exercise 1: Boosting vs.&nbsp;Bagging vs.&nbsp;Random Forests</h2>
+<p>In this initial exercise, we will briefly discuss similarities and differences between different algorithms introduced in the lecture.</p>
+<section id="exercise-1a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1a">Exercise 1a:</h3>
+<p>Explain in your own words, the difference between Boosting (Trees), Bagging (Trees), and Random Forests.</p>
+</section>
+<section id="exercise-1b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1b">Exercise 1b:</h3>
+<p>Explain in your own words, the key differences and similarities between AdaBoost and gradient boosting.</p>
+</section>
+<section id="exercise-1c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1c">Exercise 1c:</h3>
+<p>Explain the difference between XGBoost and conventional gradient boosting.</p>
+</section>
+</section>
+<section id="exercise-02-random-forest-vs.-xgboost-vs.-lightgbm" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-02-random-forest-vs.-xgboost-vs.-lightgbm">Exercise 02: Random Forest vs.&nbsp;XGBoost vs.&nbsp;LightGBM</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vip"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"finetune"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"bonsai"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"patchwork"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In this last exercise we want to compare the performance of three popular machine learning models. The dataset for our benchmark is the Bank Churners dataset we have used in Session 05 as well.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you get stuck on any of the exercises below, I recommend checking out the solution to Exercise 05.</p>
+</div>
+</div>
+<p>Recall, that in this Session according to the ROC-Curve and PR-Curve and other metrics, the random forest model performed best. As we have covered an initial data analysis and data exploration of the Bank Churners dataset extensively in the previous sessions, you can find the necessary steps below. We will, however not resort to any resampling methods that directly influence the imbalance of our dataset for consistency reasons.</p>
+<section id="reading-data-and-initial-transformations" class="level3">
+<h3 class="anchored" data-anchor-id="reading-data-and-initial-transformations">Reading Data and initial transformations</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>credit_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"BankChurners.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(credit_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10,127
+Columns: 21
+$ CLIENTNUM                &lt;int&gt; 768805383, 818770008, 713982108, 769911858, 7…
+$ Attrition_Flag           &lt;chr&gt; "Existing Customer", "Existing Customer", "Ex…
+$ Customer_Age             &lt;int&gt; 45, 49, 51, 40, 40, 44, 51, 32, 37, 48, 42, 6…
+$ Gender                   &lt;chr&gt; "M", "F", "M", "F", "M", "M", "M", "M", "M", …
+$ Dependent_count          &lt;int&gt; 3, 5, 3, 4, 3, 2, 4, 0, 3, 2, 5, 1, 1, 3, 2, …
+$ Education_Level          &lt;chr&gt; "High School", "Graduate", "Graduate", "High …
+$ Marital_Status           &lt;chr&gt; "Married", "Single", "Married", "Unknown", "M…
+$ Income_Category          &lt;chr&gt; "$60K - $80K", "Less than $40K", "$80K - $120…
+$ Card_Category            &lt;chr&gt; "Blue", "Blue", "Blue", "Blue", "Blue", "Blue…
+$ Months_on_book           &lt;int&gt; 39, 44, 36, 34, 21, 36, 46, 27, 36, 36, 31, 5…
+$ Total_Relationship_Count &lt;int&gt; 5, 6, 4, 3, 5, 3, 6, 2, 5, 6, 5, 6, 3, 5, 5, …
+$ Months_Inactive_12_mon   &lt;int&gt; 1, 1, 1, 4, 1, 1, 1, 2, 2, 3, 3, 2, 6, 1, 2, …
+$ Contacts_Count_12_mon    &lt;int&gt; 3, 2, 0, 1, 0, 2, 3, 2, 0, 3, 2, 3, 0, 3, 2, …
+$ Credit_Limit             &lt;dbl&gt; 12691.0, 8256.0, 3418.0, 3313.0, 4716.0, 4010…
+$ Total_Revolving_Bal      &lt;int&gt; 777, 864, 0, 2517, 0, 1247, 2264, 1396, 2517,…
+$ Avg_Open_To_Buy          &lt;dbl&gt; 11914.0, 7392.0, 3418.0, 796.0, 4716.0, 2763.…
+$ Total_Amt_Chng_Q4_Q1     &lt;dbl&gt; 1.335, 1.541, 2.594, 1.405, 2.175, 1.376, 1.9…
+$ Total_Trans_Amt          &lt;int&gt; 1144, 1291, 1887, 1171, 816, 1088, 1330, 1538…
+$ Total_Trans_Ct           &lt;int&gt; 42, 33, 20, 20, 28, 24, 31, 36, 24, 32, 42, 2…
+$ Total_Ct_Chng_Q4_Q1      &lt;dbl&gt; 1.625, 3.714, 2.333, 2.333, 2.500, 0.846, 0.7…
+$ Avg_Utilization_Ratio    &lt;dbl&gt; 0.061, 0.105, 0.000, 0.760, 0.000, 0.311, 0.0…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>credit_info_clean <span class="ot">&lt;-</span>credit_info <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income_Category =</span> <span class="fu">factor</span>(Income_Category,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Unknown"</span>,<span class="st">"Less than $40K"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$40K - $60K"</span>,<span class="st">"$60K - $80K"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$80K - $120K"</span>,<span class="st">"$120K +"</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Education_Level =</span> <span class="fu">factor</span>(Education_Level,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Unknown"</span>, <span class="st">"Uneducated"</span>, <span class="st">"High School"</span>, <span class="st">"College"</span>, <span class="st">"Graduate"</span>, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Post-Graduate"</span>, <span class="st">"Doctorate"</span>),</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">CLIENTNUM =</span> <span class="fu">factor</span>(CLIENTNUM),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Marital_Status =</span> <span class="fu">factor</span>(Marital_Status),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">Card_Category =</span> <span class="fu">factor</span>(Card_Category),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">factor</span>(Gender),</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Attrition_Flag =</span> <span class="fu">factor</span>(Attrition_Flag, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Inactive"</span>, <span class="st">"Active"</span>)),</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="creating-a-trainingtest-split-and-setting-up-a-recipe" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-trainingtest-split-and-setting-up-a-recipe">Creating a training/test split and setting up a recipe</h3>
+<p>Once we have cleaned our dataset, we create our training and test split and subsequently the recipe we use for preprocessing the training data. As per usual, we use ten-fold cross-validation on our training data.</p>
+<p>In terms of the recipe, perform the usual transformations:</p>
+<ul>
+<li><p>Updating the role of the variable <code>CLIENTNUM</code>.</p></li>
+<li><p>Creating ordinal scores for all ordinal features.</p></li>
+<li><p>Creating dummy variables for all nominal features.</p></li>
+<li><p>Applying a zero variance filter to the data.</p></li>
+<li><p>Remove highly correlated features.</p></li>
+</ul>
+<p>After creating the recipe we define our workflow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(credit_info_clean, <span class="at">strata =</span> Attrition_Flag)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>rec_ci <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Attrition_Flag <span class="sc">~</span>., <span class="at">data =</span> data_train) <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(CLIENTNUM, <span class="at">new_role =</span> <span class="st">"ID"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ordinalscore</span>(<span class="fu">all_ordered_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_factor_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_predictors</span>())</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2a-training-a-random-forest" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2a-training-a-random-forest">Exercise 2a: Training a random forest</h3>
+<section id="exercise-2a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a i:</h4>
+<p>Create and train a random forest model with <span class="math inline">\(1000\)</span> trees and tune the parameters <code>mtry</code> and <code>min_n</code>. Set the engine to <code>"ranger"</code> and the variable importance measure to <code>"impurity"</code>.</p>
+<p>Train the model using the <code>tune_grid</code> function using the 10-fold CV object and save the predictions as we will need them for creating the AUC- and PR-Curve later.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Takes around 4 Minutes to compile on my hardware (Intel i7-10510U processor). Below you can also see how long it took for me to train the model.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>i Creating pre-processing data to finalize unknown parameter: mtry</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>       User      System verstrichen 
+    1225.76        3.51      211.95 </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-2a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
+<p>Select the best model based on the metric <code>"roc_auc"</code> and train it on the entire training set. Subsequently, create two tibbles containing the data necessary to plot a ROC- and PR curve. When creating the tibbles, make sure you change the model name to <code>"Random forest"</code>, so that we can correctly identify the models later during model evaluation.</p>
+</section>
+<section id="exercise-2a-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-iii">Exercise 2a iii:</h4>
+<p>Create a plot showing the most important features with respect to the importance metric <code>"impurity"</code>. For reference, you can find an example of what such a plot could look like below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_06_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2b-training-a-xgboost-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2b-training-a-xgboost-model">Exercise 2b: Training a XGBoost model</h3>
+<p>Since we have intensively covered random forests, we now want to make use of gradient-based models. AdaBoost is rarely used in practice anymore, which is why we will directly move towards training an XGBoost model. The approach is similar to training all the other models we have considered so far, i.e., setting up a model, defining a tunegrid, updating the model workflow, and training the model using the <code>tunegrid</code> function.</p>
+<p>We can create an XGBoost model by using the <code>boost_tree</code> function. Looking at the documentation, you will notice that there are quite a few parameters for us to consider:</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>trees</code></td>
+<td>Number of trees contained in the ensamble</td>
+</tr>
+<tr class="even">
+<td><code>tree_depth</code></td>
+<td>Integer for the maximum depth of the trees</td>
+</tr>
+<tr class="odd">
+<td><code>min_n</code></td>
+<td>Minimum number of data points in a node required for a split</td>
+</tr>
+<tr class="even">
+<td><code>mtry</code></td>
+<td>Number of randomly selected at each split</td>
+</tr>
+</tbody>
+</table>
+<p>The parameters above are not new to us. In fact, they are the exact same parameters we use for training a random forest model. That is why we will not go into</p>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>loss_reduction</code></td>
+<td>Number for the reduction in loss that is required to split further <span class="math inline">\(\in [0,\infty]\)</span></td>
+</tr>
+<tr class="even">
+<td><code>sample_size</code></td>
+<td>Subsample ratio of the training instances <span class="math inline">\(\in (0,1].\)</span></td>
+</tr>
+<tr class="odd">
+<td><code>learn_rate</code></td>
+<td>Rate at which the algorithm adapts from iteration to iteration <span class="math inline">\(\in [0,1]\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<p>The three parameters above have only been referenced in the lectures so far, so let’s quickly describe them in a bit more detail.</p>
+<section id="loss_reduction" class="level5">
+<h5 class="anchored" data-anchor-id="loss_reduction"><code>loss_reduction</code> :</h5>
+<p>On slide 91 of the lecture notes, a more general idea of boosting is formalized as follows:</p>
+<p>At every step <span class="math inline">\(b = 1,…,B\)</span> we aim to solve the following minimization problem:</p>
+<p><span class="math display">\[
+(\alpha_b,h_b) = \arg \min_{\alpha &gt;0, h\in\mathcal{H}}\sum_{n=1}^N L(y_n,\hat{f}^{(b-1)}(x_i)+\alpha h(x_i))
+\]</span></p>
+<p>Here, <span class="math inline">\(L\)</span> denotes a loss function that we aim to minimize with respect to some parameter <span class="math inline">\(\alpha\)</span> and an additional (potentially weak) learner <span class="math inline">\(h\)</span> that we add to the previous estimator.</p>
+<p>If the term</p>
+<p><span class="math display">\[
+\left| \sum_{n=1}^N L(y_n,\hat{f}^{(b-1)}(x_i)+\alpha h(x_i)) - \sum_{n=1}^N L(y_n,\hat{f}^{(b)}(x_i)+\alpha h(x_i)) \right|,
+\]</span></p>
+<p>i.e., the loss reduction between step <span class="math inline">\(b\)</span> and <span class="math inline">\(b+1\)</span> is smaller than the parameter <code>loss_reduction</code>, the algorithm stops.</p>
+</section>
+<section id="sample_size" class="level5">
+<h5 class="anchored" data-anchor-id="sample_size"><code>sample_size</code> :</h5>
+<p>Let <span class="math inline">\(q\in(0,1]\)</span> denote the <code>sample_size</code> parameter and <span class="math inline">\(N\)</span> the number of samples in our training data. Then XGBoost selects <span class="math inline">\(q\cdot N\)</span> samples prior to growing trees. This subsampling occurs once in every boosting iteration.</p>
+</section>
+<section id="learn_rate" class="level5">
+<h5 class="anchored" data-anchor-id="learn_rate"><code>learn_rate</code> :</h5>
+<p>Consider the minimization task for the parameter <code>loss_reduction</code>. This minimization task is performed using some algorithm like <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">Stochastic Gradient Descent</a>, where you have to specify a learning rate. In simple terms, this learning rate specifies how quickly the model is adapted to the problem. Choosing a learning rate that is too high, might result in missing the objective because it is being stepped over, while a learning rate chosen too small might result in the objective never being reached at all.</p>
+<p>To illustrate what a learning rate that is chosen too high looks like, check out the following example: Here, we try to find the minimum of a polynomial of degree 4 by using gradient descent.</p>
+<iframe width="700" height="450" src="gd_1d_xquartic_lr079.html" title="learning rate too high"></iframe>
+<p>Similar to choosing a learning rate that is too high, we could also choose a learning rate that is too low, resulting in the global minimum never being reached at all.</p>
+<iframe width="700" height="450" src="gd_1d_xquartic_lr01.html" title="learning rate too small"></iframe>
+<p>In our example, we will omit the parameter sample size and tune every other parameter.</p>
+</section>
+<section id="exercise-2b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
+<p>So, your task is to create a model <code>xgb_model</code>, set the number of trees to 1000, and every other parameter to <code>tune()</code>, except for <code>sample_size</code> (here the default parameter is <span class="math inline">\(1\)</span>).</p>
+</section>
+<section id="exercise-2b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-ii">Exercise 2b ii:</h4>
+<p>In most previous sessions we passed the parameters to be tuned to the <code>grid_regular</code> function. In this exercise, we will explore a different grid-generating function called <code>grid_latin_hypercube</code>. Compared to the <code>grid_regular</code> function, the <code>grid_latin_hypercube</code> function can be computationally less expensive to use. The main idea behind the <a href="https://www.jstor.org/stable/1268522?seq=2">Latin Hypercube Sampling</a> method is, that they generally find a configuration of points that cover the parameter space with the smallest chance of overlapping redundant values.</p>
+<p>Below you can find an example of such a grid.</p>
+<p>Familiarize yourself with the <code>dials::finalize</code> function and explain why we have to finalize the <code>mtry</code> parameter. Why are we not using the <code>data_train</code> data set directly but instead use the data set generated when applying the <code>prep</code>, <code>bake</code> and <code>select</code> functions?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cooked_rec <span class="ot">&lt;-</span> rec_ci <span class="sc">%&gt;%</span> prep <span class="sc">%&gt;%</span> <span class="fu">bake</span>(data_train) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"CLIENTNUM"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>xgb_grid <span class="ot">&lt;-</span><span class="fu">grid_latin_hypercube</span>(</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tree_depth</span>(),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min_n</span>(),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">loss_reduction</span>(),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize</span>(<span class="fu">mtry</span>(), cooked_rec),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">learn_rate</span>(),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">30</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">update_model</span>(xgb_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2b-ii-1" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-ii-1">Exercise 2b ii:</h4>
+<p>Use the newly created <code>xgb_grid</code> and the <code>tune_grid</code> function to train the XGBoost model.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Takes around 15 Minutes to compile on my hardware (Intel i7-10510U processor). Below you can also see how long it took for me to train the model.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       User      System verstrichen 
+       0.34        0.22     1163.95 </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-2b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iii">Exercise 2b iii:</h4>
+<p>Similar to Exercise 2a ii, select the best model based on the metric <code>"roc_auc"</code> and train it on the entire training set. Subsequently, create two tibbles containing the data necessary to plot a ROC- and PR curve. When creating the tibbles, make sure you change the model name to <code>"XGBoost"</code>, so that we can correctly identify the models later during model evaluation.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The following model is not relevant for the exam. <strong>However</strong>, it is extremely relevant in today’s ML landscape, so I encourage you to solve the following exercises as well.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-2c-training-a-lightgbm-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2c-training-a-lightgbm-model">Exercise 2c: Training a LightGBM model</h3>
+<p>The last model we want to train is called <a href="https://en.wikipedia.org/wiki/LightGBM">LightGBM</a>. It was developed by Microsoft and is, as well as XGBoost, a gradient-based ensemble learner. An advantage compared to XGBoost is the focus on performance and scalability, meaning that it is designed to work well on CPUs while trying to at least match the performance of XGBoost.</p>
+<p>The steps for training a LightGBM model are exactly the same as for training an XGBoost model, except for the model specification. Here we set the engine to <code>"lightgbm"</code> instead of <code>"xgboost"</code>. Every other parameter stays the same, thanks to the <code>{tidymodels}</code> framework.</p>
+<p>So, in this exercise, you’re supposed to repeat the steps we performed for the XGBoost model but instead, perform them for a <code>"lightgbm"</code> model.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Takes around 10 Minutes to compile on my hardware (Intel i7-10510U processor). Below you can also see how long it took for me to train the model.</p>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>       User      System verstrichen 
+       0.39        0.17      754.32 </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-2d" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2d">Exercise 2d:</h3>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you get stuck recreating the following plots, revisit the solutions to Exercise Sheet 05, where we created the same plot for a penalized logistic regression, a classification tree, and a random forest.</p>
+</div>
+</div>
+<p>Create a plot showing the ROC- and PR-curve for each of the models we trained in the previous exercises (Random Forest, XGBoost, LightGBM). Compare the performances visually and decide which model performed the best. For reference, you can find what such a plot could look like below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_06_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2e" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2e">Exercise 2e:</h3>
+<p>For each of the previously trained models (Random Forest, XGBoost, LightGBM), create a confusion matrix based on the test sets to evaluate which model performed best on unseen data. An example of what such a plot could look like can be found below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_06_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-2f" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2f">Exercise 2f:</h3>
+<p>For the confusion matrices above, find out which model has the overall best out-of-sample performance. For this best model, calculate the following metrics:</p>
+<ol type="1">
+<li><p>Sensitivity</p></li>
+<li><p>Precision</p></li>
+<li><p>Accuracy</p></li>
+</ol>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

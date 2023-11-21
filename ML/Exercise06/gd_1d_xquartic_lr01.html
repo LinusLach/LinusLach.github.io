@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <!-- Load d3.js -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+  <div id="slider"></div>
+  <div class="container">
+    <svg id="root"></svg>
+  </div>
+
+  <script>
+    const margin = { top: 10, right: 50, bottom: 50, left: 50 },
+      width = 450 - margin.left - margin.right,
+      height = 400 - margin.top - margin.bottom;
+
+    const svg = d3.select("#root").attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+    // Define chart area
+    svg
+      .append("clipPath")
+      .attr("id", "chart-area")
+      .append("rect")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", width)
+      .attr("height", height)
+
+    // Add Axes
+    const xMax = 6;
+    const yMax = 10;
+    const N = 20;
+    const lr = 0.1;
+
+    let xScale = d3.scaleLinear([-2, xMax], [0, width])
+    let yScale = d3.scaleLinear([-2, yMax], [height, 0])
+
+    let xAxis = d3.axisBottom(xScale)
+    let yAxis = d3.axisLeft(yScale)
+    svg.append("g")
+      .attr("transform", `translate(0,${height})`)
+      .call(xAxis)
+    svg.append("g")
+      .attr("transform", `translate(0,0)`)
+      .call(yAxis)
+
+    // Axes label
+    svg.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "end")
+      .attr("x", width / 2 + 5)
+      .attr("y", height + 35)
+      .text("x");
+
+    svg.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "end")
+      .attr("y", -35)
+      .attr("x", -height / 2 + 35)
+      .attr("transform", "rotate(-90)")
+      .html("function value")
+    const sliderContainer = d3.select("body")
+      .append("div")
+      .style("display", "flex")
+      .style("justify-content", "center")
+      .style("width", "450px");
+
+    const slider = sliderContainer
+      .append("input")
+      .attr("type", "range")
+      .attr("min", 0)
+      .attr("max", N)
+      .attr("value", 0) // Initial value
+      .attr("step", 1)
+      .style("width", "200px")
+      .on("input", updateVisualization);
+
+    // Add function graph
+    let line = d3.line()
+      .x(d => xScale(d[0]))
+      .y(d => yScale(d[1]))
+
+
+    svg.append("path")
+      .datum(graphFunction_f())
+      .attr("clip-path", "url(#chart-area)")
+      .attr("fill", "none")
+      .attr("stroke", "teal")
+      .attr("stroke-width", 2)
+      .attr("d", line);
+
+    function graphFunction_f() {
+      const data = [];
+      for (let x = -2; x <= 6; x+= 0.1) {
+        y = 0.5*(0.75*x-1.2)**4-2*(0.75*x-1)**2+2;
+        data.push([x, y])
+      }
+      return data;
+    }
+    const sliderValueDisplay = sliderContainer
+       .append("span")
+       .style("margin-left", "10px");
+
+    const linePath = svg.append("path")
+      .datum(graphFunction_f_prime())
+      .attr("clip-path", "url(#chart-area)")
+      .attr("fill", "none")
+      .attr("stroke", "red")
+      .attr("stroke-width", 2)
+      .attr("d", line);
+
+    const circleGroup = svg.append("g")
+      .attr("class", "circle-group");
+
+    function updateVisualization() {
+      const sliderValue = +slider.property("value");
+      const newData = graphFunction_f_prime().slice(0, sliderValue + 1);
+      linePath.datum(newData)
+              .attr("d", line);
+      sliderValueDisplay.text("Step: " + sliderValue);
+      circleGroup.selectAll("circle").remove();
+      circleGroup.selectAll("circle")
+       .data(newData)
+       .enter()
+       .append("circle")
+       .attr("cx", d => xScale(d[0]))
+       .attr("cy", d => yScale(d[1]))
+       .attr("r", 5)
+       .attr("fill", "red");
+    }
+
+    function graphFunction_f_prime() {
+     const data = [];
+     let x0 = -1;
+     for (let n = 0; n <= N; n++) {
+       d = 0.408 + 2.61*x0 - 3.0375*x0**2 + 0.632813*x0**3;
+       y = 0.5*(0.75*x0-1.2)**4-2*(0.75*x0-1)**2+2;
+       data.push([x0, y]);
+       x0 = x0 - lr*d;
+     }
+     return data;
+    }
+
+    updateVisualization()
+  </script>
+</body>
