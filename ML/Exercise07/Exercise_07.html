@@ -224,7 +224,7 @@ Note on convex hulls
   x_1 &amp;= \begin{pmatrix} 1\\1 \end{pmatrix} \in \omega_1 = \left\{x_i:T_i = 1\right\},\\
   x_2 &amp;= \begin{pmatrix} 2\\3 \end{pmatrix} \in \omega_{-1} = \left\{x_i:T_i = -1\right\}.
 \end{align*}\]</span>
-<p>Since both points are the single representative of their respective classes, they are also the support vectors, and in particular, they are located on the margin. The goal of this exercise is to find the parameters of a separation line with maximal margin, i.e., <span class="math inline">\(w_1\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Since both points are the single representative of their respective classes, they are also the support vectors, and in particular, they are located on the margin. The goal of this exercise is to find the parameters of a separation line with maximal margin, i.e., <span class="math inline">\(w_1,w_2\)</span> and <span class="math inline">\(b\)</span>.</p>
 <p>Recall from the lecture, that the dual problem is given by</p>
 <span class="math display">\[\begin{equation*}
   L_D = \sum_{i=1}^{2} \alpha_i - \frac{1}{2}\sum_{i=1}^{2}\sum_{j=1}^{2}\alpha_i\alpha_jT_iT_jx_i^\top x_j
@@ -251,7 +251,7 @@ Note on convex hulls
 </section>
 <section id="exercise-2c" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2c">Exercise 2c:</h3>
-<p>Based on the previous results, calculate the line parameters <span class="math inline">\(w_1, b\)</span>.</p>
+<p>Based on the previous results, calculate the line parameters <span class="math inline">\(w_1, w_2, b\)</span>.</p>
 </section>
 <section id="exercise-2d" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2d">Exercise 2d:</h3>
@@ -272,7 +272,7 @@ Note on convex hulls
 <section id="exercise-2e" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-2e">Exercise 2e:</h3>
 <p>Suppose we want to classify a new point <span class="math inline">\(x_3 = (2,2)^\top\)</span>. Assign this point to the correct class, both visually and using the decision function <span class="math display">\[
-  f(x) = \mathrm{sign}\left(\sum_{i=1}^{2} \alpha_i^*T_i(x_i^\top x_i+b^*\right).
+  f(x) = \mathrm{sign}\left(\sum_{i=1}^{2} \alpha_i^*T_i(x_i^\top x_i+b)\right).
 \]</span></p>
 </section>
 </section>
