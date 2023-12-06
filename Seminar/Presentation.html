@@ -344,7 +344,11 @@
     <div class="slides">
 
 
-<section id="bayes-hilbert-space-gans" class="slide level2 title-slide center">
+<section id="section" class="slide level2 title-slide center">
+<h2></h2>
+
+<img data-src="BHSGANs.png" class="r-stretch quarto-figure-center"></section>
+<section id="bayes-hilbert-space-gans" class="slide level2">
 <h2><strong>Bayes Hilbert Space GANs</strong></h2>
 <p><br></p>
 <p><strong>Alexander Fottner, Linus Lach</strong></p>
@@ -454,16 +458,16 @@ f^{**}(x) = \sup_{y\in\mathrm{dom}(f^{*})}\{xy-f^*(y)\}.
 <div style="font-size:20pt">
 <div class="fragment fade-out" style="position:absolute;" data-fragment-index="1">
 <span class="math display">\[\begin{align*}
-D_f(\mu,\nu)  \geq \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.\phantom{\int}
+D_f(\mu,\nu)  \geq \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.\phantom{\int}\tag{4}
 \end{align*}\]</span>
 </div>
 <div class="fragment" style="position:absolute;" data-fragment-index="1">
-<span class="math display">\[\begin{align}
+<span class="math display">\[\begin{align*}
 D_f(\mu,\nu) &amp;=\int_{\mathbb{R}} p_\nu(x)f\left(\frac{p_\mu(x)}{p_\nu(x)}\right) \lambda(\mathrm{dx})\tag{1}\\
 &amp;=\int_{\mathbb{R}} \sup_{t\in\mathrm{dom}(f^*)}\left\{t\frac{p_\mu(x)}{p_\nu(x)}-f^*(t)\right\} \nu(\mathrm{dx})\tag{2} \\
 &amp;\geq \sup_{T\in\mathcal{T}} \left(\int_\mathbb{R} T(x)\mu(\mathrm{d}x) - \int_\mathbb{R}f^*\circ T(x)\nu(\mathrm{d}x)\right)\tag{3}\\
 &amp;= \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.\tag{4}\\
-\end{align}\]</span>
+\end{align*}\]</span>
 </div>
 </div>
 </section>
@@ -480,7 +484,7 @@ D_f(\mu,\nu) &amp;=\int_{\mathbb{R}} p_\nu(x)f\left(\frac{p_\mu(x)}{p_\nu(x)}\ri
 <p>So…</p>
 </div>
 </section>
-<section id="section" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 
 <img data-src="Meme01.png" class="r-stretch quarto-figure-center"></section>
@@ -549,8 +553,9 @@ B(\lambda) := M(\lambda)/=_B,
 <section id="bayes-hilbert-metric" class="slide level2">
 <h2>Bayes Hilbert Metric</h2>
 <p>The map <span class="math display">\[
-d_{B^2(\lambda)}(f_\mu,f_\nu) := \sqrt{\langle \,f_\mu\ominus f_\nu,f_\mu\ominus f_\nu \rangle_{B^2(\lambda)}}
-\]</span> is a well-defined metric.</p>
+d_{B^2(\lambda)}(p_\mu,p_\nu) := \sqrt{\langle \,p_\mu\ominus p_\nu,p_\mu\ominus p_\nu \rangle_{B^2(\lambda)}}
+\]</span></p>
+<p>is a well-defined metric.</p>
 </section>
 <section id="bayes-hilbert-space-gan" class="slide level2">
 <h2>Bayes Hilbert Space GAN</h2>
@@ -607,14 +612,14 @@ f^*:\mathrm{Im}(f^\prime)\to{\mathbb{R}}\cup\{+\infty\},\: y\mapsto\sup_{x\in(0,
 <div style="font-size:24pt;">
 <div class="fragment fade-out" style="position:absolute;" data-fragment-index="1">
 <span class="math display">\[\begin{align*}
-D_f(\mu,\nu) &amp;=\phantom{\int} d_{B^2(\lambda)}(f_\mu,f_\nu)^2 + \mathbb{E}_\mu\left(\log(\mu\ominus \nu)\right)^2.
+D_f(\mu,\nu) &amp;=\phantom{\int} d_{B^2(\lambda)}(p_\mu,p_\nu)^2 + \mathbb{E}_\mu\left(\log(\mu\ominus \nu)\right)^2.
 \end{align*}\]</span>
 </div>
 <div class="fragment" style="position:absolute;" data-fragment-index="1">
 <span class="math display">\[\begin{align*}
-D_f(\mu,\nu) &amp;= \int_{[0,\infty)} f\left(\frac{\mathrm{d} \mu}{\mathrm{d} \nu}(x)\right)\mathrm{d} \nu\nonumber\\
-                 &amp;\geq \int_{[0,\infty)} \sup_{x\in\mathrm{dom}(f^*)}\left\{x\frac{\mathrm{d} \mu}{\mathrm{d}\nu}-f^*(x)\right\}\mathrm{d} \nu(x)\nonumber\\
-                 &amp;\geq \sup_{T\in\mathcal{T}} \left(\int_\Omega T(x)\:\mathrm{d}\mu-\int_\Omega f^*\circ T\:\mathrm{d} \nu \right)\nonumber\\
+D_f(\mu,\nu)   &amp;=\int_{[0,\infty)} f\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\nu(\mathrm{d}x) \\
+                 &amp;\geq \int_{[0,\infty)} \sup_{x\in\mathrm{dom}(f^*)}\left\{x\frac{p_\mu(x)}{p_\nu(x)}-f^*(x)\right\}\nu(\mathrm{d} x)\nonumber\\
+                 &amp;\geq \sup_{T\in\mathcal{T}} \left(\int_{[0,\infty)} T\:\mathrm{d}\mu-\int_{[0,\infty)} f^*\circ T\:\mathrm{d} \nu \right)\nonumber\\
                  &amp;= \sup_{T\in\mathcal{T}}\bigg\{\mathbb{E}_\mu(T)- \mathbb{E}_\nu(f^*\circ T)\bigg\}.
 \end{align*}\]</span>
 </div>
@@ -624,7 +629,7 @@ D_f(\mu,\nu) &amp;= \int_{[0,\infty)} f\left(\frac{\mathrm{d} \mu}{\mathrm{d} \n
 <h2>Optimizing for <span class="math inline">\(T\)</span></h2>
 <div style="font-size:24pt;">
 <p><strong>Theorem:</strong></p>
-<p>Let <span class="math inline">\(f:[0,\infty)\to{\mathbb{R}},\: x\mapsto x\log(x)^2\)</span> and <span class="math inline">\(\mu,\nu\in B^2(\lambda)\)</span>. Then, <span class="math inline">\(T^*(u) :=f^\prime\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\)</span> is an optimizer for <span class="math display">\[
+<p>Let <span class="math inline">\(f:[0,\infty)\to{\mathbb{R}},\: x\mapsto x\log(x)^2\)</span> and <span class="math inline">\(\mu,\nu\in B^2(\lambda)\)</span>. Then, <span class="math inline">\(T^*(x) :=f^\prime\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\)</span> is an optimizer for <span class="math display">\[
     \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu(T) - {\mathbb{E}}_\nu(f^*\circ T) \right\}
 \]</span> with <span class="math display">\[
 \mathcal{T} = \{T:{\mathbb{R}}\to(0,\infty)|T\text{ is } {\mathcal{B}}\text{-measurable}\}.
@@ -633,7 +638,7 @@ D_f(\mu,\nu) &amp;= \int_{[0,\infty)} f\left(\frac{\mathrm{d} \mu}{\mathrm{d} \n
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
-<p>Since a optimal solution to the optimization problem</p>
+<p>Since an optimal solution to the optimization problem</p>
 <p><span class="math display">\[
     \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu(T) - {\mathbb{E}}_\nu(f^*\circ T) \right\}.
 \]</span> in terms of <span class="math inline">\(T\)</span> can be found analytically, we can leverage neural networks to approximate this solution.</p>
@@ -642,6 +647,10 @@ D_f(\mu,\nu) &amp;= \int_{[0,\infty)} f\left(\frac{\mathrm{d} \mu}{\mathrm{d} \n
 <h2>Proof of work</h2>
 
 <img data-src="pow.png" class="r-stretch quarto-figure-center"></section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="Spoderman.jpg" class="r-stretch quarto-figure-center"></section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
