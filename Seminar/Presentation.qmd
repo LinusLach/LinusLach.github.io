@@ -1,0 +1,423 @@
+---
+author: "Alexander Fottner, Linus Lach"
+bibliography: Quellen.bib
+format:
+  revealjs:
+    theme: [solarized, custom.scss]
+    width: 1000
+    height: 600
+    transition: fade
+---
+
+##  {.title-slide}
+
+![](BHSGANs.png){fig-align="center"}
+
+## **Bayes Hilbert Space GANs**
+
+<br>
+
+**Alexander Fottner, Linus Lach**
+
+![](BHSGANs.png){fig-align="center"}
+
+::: {style="display:none;"}
+(
+
+\def\bE{{\mathbb{E}}}
+
+\def\bR{{\mathbb{R}}}
+
+\def\cB{{\mathcal{B}}}
+
+\def\rmd{{\mathrm{d}}}
+
+)
+:::
+
+## Basic Assumptions
+
+Let $({\mathbb{R}},{\mathcal{B}},\lambda)$ be a measure space with
+
+-   ${\mathcal{B}}$ the borel $\sigma$-field over ${\mathbb{R}}$ and
+-   $\lambda$ some $\sigma$-finite base measure [(usually Lebesgue measure)]{style="color:#93a1a1;"}.
+
+Let $\mu,\nu$ be two probability measures s.t. $\mu,\nu$ are absolutely continuous w.r.t. $\lambda$
+
+## Radon-Nikodym
+
+::: theorem
+Let $(\Omega,\Sigma)$ be a measureable space and $\lambda,\mu$ be $\sigma$-finite measures on $(\Omega,\Sigma)$ s.t. $\mu$ is absolutely continuous w.r.t. $\lambda$. Then, there exists a $\Sigma$-m.b. function $p_\mu:X\to[0,\infty)$, s.t. for any m.b. set $A\in\Sigma$ $$\mu(A) = \int_A p_\mu\: {\mathrm{d}}\lambda.$$
+:::
+
+$p_\mu$ is usually denoted by $\frac{\mathrm{d}\mu}{\mathrm{d}\lambda}$ and called **Radon-Nikodym derivative**.
+
+## (Statistical) Divergences
+
+Allow for a quantification of dissimilarities between probability measures.
+
+**Kullback-Leibler (KL) Divergence**
+
+$$
+ D_{\mathrm{KL}}(\mu,\nu) = \int_{\mathbb{R}}p_\nu(x)\log\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\lambda({\mathrm{d}}x).
+$$
+
+## (Statistical) Divergences
+
+**KL Divergence: Example**
+
+Let $\lambda$ be the lebesgue measure on ${\mathbb{R}}$, $\mu\sim \mathcal{N}(\mu_1,\sigma_1)$, and $\nu\sim\mathcal{N}(\mu_2,\sigma_2)$. Then,
+
+```{=tex}
+\begin{align*}
+ D_{\mathrm{KL}}(\mu,\nu) &= \int_\mathbb{R} p_\nu(x)\log\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\lambda(\mathrm{d} x)\\
+ &= ...\\
+ &= \log\left(\frac{\sigma_2}{\sigma_1}\right) + \frac{\sigma_1^2 + (\mu_1-\mu_2)^2}{2\sigma_2^2} - \frac{1}{2}
+\end{align*}
+```
+## $f$-divergences
+
+::: definition
+Let $f:{\mathbb{R}}_+\to{\mathbb{R}}$ be a convex, lower-semicontinuous function, satisfying $f(1) = 0$. Then, the $f$-divergence with *generator* $f$ is defined as
+
+$$
+  D_{f}(\mu,\nu) = \int_{\mathbb{R}}p_\nu(x)f\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\lambda(\mathrm{d}x).
+$$
+:::
+
+::: aside
+For the KL-divergence, $f$ is given by $f(x) = x\cdot\log(x)$.
+:::
+
+## Estimating $f$-divergences
+
+**Problem:** How to calculate divergence from finite samples if the underlying distribution is unknown?
+
+. . .
+
+**Idea:** Find an easier to estimate, lower bound for $f$-divergence!
+
+## Estimating $f$-divergences
+
+[@nguyen2010estimating]
+
+For any $f$-divergence, it holds that
+
+$$
+D_f(\mu,\nu)  \geq \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.
+$$
+
+. . .
+
+**Now, what are** $f^*$ and $\mathcal{T}$ ??
+
+## Fenchel conjugate
+
+[@touchette2005legendre] Define for an arbitrary function $f:{\mathbb{R}}\to{\mathbb{R}}$
+
+$$
+ f^*(y) := \sup_{x\in \mathrm{dom}(f)}\{xy-f(x)\}.
+$$ Then, $f^*$ is called *Fenchel-* or *convex-conjugate* of $f$.
+
+## Fenchel conjugate: Example
+
+Let $x\mapsto ax-b$ with $a,b\in {\mathbb{R}}$. Then
+
+```{=tex}
+\begin{align*}
+f^*(y) &= \sup_{x\in \mathrm{dom}(f)}\{xy-f(x)\}\\
+  &=b\mathbb{I}_{\{y=a\}} + \infty \mathbb{I}_{\{y\neq a\}}
+\end{align*}
+```
+::: aside
+Assuming, that $0\cdot(+\infty) = 0$.
+:::
+
+## Fenchel Duality [@textbook]
+
+::: theorem
+Let $f:{\mathbb{R}}\to{\mathbb{R}}$ be a convex function. If $f$ is lower semi-continuous, then $f^{**}(x) = f(x)$ for all $x\in{\mathbb{R}}$.
+:::
+
+. . .
+
+Note, that $$
+ f^{**}(x) = \sup_{y\in\mathrm{dom}(f^{*})}\{xy-f^*(y)\}.
+ $$
+
+## Estimating $f$-divergences
+
+[@nguyen2010estimating]
+
+For any $f$-divergence, it holds that
+
+::: {style="font-size:20pt"}
+::: {.fragment .fade-out style="position:absolute;" fragment-index="1"}
+```{=tex}
+\begin{align*}
+D_f(\mu,\nu)  \geq \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.\phantom{\int}\tag{4}
+\end{align*}
+```
+:::
+
+::: {.fragment style="position:absolute;" fragment-index="1"}
+```{=tex}
+\begin{align*}
+D_f(\mu,\nu) &=\int_{\mathbb{R}} p_\nu(x)f\left(\frac{p_\mu(x)}{p_\nu(x)}\right) \lambda(\mathrm{dx})\tag{1}\\
+&=\int_{\mathbb{R}} \sup_{t\in\mathrm{dom}(f^*)}\left\{t\frac{p_\mu(x)}{p_\nu(x)}-f^*(t)\right\} \nu(\mathrm{dx})\tag{2} \\
+ &\geq \sup_{T\in\mathcal{T}} \left(\int_\mathbb{R} T(x)\mu(\mathrm{d}x) - \int_\mathbb{R}f^*\circ T(x)\nu(\mathrm{d}x)\right)\tag{3}\\
+ &= \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}.\tag{4}\\
+\end{align*}
+```
+:::
+:::
+
+## The set $\mathcal{T}$
+
+By now, we still haven't defined $\mathcal{T}$.
+
+. . .
+
+It turns out, that
+
+$$
+\mathcal{T} = \mathcal{T}_{f^*} := \{T:{\mathbb{R}}\to\mathrm{dom}(f^*)|T\text{ is } {\mathcal{B}}\text{-measurable}\}
+$$ is a valid choice!
+
+. . .
+
+So...
+
+## 
+
+![](Meme01.png){fig-align="center"}
+
+## Estimating $f$-divergences: Conclusion
+
+By using neural networks, we can effectively estimate
+
+$$
+\sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu (T) - {\mathbb{E}}_\nu(f^*\circ T)\right\}. 
+$$
+
+## Bayes spaces [@boogaart2010bayes]
+
+::: {style="font-size:24pt"}
+Recall, for the base measure $\lambda$, we define
+
+$$
+B(\lambda) := M(\lambda)/=_B,
+$$ where
+
+-   $M(\lambda)$ set of all $\sigma$-finite measures that are equivalent to $\lambda$ and
+-   $\mu=_B\nu$ if there exists a constant $c\geq 0$ s.t. $\mu(A)=c\nu(A)$ for all $A\in{\mathcal{B}}$.
+:::
+
+## Bayes linear spaces [@boogaart2010bayes]
+
+For $\mu,\nu\in B(\lambda)$, define for $A\in{\mathcal{B}}$ and $\alpha\in{\mathbb{R}}$
+
+```{=tex}
+\begin{align*}
+  (\mu \oplus\nu)(A) &:= \int_A \frac{\mathrm{d} \mu}{\mathrm{d} \lambda}\frac{\mathrm{d} \nu}{\mathrm{d} \lambda}\: \mathrm{d}\lambda\\
+  (\mu \ominus\nu)(A) &:= \int_A \frac{\mathrm{d} \mu}{\mathrm{d} \nu}\: \mathrm{d}\lambda\\
+  (\alpha \odot\nu)(A) &:= \int_A \left(\frac{\mathrm{d} \mu}{\mathrm{d} \lambda}\right)^\alpha \: \mathrm{d}\lambda\\
+\end{align*}
+```
+## $B^p$ space and $\mathrm{clr}$[@van2014bayes]
+
+For $p\geq 1$ define
+
+$$
+  B^p(\lambda) = \left\{\mu\in B(\lambda): \int_{\mathbb{R}}\left|\log\left(\frac{{\mathrm{d}}\mu}{{\mathrm{d}}\lambda}\right) \right|^p{\mathrm{d}}\lambda <+\infty\right\}.
+$$
+
+The $\mathrm{clr}$ of $\mu\in B^1(p)$ is defined as
+
+$$
+\mathrm{clr}(\mu) = \log\left(\frac{{\mathrm{d}}\mu}{{\mathrm{d}}\lambda}\right) - \frac{1}{\lambda(\Omega)}\int \log\left(\frac{{\mathrm{d}}\mu}{{\mathrm{d}}\lambda}\right)\: {\mathrm{d}}\lambda.
+$$
+
+## Properties of $\mathrm{clr}$[@van2014bayes]
+
+1.  $\mathrm{clr}:B^2(\lambda)\to L^2_0(\lambda)$
+2.  $\mathrm{clr}$ is an isometric isomorphism between $B^2(\lambda)$ and $L^2_0(\lambda)$.
+3.  $\mathrm{clr}$ can be used to construct an inner product and subsequently a hilbert space.
+
+## Bayes Hilbert Space
+
+::: {style="font-size:24pt"}
+Let $\lambda$ from now on be a probability measure and $p_\mu$ and $p_\nu$ densities in $B^2(\lambda)$. Define
+:::
+
+::: {style="font-size:22pt"}
+$$
+\langle p_\mu,p_\nu \rangle_{B^2(\lambda)} := \int_{\mathbb{R}}\mathrm{clr}(\mu)(x)\:\mathrm{clr}(\nu)(x)\:\lambda({\mathrm{d}}x).
+$$
+:::
+
+::: {style="font-size:22pt"}
+Then, [@van2014bayes] showed, that $$\langle \,\cdot,\cdot \rangle_{B^2(\lambda)}:B^2(\lambda)\times B^2(\lambda) \to {\mathbb{R}}$$ is a well-defined inner product on $B^2(\lambda)$ and the pair $(B^2(\lambda),\langle \,\cdot,\cdot \rangle_{B^2(\lambda)})$ is a separable hilbert space called *Bayes Hilbert Space.*
+:::
+
+## Bayes Hilbert Metric
+
+The map $$
+d_{B^2(\lambda)}(p_\mu,p_\nu) := \sqrt{\langle \,p_\mu\ominus p_\nu,p_\mu\ominus p_\nu \rangle_{B^2(\lambda)}}
+$$
+
+is a well-defined metric.
+
+## Bayes Hilbert Space GAN
+
+. . .
+
+![](PPAP.jpg){fig-align="center"}
+
+## Fenchel conjugate for locally non-convex functions
+
+**Lemma:**
+
+::: {style="font-size:22pt;"}
+Let $f:[0,\infty)\to{\mathbb{R}}$ satisfy the following conditions:
+
+1.  $f$ is differentiable on $(0,\infty)$,
+2.  $f$ is convex on $(0,\infty)\setminus (a,b)$, with $0\leq a < b <\infty$, and
+3.  $\lim_{x\searrow 0} f(x) <\infty$.
+
+Then, the function $$
+f^*:\mathrm{Im}(f^\prime)\to{\mathbb{R}}\cup\{+\infty\},\: y\mapsto\sup_{x\in(0,\infty)}\{xy-f(x)\}
+$$
+
+is well-defined and convex.
+:::
+
+## Example
+
+::: {style="font-size:20pt;"}
+```{=tex}
+\begin{align*}
+&f:[0,\infty)\to[0,\infty)\\
+&x\mapsto x\cdot\log(x)^2\\
+&\\
+&f^*:[-1,\infty) \to [0,\infty),\\
+&y\mapsto
+        \begin{cases}
+                2\left(-1 + \sqrt{1+y}\right)\exp\left(-1+\sqrt{1+y}\right), \quad &y\geq 0,\\
+                0, &y \in [-1,0).
+        \end{cases}
+\end{align*}
+```
+:::
+
+```{r}
+#| echo: false
+#| output: false
+
+library("tidyverse")
+library("patchwork")
+library("ggtext")
+```
+
+```{r, fig.width=20,fig.height=10, fig.pos="center"}
+#| echo: false
+fontsize <- 32
+x <- seq(0.001,2.5,0.01)
+y <- x*log(x)^2 
+p1 <- tibble(x,y) %>%
+  ggplot(aes(x,y))+
+  geom_line(color = "blue", lwd = 2)+
+  labs(
+    y = "f(x)"
+  )+
+  theme_minimal()+
+  theme(
+    axis.text.x = element_text( size = fontsize),
+    axis.title.x = element_text( size = fontsize),
+    axis.text.y = element_text( size = fontsize),
+    axis.title.y = element_text( size = fontsize))
+
+x2 <- seq(0,2,0.01)
+y2 <- 2*(-1+sqrt(1+x2))*exp(-1+sqrt(1+x2)) 
+p2 <- tibble(x2,y2) %>%
+  ggplot(aes(x2,y2))+
+  geom_line(color = "blue", lwd = 2)+
+  geom_segment(aes(x=-1,y=0,xend=0,yend=0),color = "blue", lwd = 2)+
+  labs(
+    y = "f<sup>*</sup>(y)",
+    x = "y"
+  )+
+  xlim(-1,2)+
+  theme_minimal()+
+  theme(
+    axis.text.x = element_text( size = fontsize),
+    axis.title.x = element_text( size = fontsize),
+    axis.text.y = element_text( size = fontsize),
+    axis.title.y = element_markdown( size = fontsize))
+
+(p1|p2)
+```
+
+## What about $D_f(\mu,\nu)$?
+
+. . .
+
+**Lemma:**
+
+Let $f:[0,\infty)\to{\mathbb{R}},\, x\mapsto x\log(x)^2$. For any probability measures $\mu,\nu\in B^2(\lambda)$, $D_f(\mu,\nu)$ is well-defined in the sense that $D_f(\mu,\nu) \geq 0$ and $D_f(\mu,\nu) = 0 \iff \mu=\nu \: \lambda$-a.s.
+
+## But there is more!
+
+::: {style="font-size:24pt;"}
+::: {.fragment .fade-out style="position:absolute;" fragment-index="1"}
+```{=tex}
+\begin{align*}
+D_f(\mu,\nu) &=\phantom{\int} d_{B^2(\lambda)}(p_\mu,p_\nu)^2 + \mathbb{E}_\mu\left(\log(\mu\ominus \nu)\right)^2. 
+\end{align*}
+```
+:::
+
+::: {.fragment style="position:absolute;" fragment-index="1"}
+```{=tex}
+\begin{align*}
+ D_f(\mu,\nu)   &=\int_{[0,\infty)} f\left(\frac{p_\mu(x)}{p_\nu(x)}\right)\nu(\mathrm{d}x) \\
+                 &\geq \int_{[0,\infty)} \sup_{x\in\mathrm{dom}(f^*)}\left\{x\frac{p_\mu(x)}{p_\nu(x)}-f^*(x)\right\}\nu(\mathrm{d} x)\nonumber\\
+                 &\geq \sup_{T\in\mathcal{T}} \left(\int_{[0,\infty)} T\:\mathrm{d}\mu-\int_{[0,\infty)} f^*\circ T\:\mathrm{d} \nu \right)\nonumber\\
+                 &= \sup_{T\in\mathcal{T}}\bigg\{\mathbb{E}_\mu(T)- \mathbb{E}_\nu(f^*\circ T)\bigg\}.
+\end{align*}
+```
+:::
+:::
+
+## Optimizing for $T$
+
+::: {style="font-size:24pt;"}
+**Theorem:**
+
+Let $f:[0,\infty)\to{\mathbb{R}},\: x\mapsto x\log(x)^2$ and $\mu,\nu\in B^2(\lambda)$. Then, $T^*(x) :=f^\prime\left(\frac{p_\mu(x)}{p_\nu(x)}\right)$ is an optimizer for $$
+    \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu(T) - {\mathbb{E}}_\nu(f^*\circ T) \right\}
+$$ with $$
+\mathcal{T} = \{T:{\mathbb{R}}\to(0,\infty)|T\text{ is } {\mathcal{B}}\text{-measurable}\}.
+$$
+:::
+
+## Conclusion
+
+Since an optimal solution to the optimization problem
+
+$$
+    \sup_{T\in\mathcal{T}}\left\{{\mathbb{E}}_\mu(T) - {\mathbb{E}}_\nu(f^*\circ T) \right\}.
+$$ in terms of $T$ can be found analytically, we can leverage neural networks to approximate this solution.
+
+## Proof of work
+
+![](pow.png){fig-align="center"}
+
+## 
+
+![](Spoderman.jpg){fig-align="center"}
+
+## References
+
+::: {#refs}
+:::
