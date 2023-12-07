@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set 07: Solution</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Exercise_07_solution_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exercise_07_solution_files/libs/quarto-html/quarto.js"></script>
+<script src="Exercise_07_solution_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exercise_07_solution_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exercise_07_solution_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exercise_07_solution_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exercise_07_solution_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exercise_07_solution_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exercise_07_solution_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exercise_07_solution_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-01-linear-maximum-margin-classifiers-visual" id="toc-exercise-01-linear-maximum-margin-classifiers-visual" class="nav-link" data-scroll-target="#exercise-01-linear-maximum-margin-classifiers-visual">Exercise 01: Linear maximum margin classifiers (Visual)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-01-a" id="toc-exercise-01-a" class="nav-link" data-scroll-target="#exercise-01-a">Exercise 01 a:</a></li>
+  <li><a href="#exercise-01-b" id="toc-exercise-01-b" class="nav-link" data-scroll-target="#exercise-01-b">Exercise 01 b:</a></li>
+  <li><a href="#exercise-01-c" id="toc-exercise-01-c" class="nav-link" data-scroll-target="#exercise-01-c">Exercise 01 c:</a></li>
+  <li><a href="#exercise-01-d" id="toc-exercise-01-d" class="nav-link" data-scroll-target="#exercise-01-d">Exercise 01 d:</a></li>
+  <li><a href="#exercise-01-e" id="toc-exercise-01-e" class="nav-link" data-scroll-target="#exercise-01-e">Exercise 01 e:</a></li>
+  <li><a href="#exercise-01-f" id="toc-exercise-01-f" class="nav-link" data-scroll-target="#exercise-01-f">Exercise 01 f:</a></li>
+  </ul></li>
+  <li><a href="#exercise-02-linear-maximum-margin-classifiers-theoretical" id="toc-exercise-02-linear-maximum-margin-classifiers-theoretical" class="nav-link" data-scroll-target="#exercise-02-linear-maximum-margin-classifiers-theoretical">Exercise 02: Linear maximum margin classifiers (Theoretical)</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a" id="toc-exercise-2a" class="nav-link" data-scroll-target="#exercise-2a">Exercise 2a:</a></li>
+  <li><a href="#exercise-2b" id="toc-exercise-2b" class="nav-link" data-scroll-target="#exercise-2b">Exercise 2b:</a></li>
+  <li><a href="#exercise-2c" id="toc-exercise-2c" class="nav-link" data-scroll-target="#exercise-2c">Exercise 2c:</a></li>
+  <li><a href="#exercise-2d" id="toc-exercise-2d" class="nav-link" data-scroll-target="#exercise-2d">Exercise 2d:</a></li>
+  <li><a href="#exercise-2e" id="toc-exercise-2e" class="nav-link" data-scroll-target="#exercise-2e">Exercise 2e:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set 07: Solution</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>On this exercise sheet we will consider simple linear maximum margin classifiers. In order to solve the first exercise, you can either draw everything by hand in the figures provided, or create your own plots (for example with the <code>{ggplot}</code> package). The solution will feature plots created with <code>{ggplot}</code>.</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">'Session 7'</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtext"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-01-linear-maximum-margin-classifiers-visual" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-01-linear-maximum-margin-classifiers-visual">Exercise 01: Linear maximum margin classifiers (Visual)</h2>
+<p>Linear Maximum margin classifiers or linear support vector machines allow us to classify binary data using a geometric approach. In two dimensions, we can use a simple line that separates the classes (under the assumption that they are indeed separable) and additionally maximizes the margins between those classes. In this exercise, we will consider an example of such a dataset and the way we can construct a linear classifier. The following figure shows the two-dimensional data we will be using for this exercise. Each point <span class="math inline">\(x\in\mathbb{R}^2\)</span> belongs either to the positive class <span class="math inline">\(\omega_1\)</span> (blue, circles) or negative class <span class="math inline">\(\omega_{−1}\)</span> (orange, squares). The data for generating the plot is given by:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="fl">2.5</span>,<span class="dv">3</span>,<span class="dv">4</span>),</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">2.5</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="fl">2.5</span>,<span class="dv">4</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">label =</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>),<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">5</span>))))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="exercise-01-a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-a">Exercise 01 a:</h3>
+<p>In order to find the best separation line geometrically, it is often useful to consider the convex hull of the dataset. Start out by drawing the convex hull in the figure above.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note on convex hulls
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Recall, that the convex hull of a set of points <span class="math inline">\(X\)</span> is defined as the minimal convex set containing <span class="math inline">\(X\)</span>.</p>
+<p><strong>Example:</strong> Let <span class="math inline">\(X = \{(0,0)^\top,(0.25,0.75)^\top,(0.5,0.5)^\top,(1,1)^\top,(1,0)^\top\}\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_example <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">1</span>),</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">x2 =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.75</span>,<span class="fl">0.5</span>,<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                       <span class="at">label =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="dv">1</span>,<span class="dv">5</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                       )</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>p_example <span class="ot">&lt;-</span> data_example <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x1,<span class="at">y=</span>x2)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p_example</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Then, the convex hull can be generated as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hull_example <span class="ot">&lt;-</span> data_example <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(label) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">chull</span>(x1,x2))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>p_example <span class="sc">+</span> <span class="fu">geom_polygon</span>(<span class="at">data =</span> hull_example, <span class="fu">aes</span>(<span class="at">x=</span>x1, <span class="at">y=</span>x2,<span class="at">color =</span> label, <span class="at">fill =</span> label),<span class="at">alpha =</span> <span class="fl">0.3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hull <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(label) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">chull</span>(x,y))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_polygon</span>(<span class="at">data =</span> hull, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y,<span class="at">color =</span> label, <span class="at">fill =</span> label),<span class="at">alpha =</span> <span class="fl">0.3</span>)<span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01-b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-b">Exercise 01 b:</h3>
+<p>The line with the maximal margin is defined by the line with minimal distance between the points of the different classes. Find these two points on the convex hulls you have just drawn/plotted and label them with <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_{-1}\)</span> (for the class <span class="math inline">\(\omega_{1}\)</span> and <span class="math inline">\(\omega_{-1}\)</span>, respectively). Note that every point on a convex hull is a possible candidate, and they do not necessarily need to correspond with the data points.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_annotate <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:red;'&gt; c&lt;sub&gt;1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:red;'&gt; c&lt;sub&gt;-1&lt;/sub&gt;&lt;/span&gt;"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">2</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">2</span>),</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">1.2</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>df_c <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">2</span>),</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">2</span>))</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> p1 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> df_c,</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y),</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>),</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"red"</span>))<span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_richtext</span>(<span class="at">data =</span> df_annotate,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>label, <span class="at">hjust =</span> hjust),</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">label.color =</span> <span class="cn">NA</span>)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01-c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-c">Exercise 01 c:</h3>
+<p>Connect the points <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_{-1}\)</span> with a line.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df_line <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1 =</span> <span class="fl">0.5</span>, <span class="at">x2 =</span> <span class="dv">2</span>, <span class="at">y1 =</span> <span class="fl">0.5</span>, <span class="at">y2 =</span> <span class="dv">2</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> p2 <span class="sc">+</span> <span class="fu">geom_segment</span>(<span class="at">data =</span> df_line,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">aes</span>(<span class="at">x =</span> x1, <span class="at">y =</span> y1, <span class="at">xend =</span> x2, <span class="at">yend =</span> y2), <span class="at">color =</span> <span class="st">"red"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01-d" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-d">Exercise 01 d:</h3>
+<p>The separation line passes through the center of the line you have just drawn and is orthogonal to it, i.e., the two lines enclose a 90° angle. Draw/plot the separation line <span class="math inline">\(s\)</span>, the line <span class="math inline">\(l_1\)</span> that passes through the support vectors of <span class="math inline">\(\omega_1\)</span>, and the line <span class="math inline">\(l_{-1}\)</span> that passes through the support vectors of <span class="math inline">\(\omega_{-1}\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_annotate_l <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; l&lt;sub&gt;1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; l&lt;sub&gt;-1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; s&lt;/span&gt;"</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.75</span>,<span class="fl">3.5</span>,<span class="fl">0.25</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">1.5</span>,<span class="dv">1</span>,<span class="fl">2.5</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> p3 <span class="sc">+</span> <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">intercept =</span> <span class="fl">2.5</span>, <span class="at">color =</span> <span class="st">"grey50"</span>)<span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">geom_richtext</span>(<span class="at">data =</span> df_annotate_l,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>label),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                <span class="at">label.color =</span> <span class="cn">NA</span>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01-e" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-e">Exercise 01 e:</h3>
+<p>Add two arbitrary points from each class, i.e., <span class="math inline">\(x_1,x_2\in\omega_1\)</span> and <span class="math inline">\(x_3,x_4\in\omega_{-1}\)</span>, to the feature space, so that the separation line <span class="math inline">\(s\)</span> found in the previous exercise does not change.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>title_text <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="st">"Classes &lt;span style='color:{cols['1']};'&gt; &amp;omega;&lt;sub&gt;1&lt;/sub&gt;  (\u25A0)&lt;/span&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="st">and &lt;span style='color:{cols['-1']};'&gt; &amp;omega;&lt;sub&gt;-1&lt;/sub&gt;(\u25CF)&lt;/span&gt;,&lt;br&gt; and</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="st">additional points &lt;span style='color:{cols['1']};'&gt; x&lt;sub&gt;1&lt;/sub&gt;,x&lt;sub&gt;2&lt;/sub&gt;(\u25B2)&lt;/span&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="st">and &lt;span style='color:{cols['-1']};'&gt; x&lt;sub&gt;3&lt;/sub&gt;,x&lt;sub&gt;4&lt;/sub&gt;(\u25C6)&lt;/span&gt;"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>df_x <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="dv">0</span>,<span class="fl">2.5</span>,<span class="dv">3</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>,<span class="fl">0.5</span>,<span class="fl">2.5</span>,<span class="dv">3</span>),</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">label =</span><span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span> p4 <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">data =</span> df_x,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>                      <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y, <span class="at">color =</span> label),</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                      <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">17</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">18</span>),</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> title_text</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>p5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01-f" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01-f">Exercise 01 f:</h3>
+<p>Start fresh with the figure below and add a new data point <span class="math inline">\(x_5\)</span> that belongs to a class of your choice so that <strong>the new margin between the two classes is equal to</strong> <span class="math inline">\(1\)</span>. As before, sketch/plot the convex hull, the two points points <span class="math inline">\(\tilde c_1\)</span> and <span class="math inline">\(\tilde c_{-1}\)</span> on the convex hull, and the three lines <span class="math inline">\(\tilde l_1,\tilde l_{-1}\)</span>, and <span class="math inline">\(\tilde s\)</span> as in Exercise 1b-Exercise 1d.</p>
+<div class="cell">
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Define new Data and Hull</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_new <span class="ot">&lt;-</span> <span class="fu">rbind</span>(data,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>hull_new <span class="ot">&lt;-</span> data_new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(label) <span class="sc">%&gt;%</span> <span class="fu">slice</span>(<span class="fu">chull</span>(x,y))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#New Annotations</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Annotate c</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>df_annotate_new <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:red;'&gt; c&lt;sup&gt;~&lt;/sup&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:red;'&gt; c&lt;sup&gt;~&lt;/sup&gt;&lt;sub&gt;-1&lt;/sub&gt;&lt;/span&gt;"</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">2</span>),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>),</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">hjust =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.3</span>, <span class="fl">1.2</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>df_c_new <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Annotate l and s</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>df_annotate_l_new <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; l&lt;sup&gt;~&lt;/sup&gt;&lt;sub&gt;-1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; l&lt;sup&gt;~&lt;/sup&gt;&lt;sub&gt;1&lt;/sub&gt;&lt;/span&gt;"</span>,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"&lt;span style='color:grey50;'&gt; s&lt;sup&gt;~&lt;/sup&gt;&lt;/span&gt;"</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">2.25</span>,<span class="fl">0.75</span>,<span class="fl">1.4</span>),</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>)</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate new plot</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>p_new <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> data_new,<span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">color =</span> label, <span class="at">shape =</span> label),<span class="at">size =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> hull_new, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y,<span class="at">color =</span> label, <span class="at">fill =</span> label),<span class="at">alpha =</span> <span class="fl">0.3</span>)<span class="sc">+</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> df_c_new,</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y),</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>                <span class="at">shape =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>),</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>                <span class="at">size =</span> <span class="dv">3</span>,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"red"</span>))<span class="sc">+</span></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_richtext</span>(<span class="at">data =</span> df_annotate_new,</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>                <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>label, <span class="at">hjust =</span> hjust),</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>                <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">label.color =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"grey50"</span>)<span class="sc">+</span></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2</span>, <span class="at">color =</span> <span class="st">"grey50"</span>, <span class="at">linetype =</span> <span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_richtext</span>(<span class="at">data =</span> df_annotate_l_new,</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>label),</span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="cn">NA</span>,</span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>       <span class="at">label.color =</span> <span class="cn">NA</span>)<span class="sc">+</span></span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> cols)<span class="sc">+</span></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> cols) <span class="sc">+</span></span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>)) <span class="sc">+</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> title_text</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_markdown</span>(),</span>
+<span id="cb10-58"><a href="#cb10-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"None"</span></span>
+<span id="cb10-59"><a href="#cb10-59" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">+</span></span>
+<span id="cb10-60"><a href="#cb10-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_fixed</span>()</span>
+<span id="cb10-61"><a href="#cb10-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-62"><a href="#cb10-62" aria-hidden="true" tabindex="-1"></a>p_new</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-02-linear-maximum-margin-classifiers-theoretical" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-02-linear-maximum-margin-classifiers-theoretical">Exercise 02: Linear maximum margin classifiers (Theoretical)</h2>
+<p>From the previous exercise, we know which kind of separation line we can expect when using support vector machines and how to find it graphically. Determining the separation line analytically, however, is very hard; even for the simple problem of Exercise 1. The number of variables and conditions make this task impractical for a “Pen and Paper” exercise. But, to still get a basic idea of the SVM algorithm, we consider here an even simpler problem where we have only two points <span class="math inline">\(x_1,x_2\in\mathbb{R}^2\)</span> that each belongs to their own class. The two points are given by</p>
+<span class="math display">\[\begin{align*}
+  x_1 &amp;= \begin{pmatrix} 1\\1 \end{pmatrix} \in \omega_1 = \left\{x_i:T_i = 1\right\},\\
+  x_2 &amp;= \begin{pmatrix} 2\\3 \end{pmatrix} \in \omega_{-1} = \left\{x_i:T_i = -1\right\}.
+\end{align*}\]</span>
+<p>Since both points are the single representative of their respective classes, they are also the support vectors, and in particular, they are located on the margin. The goal of this exercise is to find the parameters of a separation line with maximal margin, i.e., <span class="math inline">\(w_1,w_2\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Recall from the lecture, that the dual problem is given by</p>
+<span class="math display">\[\begin{equation*}
+  L_D = \sum_{i=1}^{2} \alpha_i - \frac{1}{2}\sum_{i=1}^{2}\sum_{j=1}^{2}\alpha_i\alpha_jT_iT_jx_i^\top x_j
+\end{equation*}\]</span>
+<p>subject to the constraint</p>
+<p><span class="math display">\[
+\sum_{i=1}^{2} \alpha_iT_i = 0.
+\]</span> Technically, we need the constraint <span class="math inline">\(\alpha_i \geq 0,\, \forall i\)</span> as well. However, to keep things simple, we assume them to be satisfied here.</p>
+<section id="exercise-2a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2a">Exercise 2a:</h3>
+<p>Set up the Lagrange function by plugging all the values into <span class="math inline">\(L_D\)</span> and the constraint above. Subsequently, simplify the terms.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Setting up the Lagrange function:</p>
+<span class="math display">\[\begin{align*}
+  L_D &amp;= (\alpha_1+\alpha_2) - \frac{1}{2}(
+      \alpha_1^2\cdot 1^2\cdot 2 +
+      \alpha_1\cdot\alpha_2\cdot1\cdot-1\cdot 5 +
+      \alpha_2\cdot\alpha_1\cdot-1\cdot1\cdot5 +
+      \alpha_2^2\cdot(-1)^2\cdot 13)\\
+      &amp;= (\alpha_1+\alpha_2) - \frac{1}{2}(2\cdot\alpha_1^2-2\cdot 5\cdot \alpha_1\cdot \alpha_2+13\cdot\alpha_2^2)\\
+      &amp;= \alpha_1+\alpha_2 - \alpha_1^2+ 5\cdot \alpha_1 \cdot\alpha_2 - \frac{13}{2}\alpha_2^2
+\end{align*}\]</span>
+<p>Setting up the constraint</p>
+<p><span class="math display">\[
+\alpha_1-\alpha_2 = 0
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="exercise-2b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2b">Exercise 2b:</h3>
+<p>To optimize the term <span class="math inline">\(L_D\)</span> under the constraint <span class="math display">\[ \sum_{i=1}^{2} \alpha_iT_i = 0, \]</span> we need an additional Lagrange function with Lagrange multiplier <span class="math inline">\(\lambda\)</span></p>
+<span class="math display">\[\begin{equation*}
+  \Lambda (\alpha_1,\alpha_2,\lambda) = L_D + \lambda \left(\sum_{i=1}^2 \alpha_i T_i\right).
+\end{equation*}\]</span>
+<p>Optimize this function and show that the optimal values are given by</p>
+<span class="math display">\[\begin{equation*}
+  \alpha_1^*  = \frac{2}{5} \quad \mathrm{and}\quad \alpha_2^* = \frac{2}{5}.
+\end{equation*}\]</span>
+<p>It is sufficient to only calculate the potential extrema since we will also assume for them to be actual extrema.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In order to optimize <span class="math display">\[
+\Lambda(\alpha_1,\alpha_2,\lambda) = \alpha_1+\alpha_2 - \alpha_1^2+ 5\cdot \alpha_1 \cdot\alpha_2 - \frac{13}{2}\cdot\alpha_2^2 +\lambda\cdot(\alpha_1-\alpha_2),
+\]</span> first calculate the partial derivatives with respect to <span class="math inline">\(\alpha_1,\alpha_2,\lambda\)</span>:</p>
+<span class="math display">\[\begin{align}
+\frac{\partial \Lambda}{\partial\alpha_1} &amp;= 1-2\cdot\alpha_1+5\cdot\alpha_2 +\lambda \tag{1}\\
+\frac{\partial \Lambda}{\partial\alpha_2} &amp;= 1+5\cdot\alpha_1- 13\cdot\alpha_2 -\lambda \tag{2}\\
+\frac{\partial \Lambda}{\partial\lambda} &amp;= \alpha_1-\alpha_2 \tag{3}
+\end{align}\]</span>
+<p>In order to obtain an extrema, we have to set each of the equations above to <span class="math inline">\(0\)</span> and solve them for <span class="math inline">\(\alpha_1\)</span> and <span class="math inline">\(\alpha_2\)</span>.</p>
+<p>By performing <span class="math inline">\((1)+(2)\)</span>, we obtain</p>
+<span class="math display">\[\begin{align*}
+&amp;1-2\cdot\alpha_1+5\cdot\alpha_2 +\lambda +1+5\cdot\alpha_1- 13\cdot\alpha_2 -\lambda &amp;&amp;= 0\\
+\iff &amp;2+3\cdot\alpha_1-8\alpha_2 &amp;&amp;=0 \\
+\iff &amp;\alpha_1 &amp;&amp;=\frac{8\cdot\alpha_2-2}{3}
+\end{align*}\]</span>
+<p>Plugging <span class="math inline">\(\alpha_1\)</span> into <span class="math inline">\((3)\)</span> then yields</p>
+<span class="math display">\[\begin{align*}
+  &amp;\frac{8\cdot\alpha_2-2}{3} - \alpha_2 &amp;&amp;= 0\\
+  \iff &amp;\frac{5\cdot\alpha_2-2}{3}&amp;&amp;= 0\\
+  \iff &amp;\alpha_2 &amp;&amp;= \frac{2}{5}
+\end{align*}\]</span>
+<p>Since we also need to satisfy <span class="math inline">\(\alpha_1 - \alpha_2 = 0\)</span> and thus <span class="math inline">\(\alpha_1 = \alpha_2\)</span>, we can deduce <span class="math inline">\(\alpha_1 = \frac{2}{5}\)</span>.</p>
+<p>Therefore <span class="math inline">\(\alpha_1^* = \alpha_2^* = \frac{2}{5}\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="exercise-2c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2c">Exercise 2c:</h3>
+<p>Based on the previous results, calculate the line parameters <span class="math inline">\(w_1, w_2, b\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The first order conditions require</p>
+<p><span class="math display">\[w = \sum_{i=1}^{2}\alpha_i\cdot T_i x_i, \]</span></p>
+<p>i.e., <span class="math display">\[
+\begin{pmatrix} w_1\\w_2 \end{pmatrix} =
+\alpha_1^*\cdot T_1 \cdot x_1 + \alpha_2^*\cdot T_2 \cdot x_2 =
+\begin{pmatrix} \frac{2}{5} \\ \frac{2}{5} \end{pmatrix} - \begin{pmatrix} \frac{4}{5} \\ \frac{6}{5} \end{pmatrix} =
+-\begin{pmatrix} \frac{2}{5} \\ \frac{4}{5} \end{pmatrix}
+\]</span> Calculating <span class="math inline">\(b\)</span> using the Karush–Kuhn–Tucker conditions yields</p>
+<p><span class="math display">\[
+\alpha_i\left(T_i\left(x_i^\top w + b\right) -1 \right) = 0 \iff b = \frac{1}{T_i} - x_i^\top w
+\]</span> Plugging in the values we obtained for <span class="math inline">\(w\)</span>:</p>
+<p><span class="math display">\[
+b =
+\frac{1}{1}-\begin{pmatrix} 1\\ 1\end{pmatrix}^\top \begin{pmatrix} -\frac{2}{5} \\ -\frac{4}{5} \end{pmatrix} =
+\frac{1}{-1}-\begin{pmatrix} 2\\ 3\end{pmatrix}^\top \begin{pmatrix} -\frac{2}{5} \\ -\frac{4}{5} \end{pmatrix} =
+\frac{11}{5}
+\]</span> The separation line is therefore give by</p>
+<p><span class="math display">\[
+w_1 \cdot x_1 + w_2 \cdot x_2 + b = 0 \iff x_2 = \frac{-b-w_1\cdot x_1}{w_2} = \frac{-\frac{11}{5}+\frac{2}{5}\cdot x_1}{-\frac{4}{5}} = \frac{11}{4}-\frac{1}{2}x_1
+\]</span></p>
+</div>
+</div>
+</section>
+<section id="exercise-2d" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2d">Exercise 2d:</h3>
+<p>Add the line to the figure below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_ex02 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x1=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">x2 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>), <span class="st">"T"</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="dv">1</span>)))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>data_ex02 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x1,<span class="at">y=</span>x2, <span class="at">color =</span> T)) <span class="sc">+</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">1</span>,<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_ex02 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>x1,<span class="at">y=</span>x2, <span class="at">color =</span> T)) <span class="sc">+</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>( <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">intercept =</span> <span class="dv">11</span><span class="sc">/</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">1</span>,<span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">1</span>,<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-2e" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2e">Exercise 2e:</h3>
+<p>Suppose we want to classify a new point <span class="math inline">\(x_3 = (2,2)^\top\)</span>. Assign this point to the correct class, both visually and using the decision function <span class="math display">\[
+  f(x) = \mathrm{sign}\left(\sum_{i=1}^{2} \alpha_i^*T_i(x_i^\top x_i+b)\right).
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_ex02 <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">x=</span>x1,<span class="at">y=</span>x2, <span class="at">color =</span> T), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>( <span class="at">slope =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">intercept =</span> <span class="dv">11</span><span class="sc">/</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> <span class="fu">tibble</span>(<span class="at">x=</span><span class="dv">2</span>,<span class="at">y=</span><span class="dv">2</span>), <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y), <span class="at">size =</span> <span class="dv">3</span>, <span class="at">shape =</span> <span class="dv">17</span>)<span class="sc">+</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="dv">0</span>,<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_07_solution_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Since the point <span class="math inline">\((2,2)\)</span> is above the decision line, it belongs to class <span class="math inline">\(\omega_{-1}\)</span>.</p>
+<p>Plugging all the values into the decision function yields:</p>
+<p><span class="math display">\[
+f\begin{pmatrix}2\\2\end{pmatrix} = \mathrm{sign}\left(\frac{2}{5} \cdot 1 \cdot \begin{pmatrix}1\\1\end{pmatrix}^\top \cdot  \begin{pmatrix}2\\2\end{pmatrix} + \frac{2}{5}\cdot -1 \cdot \begin{pmatrix}2\\3\end{pmatrix}^\top \cdot  \begin{pmatrix}2\\2\end{pmatrix} + \frac{11}{5}\right) = \mathrm{sign}\left(-\frac{1}{5}\right) = -1.
+\]</span> Therefore, the new point belongs to class <span class="math inline">\(\omega_{-1}\)</span>.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
