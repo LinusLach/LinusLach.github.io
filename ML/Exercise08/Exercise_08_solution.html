@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set 08: Solution</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Exercise_08_solution_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exercise_08_solution_files/libs/quarto-html/quarto.js"></script>
+<script src="Exercise_08_solution_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exercise_08_solution_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exercise_08_solution_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exercise_08_solution_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exercise_08_solution_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exercise_08_solution_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exercise_08_solution_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exercise_08_solution_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-01-svms---toy-examples" id="toc-exercise-01-svms---toy-examples" class="nav-link" data-scroll-target="#exercise-01-svms---toy-examples">Exercise 01: SVMs - Toy examples</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1a" id="toc-exercise-1a" class="nav-link" data-scroll-target="#exercise-1a">Exercise 1a:</a></li>
+  <li><a href="#exercise-1a-fitting-different-svms" id="toc-exercise-1a-fitting-different-svms" class="nav-link" data-scroll-target="#exercise-1a-fitting-different-svms">Exercise 1a: Fitting different SVMs</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1a-i" id="toc-exercise-1a-i" class="nav-link" data-scroll-target="#exercise-1a-i">Exercise 1a i:</a></li>
+  <li><a href="#exercise-1a-ii" id="toc-exercise-1a-ii" class="nav-link" data-scroll-target="#exercise-1a-ii">Exercise 1a ii:</a></li>
+  <li><a href="#exercise-1a-iii" id="toc-exercise-1a-iii" class="nav-link" data-scroll-target="#exercise-1a-iii">Exercise 1a iii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-1b-plotting-decision-surfaces" id="toc-exercise-1b-plotting-decision-surfaces" class="nav-link" data-scroll-target="#exercise-1b-plotting-decision-surfaces">Exercise 1b: Plotting decision surfaces</a>
+  <ul class="collapse">
+  <li><a href="#exercise-1b-i" id="toc-exercise-1b-i" class="nav-link" data-scroll-target="#exercise-1b-i">Exercise 1b: i</a></li>
+  <li><a href="#exercise-1b-ii" id="toc-exercise-1b-ii" class="nav-link" data-scroll-target="#exercise-1b-ii">Exercise 1b: ii</a></li>
+  </ul></li>
+  <li><a href="#exercise-1c" id="toc-exercise-1c" class="nav-link" data-scroll-target="#exercise-1c">Exercise 1c:</a></li>
+  </ul></li>
+  <li><a href="#exercise-02-tuning-an-svm-model" id="toc-exercise-02-tuning-an-svm-model" class="nav-link" data-scroll-target="#exercise-02-tuning-an-svm-model">Exercise 02: Tuning an SVM model</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-svm-without-tuning" id="toc-exercise-2a-svm-without-tuning" class="nav-link" data-scroll-target="#exercise-2a-svm-without-tuning">Exercise 2a: SVM without tuning</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2a-i" id="toc-exercise-2a-i" class="nav-link" data-scroll-target="#exercise-2a-i">Exercise 2a i:</a></li>
+  <li><a href="#exercise-2a-ii" id="toc-exercise-2a-ii" class="nav-link" data-scroll-target="#exercise-2a-ii">Exercise 2a ii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-2b-svm-with-with-tuning" id="toc-exercise-2b-svm-with-with-tuning" class="nav-link" data-scroll-target="#exercise-2b-svm-with-with-tuning">Exercise 2b: SVM with with tuning</a>
+  <ul class="collapse">
+  <li><a href="#exercise-2b-i" id="toc-exercise-2b-i" class="nav-link" data-scroll-target="#exercise-2b-i">Exercise 2b i:</a></li>
+  <li><a href="#exerice-2b-ii" id="toc-exerice-2b-ii" class="nav-link" data-scroll-target="#exerice-2b-ii">Exerice 2b ii:</a></li>
+  <li><a href="#exercise-2b-iii" id="toc-exercise-2b-iii" class="nav-link" data-scroll-target="#exercise-2b-iii">Exercise 2b iii:</a></li>
+  <li><a href="#exercise-2c-comparing-results" id="toc-exercise-2c-comparing-results" class="nav-link" data-scroll-target="#exercise-2c-comparing-results">Exercise 2c: Comparing results</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#exercise-03-stacking" id="toc-exercise-03-stacking" class="nav-link" data-scroll-target="#exercise-03-stacking">Exercise 03: Stacking</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3a-creating-a-control-stack-grid-and-candidates" id="toc-exercise-3a-creating-a-control-stack-grid-and-candidates" class="nav-link" data-scroll-target="#exercise-3a-creating-a-control-stack-grid-and-candidates">Exercise 3a: Creating a control-stack-grid and candidates</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3a-i" id="toc-exercise-3a-i" class="nav-link" data-scroll-target="#exercise-3a-i">Exercise 3a i:</a></li>
+  <li><a href="#exercise-3a-ii-training-a-classification-tree" id="toc-exercise-3a-ii-training-a-classification-tree" class="nav-link" data-scroll-target="#exercise-3a-ii-training-a-classification-tree">Exercise 3a ii: Training a classification tree</a></li>
+  <li><a href="#exercise-3a-iii-training-a-random-forest" id="toc-exercise-3a-iii-training-a-random-forest" class="nav-link" data-scroll-target="#exercise-3a-iii-training-a-random-forest">Exercise 3a iii: Training a random forest</a></li>
+  <li><a href="#exercise-3a-iii-training-a-xgb-model" id="toc-exercise-3a-iii-training-a-xgb-model" class="nav-link" data-scroll-target="#exercise-3a-iii-training-a-xgb-model">Exercise 3a iii: Training a xgb-model</a></li>
+  </ul></li>
+  <li><a href="#exercise-3b-creating-a-stack" id="toc-exercise-3b-creating-a-stack" class="nav-link" data-scroll-target="#exercise-3b-creating-a-stack">Exercise 3b: Creating a Stack</a>
+  <ul class="collapse">
+  <li><a href="#exercise-3b-i" id="toc-exercise-3b-i" class="nav-link" data-scroll-target="#exercise-3b-i">Exercise 3b i:</a></li>
+  <li><a href="#exercise-3b-ii" id="toc-exercise-3b-ii" class="nav-link" data-scroll-target="#exercise-3b-ii">Exercise 3b ii:</a></li>
+  <li><a href="#exercise-3b-iii" id="toc-exercise-3b-iii" class="nav-link" data-scroll-target="#exercise-3b-iii">Exercise 3b iii:</a></li>
+  </ul></li>
+  <li><a href="#exercise-3c-evaluating-the-stack" id="toc-exercise-3c-evaluating-the-stack" class="nav-link" data-scroll-target="#exercise-3c-evaluating-the-stack">Exercise 3c: Evaluating the stack</a></li>
+  <li><a href="#exercise-3c-i" id="toc-exercise-3c-i" class="nav-link" data-scroll-target="#exercise-3c-i">Exercise 3c i:</a></li>
+  <li><a href="#exercise-3c-ii" id="toc-exercise-3c-ii" class="nav-link" data-scroll-target="#exercise-3c-ii">Exercise 3c ii:</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set 08: Solution</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>In this exercise session, we want to explore Support Vector Machines (SVMs) and Stacking in practice. In the first exercise, we will consider a simple dataset with two labels and apply different SVMs to it. Subsequently, we apply an SVM model to a more complex dataset, i.e., the bank churners dataset we considered in the last few exercises. In the last exercise, we aggregate our best models in a stack and create an ensemble estimator.</p>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<p>Packages used throughout the session.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"finetune"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"bonsai"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"patchwork"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggtext"</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"stacks"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kernlab"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-01-svms---toy-examples" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-01-svms---toy-examples">Exercise 01: SVMs - Toy examples</h2>
+<section id="exercise-1a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1a">Exercise 1a:</h3>
+<p>The <code>ex01.csv</code> dataset contains a dataset based on two-dimensional normal distributions. Additionally, labels are provided that split the dataset into two classes <code>-1</code> and <code>1</code>.</p>
+<p>Import the dataset into a tibble named <code>data</code>, convert the column <code>y</code> to a factor, and create a scatter plot that displays the two classes. An example of what such a plot looks like can be found below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"ex01.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">y =</span> <span class="fu">factor</span>(y))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x1,x2, <span class="at">color =</span> y)) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-1a-fitting-different-svms" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1a-fitting-different-svms">Exercise 1a: Fitting different SVMs</h3>
+<p>Without creating a workflow or recipe, we now want to train three different SVMs.</p>
+<p>Recall from the lecture that we are trying to solve the dual problem</p>
+<p><span class="math display">\[
+L_D = \sum_{i=1}^{n} \alpha_i-\frac{1}{2}\sum_{i=1}^{n}\sum_{j=1}^n\alpha_i\alpha_jy_iy_jx_i^\top x_j, \quad \text{s.t.} \quad \alpha_i \geq 0\text{ for all } i.
+\]</span></p>
+<p>Solving the dual problem above yields a linear SVM. We can, however, enrich our feature space by replacing the term <span class="math inline">\(x_i^\top x_j\)</span> with a function <span class="math inline">\(K:\mathbb{R}^k\times\mathbb{R}^k\to \mathbb{R}\)</span>. In the simple linear case, <span class="math inline">\(K(x_i,x_j) = x_i^\top x_j\)</span>. For polynomials of degree <span class="math inline">\(d\geq 2\)</span>, we apply the kernel function <span class="math inline">\(K(x_i,x_j)= (1+x_i^\top x_j)^d\)</span>. Another popular choice we will consider is the so-called radial basis kernel given by</p>
+<p><span class="math display">\[
+K(x_i,x_j)= \exp\left(-\frac{\|x_i - x_j\|^2}{c}\right)^d, \quad c\geq 0.
+\]</span></p>
+<section id="exercise-1a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1a-i">Exercise 1a i:</h4>
+<p>Using the <code>svm_poly</code> function that returns a <code>{parsnip}</code> model, create a linear SVM for our classification problem by setting the <code>degree</code> to <span class="math inline">\(1\)</span> and <code>mode</code> to <code>"classification"</code>. Afterward, set the engine to <code>"kernlab"</code> and apply the <code>fit</code> function by fitting every variable on <code>y</code> using the dataset <code>data</code>. Then, save the trained model in a <code>{parsnip}</code> model object called <code>svm_lin_res</code>. If you successfully solved the exercise, calling the <code>svm_lin_res</code> object should return the following output:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>svm_lin_res <span class="ot">&lt;-</span> <span class="fu">svm_poly</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">degree =</span> <span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(y <span class="sc">~</span> ., data)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>svm_lin_res</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>parsnip model object
+
+Support Vector Machine object of class "ksvm" 
+
+SV type: C-svc  (classification) 
+ parameter : cost C = 1 
+
+Polynomial kernel function. 
+ Hyperparameters : degree =  1  scale =  1  offset =  1 
+
+Number of Support Vectors : 18 
+
+Objective Function Value : -15.2545 
+Training error : 0.1 
+Probability model included. </code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-1a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1a-ii">Exercise 1a ii:</h4>
+<p>Repeat Exercise 1a i, but instead of using a linear SVM, create a quadratic SVM model called <code>svm_quad_res</code> by setting the <code>degree</code> parameter to <span class="math inline">\(2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>svm_quad_res <span class="ot">&lt;-</span> <span class="fu">svm_poly</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">degree =</span> <span class="dv">2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(y <span class="sc">~</span> ., data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-1a-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1a-iii">Exercise 1a iii:</h4>
+<p>Repeat Exercise 1a i, but instead of using the <code>svm_poly</code> function, use the <code>svm_rbf</code> function to create an SVM model with radial basis kernel called <code>svm_rbf_res</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_res <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(y <span class="sc">~</span> ., data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-1b-plotting-decision-surfaces" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1b-plotting-decision-surfaces">Exercise 1b: Plotting decision surfaces</h3>
+<p>Given our three different SVMs, we can easily plot the decision surfaces by extracting the fit engine and passing it to the <code>kenrlabs::plot</code> function.</p>
+<section id="exercise-1b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-i">Exercise 1b: i</h4>
+<p>Given the following three plots, match each plot with the corresponding SVM:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_res  <span class="sc">%&gt;%</span> <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>svm_quad_res <span class="sc">%&gt;%</span> <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>svm_lin_res <span class="sc">%&gt;%</span> <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">data =</span> data) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-1b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-1b-ii">Exercise 1b: ii</h4>
+<p>In this sub-exercise, we want to go a bit more into detail with respect to the classification plots. Describe in a bit more detail, what we can conclude by looking at the plot below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_res  <span class="sc">%&gt;%</span> <span class="fu">extract_fit_engine</span>() <span class="sc">%&gt;%</span> <span class="fu">plot</span>(<span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The picture depicts the contour plot of the decision surface of the RBF-SVM. Since the class labels are given by <span class="math inline">\(-1\)</span> and <span class="math inline">\(1\)</span>, an area taking values closer to <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span> indicates that the algorithm confidently assigns the respective labels to points in that area. If an area is greyed out, meaning that the values are close to <span class="math inline">\(0\)</span>, the algorithm is not sure whether the values belong to class <span class="math inline">\(-1\)</span> or <span class="math inline">\(1\)</span>. The filled shapes denote support vectors, i.e., vectors that influenced the decision surfaces, while shapes that are only outlined do not represent support vectors.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-1c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1c">Exercise 1c:</h3>
+<p>In this exercise, we want to take a closer look at the performance of the radial basis kernel SVM. Using the <code>augment</code> function, we can collect the predicted classes and class probabilities of our model. In order to do so, pass the <code>svm_rbf_res</code> object to the <code>augment</code> function, where you have to pass <code>data = data</code> as an argument. Given the resulting tibble, use the <code>roc_curve</code> function to create a ROC-Curve for the <code>svm_rbf_res</code> model.</p>
+<p>An example can be found below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>roc_rbf <span class="ot">&lt;-</span> svm_rbf_res <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(data) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(y,<span class="st">`</span><span class="at">.pred_-1</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">model =</span> <span class="st">'rbf svm'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>roc_rbf <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> specificity, <span class="at">y =</span> sensitivity, <span class="at">color =</span> model)) <span class="sc">+</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-02-tuning-an-svm-model" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-02-tuning-an-svm-model">Exercise 02: Tuning an SVM model</h2>
+<p>In this exercise, we will revisit the bank churners dataset. Below you can find the necessary preprocessing steps, a brief glimpse into the dataset to refresh your memory, a data splitting and resampling procedure, and a predefined recipe that we will use throughout this and the next exercise.</p>
+<p>The goal of this exercise is to create an SVM model with an RBF kernel that serves as a classifier for our underlying dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>credit_info <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"BankChurners.csv"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(credit_info)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 10,127
+Columns: 21
+$ CLIENTNUM                &lt;int&gt; 768805383, 818770008, 713982108, 769911858, 7…
+$ Attrition_Flag           &lt;chr&gt; "Existing Customer", "Existing Customer", "Ex…
+$ Customer_Age             &lt;int&gt; 45, 49, 51, 40, 40, 44, 51, 32, 37, 48, 42, 6…
+$ Gender                   &lt;chr&gt; "M", "F", "M", "F", "M", "M", "M", "M", "M", …
+$ Dependent_count          &lt;int&gt; 3, 5, 3, 4, 3, 2, 4, 0, 3, 2, 5, 1, 1, 3, 2, …
+$ Education_Level          &lt;chr&gt; "High School", "Graduate", "Graduate", "High …
+$ Marital_Status           &lt;chr&gt; "Married", "Single", "Married", "Unknown", "M…
+$ Income_Category          &lt;chr&gt; "$60K - $80K", "Less than $40K", "$80K - $120…
+$ Card_Category            &lt;chr&gt; "Blue", "Blue", "Blue", "Blue", "Blue", "Blue…
+$ Months_on_book           &lt;int&gt; 39, 44, 36, 34, 21, 36, 46, 27, 36, 36, 31, 5…
+$ Total_Relationship_Count &lt;int&gt; 5, 6, 4, 3, 5, 3, 6, 2, 5, 6, 5, 6, 3, 5, 5, …
+$ Months_Inactive_12_mon   &lt;int&gt; 1, 1, 1, 4, 1, 1, 1, 2, 2, 3, 3, 2, 6, 1, 2, …
+$ Contacts_Count_12_mon    &lt;int&gt; 3, 2, 0, 1, 0, 2, 3, 2, 0, 3, 2, 3, 0, 3, 2, …
+$ Credit_Limit             &lt;dbl&gt; 12691.0, 8256.0, 3418.0, 3313.0, 4716.0, 4010…
+$ Total_Revolving_Bal      &lt;int&gt; 777, 864, 0, 2517, 0, 1247, 2264, 1396, 2517,…
+$ Avg_Open_To_Buy          &lt;dbl&gt; 11914.0, 7392.0, 3418.0, 796.0, 4716.0, 2763.…
+$ Total_Amt_Chng_Q4_Q1     &lt;dbl&gt; 1.335, 1.541, 2.594, 1.405, 2.175, 1.376, 1.9…
+$ Total_Trans_Amt          &lt;int&gt; 1144, 1291, 1887, 1171, 816, 1088, 1330, 1538…
+$ Total_Trans_Ct           &lt;int&gt; 42, 33, 20, 20, 28, 24, 31, 36, 24, 32, 42, 2…
+$ Total_Ct_Chng_Q4_Q1      &lt;dbl&gt; 1.625, 3.714, 2.333, 2.333, 2.500, 0.846, 0.7…
+$ Avg_Utilization_Ratio    &lt;dbl&gt; 0.061, 0.105, 0.000, 0.760, 0.000, 0.311, 0.0…</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>credit_info_clean <span class="ot">&lt;-</span>credit_info <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income_Category =</span> <span class="fu">factor</span>(Income_Category,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Unknown"</span>,<span class="st">"Less than $40K"</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$40K - $60K"</span>,<span class="st">"$60K - $80K"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">"$80K - $120K"</span>,<span class="st">"$120K +"</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">Education_Level =</span> <span class="fu">factor</span>(Education_Level,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Unknown"</span>, <span class="st">"Uneducated"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"High School"</span>, <span class="st">"College"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Graduate"</span>,<span class="st">"Post-Graduate"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>                                             <span class="st">"Doctorate"</span>),</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">ordered =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">CLIENTNUM =</span> <span class="fu">factor</span>(CLIENTNUM),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Marital_Status =</span> <span class="fu">factor</span>(Marital_Status),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Card_Category =</span> <span class="fu">factor</span>(Card_Category),</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Gender =</span> <span class="fu">factor</span>(Gender),</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">Attrition_Flag =</span> <span class="fu">factor</span>(Attrition_Flag,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Inactive"</span>, <span class="st">"Active"</span>)),</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>         )</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(credit_info_clean, <span class="at">strata =</span> Attrition_Flag)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">10</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>rec_ci <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Attrition_Flag <span class="sc">~</span>., <span class="at">data =</span> data_train) <span class="sc">%&gt;%</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(CLIENTNUM, <span class="at">new_role =</span> <span class="st">"ID"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ordinalscore</span>(<span class="fu">all_ordered_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(<span class="fu">all_factor_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>())</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec_ci)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-2a-svm-without-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2a-svm-without-tuning">Exercise 2a: SVM without tuning</h3>
+<section id="exercise-2a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-i">Exercise 2a i:</h4>
+<p>Similar to Exercise 1a iii, create an RBF Kernel SVM called <code>svm_model_rbf</code>, add it to the workflow defined above, and train it using the <code>fit</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>svm_model_rbf <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">add_model</span>(svm_model_rbf)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>svm_res_rbf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="at">data =</span> data_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2a-ii">Exercise 2a ii:</h4>
+<p>Similar to Exercise 2a ii on Exercise Sheet 06, create two tibbles containing the data necessary to plot an ROC- and PR curve based on the test data. Note, that you can access the necessary data by using the <code>augment</code> function similar to Exercise 1c on this exercise sheet.</p>
+<p>When creating the tibbles, make sure you change the model name to <code>"SVM"</code>, so that we can correctly identify the models later during model evaluation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_roc<span class="ot">&lt;-</span>svm_res_rbf <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(data_test) <span class="sc">%&gt;%</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">model =</span> <span class="st">'SVM'</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>svm_rbf_pr<span class="ot">&lt;-</span>svm_res_rbf <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(data_test) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag,.pred_Inactive) <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">model =</span> <span class="st">'SVM'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-2b-svm-with-with-tuning" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2b-svm-with-with-tuning">Exercise 2b: SVM with with tuning</h3>
+<p>In this exercise, we want to tune the parameter <code>cost</code>, i.e.&nbsp;the parameter <span class="math inline">\(D\)</span> in the maximum margin formulation</p>
+<span class="math display">\[\begin{align*}
+  &amp;\max_{\omega,b,\|\omega\|\leq 1} D\\
+  &amp;\text{s.t.} y_i(x_i^\top\omega + b)\geq D,\quad \forall i=1,...,n.
+\end{align*}\]</span>
+<p>Recall, that the cost parameter penalizes samples that are predicted to be in the wrong class. A larger cost will thus lead to a more flexible model with fewer misclassifications (Bias-Variance tradeoff). This means that compared to Ridge and Lasso regression, the effect is reversed! (Why?)</p>
+<section id="exercise-2b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-i">Exercise 2b i:</h4>
+<p>Create a model specification called <code>svm_model_rbf_tune</code> for an SVM model with RBF kernel similar to Exercise 2a i, where the <code>cost</code> parameter is set to tune. Afterward, update the model in the <code>ci_wf</code> workflow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>svm_model_rbf_tune <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">cost =</span> <span class="fu">tune</span>()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">update_model</span>(svm_model_rbf_tune)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exerice-2b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exerice-2b-ii">Exerice 2b ii:</h4>
+<p>Train the model using the <code>tune_grid</code> function with <code>grid = 5</code> and <code>resamples = folds</code>. Save the results in a tibble called <code>svm_res_rbf_tuned</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Model takes around 3 Minutes on my station to train!</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>svm_res_rbf_tuned <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> folds,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> <span class="dv">5</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2b-iii">Exercise 2b iii:</h4>
+<p>Similar to Exercise 2a ii on Exercise Sheet 06, select the best model based on the metric <code>"roc_auc"</code> and train it on the entire training set. Subsequently, create two tibbles containing the data necessary to plot a ROC- and PR curve. When creating the tibbles, make sure you change the model name to <code>"SVM tuned"</code>, so that we can correctly identify the models later during model evaluation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>svm_tune_best <span class="ot">&lt;-</span> svm_res_rbf_tuned <span class="sc">%&gt;%</span> <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">"roc_auc"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>last_rbf_fit <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(svm_tune_best) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">last_fit</span>(split)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>svm_rbf_roc_tuned <span class="ot">&lt;-</span> </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  last_rbf_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'SVM tuned'</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>svm_rbf_pr_tuned <span class="ot">&lt;-</span> </span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  last_rbf_fit <span class="sc">%&gt;%</span> </span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_predictions</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">'svm tuned'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-2c-comparing-results" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-2c-comparing-results">Exercise 2c: Comparing results</h4>
+<p>Create a plot showing the ROC- and PR-curve for each of the models we trained in the previous exercises (SVM and tuned SVM). Compare the performances visually and decide which model performed the best. For reference, you can find what such a plot could look like below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#80003A"</span>,<span class="st">"#506432"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cols) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"svm"</span>, <span class="st">"svm tuned"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plot_title <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">"ROC- and PR-Curve for a &lt;span style='color:{cols['svm']};'&gt;SVM with RBF kernel&lt;/span&gt;&lt;br&gt;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="st">                          and &lt;span style='color:{cols['svm tuned']};'&gt;tuned SVM with RBF kernel&lt;/span&gt;."</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(svm_rbf_roc,svm_rbf_roc_tuned) <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> specificity, <span class="at">y =</span> sensitivity, <span class="at">col =</span> model)) <span class="sc">+</span> </span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span> </span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(cols))<span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(svm_rbf_pr,svm_rbf_pr_tuned) <span class="sc">%&gt;%</span> </span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> recall, <span class="at">y =</span> precision, <span class="at">col =</span> model)) <span class="sc">+</span> </span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>, <span class="at">slope =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span> </span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">unname</span>(cols))<span class="sc">+</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>(p1<span class="sc">|</span>p2) <span class="sc">+</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> plot_title,</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_markdown</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="exercise-03-stacking" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-03-stacking">Exercise 03: Stacking</h2>
+<p>In this last exercise, we want to create a Stack model, i.e., an ensemble method taking the outputs of multiple models and combining them to generate an ensemble that generates predictions informed by each of its members. (cf.&nbsp;<a href="https://stacks.tidymodels.org/index.html">source</a>)</p>
+<p>The modeling process for a stack can be described as follows:</p>
+<ol type="1">
+<li><p>Define candidates for the stack by creating a (tuned) model as we have in the previous exercises. Using the <code>control_stack_grid</code> we can add models that resulted from a tuning procedure to the stack.</p></li>
+<li><p>Initialize a stack object using the <code>stacks</code> function.</p></li>
+<li><p>Add candidate models to the stack using the <code>add_candidates</code> function.</p></li>
+<li><p>Pass the <code>stack</code> object to the <code>blend_predictions</code> function, which specifies how the predictions of each candidate are evaluated.</p></li>
+<li><p>Fit the candidate ensemble with non-zero stacking coefficients using the <code>fit_members</code> function.</p></li>
+<li><p>Predict on test data using the <code>predict</code> function to evaluate out-of-sample performance.</p></li>
+</ol>
+<section id="exercise-3a-creating-a-control-stack-grid-and-candidates" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3a-creating-a-control-stack-grid-and-candidates">Exercise 3a: Creating a control-stack-grid and candidates</h3>
+<section id="exercise-3a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-i">Exercise 3a i:</h4>
+<p>Create a control stack grid called <code>ctrl_grid</code> using the <code>control_stack_grid</code> function.</p>
+</section>
+<section id="exercise-3a-ii-training-a-classification-tree" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-ii-training-a-classification-tree">Exercise 3a ii: Training a classification tree</h4>
+<p>Create a classification tree called <code>ct_model</code> similar to Exercise 2c i on Exercise Sheet 05, by using the <code>decision_tree</code> function with the parameters <code>min_n = tune()</code>, <code>tree_depth = tune()</code>, <code>cost_complexity = tune()</code>. Set the mode to <code>"classification"</code> and the engine to <code>"rpart"</code>. Update the workflow <code>ci_wf</code> by using the <code>update_model</code> function. Finally, train the model using the <code>tune_grid</code> function with the parameter <code>grid = 30</code>. Set the parameters <code>resamples = folds</code> and <code>control = ctrl_grid</code> to make sure that every potential ensemble member is saved. Save the results in a tibble called <code>ct_res</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>ct_model <span class="ot">&lt;-</span> <span class="fu">decision_tree</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_n =</span> <span class="fu">tune</span>(),</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tree_depth =</span> <span class="fu">tune</span>(),</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cost_complexity =</span> <span class="fu">tune</span>()</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"rpart"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">update_model</span>(ct_model)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>ct_res <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">tune_grid</span>(</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>   <span class="at">grid =</span> <span class="dv">30</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>   <span class="at">resamples =</span> folds,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>   <span class="at">control =</span> ctrl_grid</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-3a-iii-training-a-random-forest" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-iii-training-a-random-forest">Exercise 3a iii: Training a random forest</h4>
+<p>Create and train a random forest model with <span class="math inline">\(1000\)</span> trees, similar to Exercise 2d on Exercise Sheet 05. Tune the parameters <code>mtry</code> and <code>min_n</code>, and set the engine to <code>"ranger"</code>. Then, update the model in the workflow object <code>ci_wf</code> and train the model using the <code>tune_grid</code> function with the parameters <code>grid = 10</code>, <code>resamples = folds</code>, and <code>control = ctrl_grid</code>. Save the results in a tibble called <code>rf_res</code>.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>i Creating pre-processing data to finalize unknown parameter: mtry</code></pre>
+</div>
+</div>
+</section>
+<section id="exercise-3a-iii-training-a-xgb-model" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3a-iii-training-a-xgb-model">Exercise 3a iii: Training a xgb-model</h4>
+<p>Last but not least, create a boosted tree model <code>xgb_model</code>, set the number of trees to 1000, and every other parameter to <code>tune()</code>, except for <code>sample_size</code>. Pass <code>"xgboost"</code> as the engine and set the mode to <code>"classification"</code>. Similar to Exercise 2b ii on Exercise Sheet 06, create a grid called <code>xgb_grid</code> for the hyperparameters using the <code>grid_latin_hypercube</code> function with <code>size = 30</code>. Don’t forget to finalize the parameter <code>mtry</code> with the baked recipe in order to avoid training errors!</p>
+<p>Once everything is set update the model in the <code>ci_wf</code> workflow and tune the model using the <code>tune_grid</code> function with the parameters <code>grid = xgb_grid</code>, <code>resamples = folds</code>, and <code>control = ctrl_grid</code>. Save the results in a tibble called <code>xgb_res</code>.</p>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Warning
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Training the XGBoost model takes around 10-15 minutes on my machine.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>xgb_model <span class="ot">&lt;-</span> <span class="fu">boost_tree</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">trees =</span> <span class="dv">1000</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tree_depth =</span> <span class="fu">tune</span>(),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">min_n =</span> <span class="fu">tune</span>(),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mtry =</span> <span class="fu">tune</span>(),         </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">loss_reduction =</span> <span class="fu">tune</span>(),                     </span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">learn_rate =</span> <span class="fu">tune</span>()                          </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"xgboost"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>cooked_rec <span class="ot">&lt;-</span> rec_ci <span class="sc">%&gt;%</span> prep <span class="sc">%&gt;%</span> <span class="fu">bake</span>(data_train) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"CLIENTNUM"</span>))</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>xgb_grid <span class="ot">&lt;-</span><span class="fu">grid_latin_hypercube</span>(</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tree_depth</span>(),</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min_n</span>(),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">loss_reduction</span>(),</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize</span>(<span class="fu">mtry</span>(), cooked_rec),</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">learn_rate</span>(),</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">size =</span> <span class="dv">30</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>ci_wf <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">update_model</span>(xgb_model)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>doParallel<span class="sc">::</span><span class="fu">registerDoParallel</span>()</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>xgb_res <span class="ot">&lt;-</span> ci_wf <span class="sc">%&gt;%</span> <span class="fu">tune_grid</span>(</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamples =</span> folds,</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">grid =</span> xgb_grid,</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> ctrl_grid</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="exercise-3b-creating-a-stack" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3b-creating-a-stack">Exercise 3b: Creating a Stack</h3>
+<p>Now, that we have successfully trained all model candidates, we can specify and fit our stack!</p>
+<section id="exercise-3b-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-i">Exercise 3b i:</h4>
+<p>Start out by creating a <code>stacks</code> object called <code>ci_stack</code>. Afterward, pipe the newly created stacks object to the <code>add_candidates</code> function where the argument is <code>ct_res</code>. Repeat this procedure for the tuned random forest object <code>rf_res</code> and tuned XGBoost model <code>xgb_res</code>.</p>
+</section>
+<section id="exercise-3b-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-ii">Exercise 3b ii:</h4>
+<p>Given the stack with the candidate models, we now want to specify how we blend predictions.</p>
+<p>The <code>blend_predictions</code> function allows us to specify some of the pa: By using the <code>blend_predictions</code> function, we can specify, how the predictions should be blended together. The options we are interested in are the following:</p>
+<ul>
+<li><p><strong>mixture:</strong> A number between zero and one (inclusive) specifying the proportion of L1 regularization (i.e.&nbsp;lasso) in the model. <code>mixture = 1</code> indicates a pure lasso model, <code>mixture = 0</code> indicates ridge regression, and values in the open interval (0,1) specify an elastic net.</p></li>
+<li><p><strong>metric:</strong> The metric(s) to use in tuning the regularization penalty on the stacking coefficients.</p></li>
+</ul>
+<p>Your exercise is to pipe the stack object <code>ci_stack</code> with the added candidates to the <code>blend_predictions</code> function, where you pass <code>metric = metric_set(pr_auc)</code> and <code>mixture = 0.9</code> as an argument.</p>
+</section>
+<section id="exercise-3b-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-3b-iii">Exercise 3b iii:</h4>
+<p>Finally, fit the stack by passing the previously specified stack object that contains the candidates and blend specifications to the <code>fit_members()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>ci_stack <span class="ot">&lt;-</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># initialize the stack</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stacks</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add candidate members</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_candidates</span>(ct_res) <span class="sc">%&gt;%</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_candidates</span>(rf_res) <span class="sc">%&gt;%</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_candidates</span>(xgb_res) <span class="sc">%&gt;%</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># determine how to combine their predictions</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">blend_predictions</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">metric =</span> <span class="fu">metric_set</span>(pr_auc),</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">mixture =</span> <span class="fl">0.9</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># fit the candidates with nonzero stacking coefficients</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit_members</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Predictions from 8 candidates were identical to those from existing candidates
+and were removed from the data stack.</code></pre>
+</div>
+</div>
+<p>If you have solved the exercise correctly, the following output should be displayed when calling the <code>ci_stack</code> object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>ci_stack</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 3
+  member                    type        weight
+  &lt;chr&gt;                     &lt;chr&gt;        &lt;dbl&gt;
+1 .pred_Active_xgb_res_1_21 boost_tree  1.33  
+2 .pred_Active_xgb_res_1_15 boost_tree  1.24  
+3 .pred_Active_xgb_res_1_10 boost_tree  0.907 
+4 .pred_Active_rf_res_1_05  rand_forest 0.547 
+5 .pred_Active_rf_res_1_08  rand_forest 0.227 
+6 .pred_Active_rf_res_1_09  rand_forest 0.164 
+7 .pred_Active_rf_res_1_02  rand_forest 0.0556</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-3c-evaluating-the-stack" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3c-evaluating-the-stack">Exercise 3c: Evaluating the stack</h3>
+<p>In this last exercise, we want to evaluate our stack and in order to do so, we first need to create predictions from our test dataset. The following code snippet creates predictions based on the test set and saves the probabilities of the sample belonging to either class in a new column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stack_pred <span class="ot">&lt;-</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  data_test <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">predict</span>(ci_stack, ., <span class="at">type =</span> <span class="st">"prob"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="exercise-3c-i" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3c-i">Exercise 3c i:</h3>
+<p>Given the <code>stack_pred</code> tibble, create a ROC- and PR-Curve similar to Exercise 2d on Exercise Sheet 06.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stack_roc <span class="ot">&lt;-</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  stack_pred <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">roc_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"stack"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>stack_pr <span class="ot">&lt;-</span> </span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  stack_pred <span class="sc">%&gt;%</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pr_curve</span>(Attrition_Flag, .pred_Inactive) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">model =</span> <span class="st">"stack"</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>stack_roc <span class="sc">%&gt;%</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> specificity, <span class="at">y =</span> sensitivity, <span class="at">col =</span> model)) <span class="sc">+</span> </span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span> </span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>stack_pr <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> precision, <span class="at">y =</span> recall, <span class="at">col =</span> model)) <span class="sc">+</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>() <span class="sc">+</span> </span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="exercise-3c-ii" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-3c-ii">Exercise 3c ii:</h3>
+<p>Similar to Exercise 2e on Exercise Sheet 06, create a confusion matrix and evaluate the model performance based on the sensitivity, precision and accuracy.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(last_fit_model,high){ </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  last_fit_pred <span class="ot">&lt;-</span> data_test <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(last_fit_model, .))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  cm <span class="ot">&lt;-</span> last_fit_pred <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(Attrition_Flag, .pred_class)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  cm_tib <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(cm<span class="sc">$</span>table)<span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prediction =</span> <span class="fu">factor</span>(Prediction),</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Truth =</span> <span class="fu">factor</span>(Truth),</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prediction =</span> <span class="fu">factor</span>(Prediction, </span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(Prediction)))</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  cm_tib <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prediction, <span class="at">y =</span> Truth,<span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>( <span class="at">colour =</span> <span class="st">"gray50"</span>)<span class="sc">+</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n))<span class="sc">+</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> high)<span class="sc">+</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cm_plot</span>(ci_stack,<span class="st">"#506432"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_08_solution_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[
+  \mathrm{Sensitivity} = \frac{328}{328+79} = 0.806
+\]</span> <span class="math display">\[
+  \mathrm{Prescision} = \frac{328}{328+12} = 0.965
+\]</span></p>
+<p><span class="math display">\[
+  \mathrm{Accuracy} = \frac{328+2113}{2532} = 0.964
+\]</span></p>
+</div>
+</div>
+<p>:::</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
