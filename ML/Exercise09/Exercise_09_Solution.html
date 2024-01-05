@@ -220,12 +220,24 @@ Solution:
 <section id="exercise-01b-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-01b-i">Exercise 01b i:</h4>
 <p>Write a function <code>nn</code> that represents the neural network of the previous exercise. It should take a vector <span class="math inline">\(x\in\mathbb{R}^2\)</span>, a weight matrix <span class="math inline">\(w1\in\mathbb{R}^{3\times 2}\)</span> used to calculate <span class="math inline">\(h_i^{(1)}\)</span>, a weight vector <span class="math inline">\(w2\in\mathbb{R}^3\)</span> used to calculate the term <span class="math inline">\(\sum_{i=1}^{3}w_{i1}^{(2)}h_i^{(1)}\)</span> and two bias terms <span class="math inline">\(b1,b2\in\mathbb{R}\)</span> as an input . The return value should be the output of the neural network we used in the previous exercises.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>nn <span class="ot">&lt;-</span> <span class="cf">function</span>(x, w1, w2, b1, b2){</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  h <span class="ot">=</span> <span class="fu">pmax</span>(w1<span class="sc">%*%</span>x<span class="sc">+</span>b1,<span class="dv">0</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">=</span> <span class="fu">pmax</span>(w2<span class="sc">%*%</span>h<span class="sc">+</span>b2,<span class="dv">0</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(y[<span class="dv">1</span>])</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </div>
 </section>
 <section id="exercise-01b-ii" class="level4">
@@ -255,6 +267,16 @@ Tip
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(x1,x2) <span class="sc">%&gt;%</span> as.matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">apply</span>(x, <span class="dv">1</span>, <span class="cf">function</span>(row) <span class="fu">nn</span>(row, w1, w2, b1, b2))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -265,6 +287,8 @@ Tip
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -293,7 +317,17 @@ y_1 = \sigma_2\left(\sum_{i=1}^{n}w_{i1}^{(2)}h_i^{(1)}+b_2\right)
 </section>
 <section id="exercise-02-neural-networks---toy-examples" class="level2">
 <h2 class="anchored" data-anchor-id="exercise-02-neural-networks---toy-examples">Exercise 02: Neural networks - toy examples</h2>
-<p>::: callout- tip ## Helper functions for plotting the confusion matrix and roc-plot</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Helper functions for plotting the confusion matrix and roc-plot</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(model,high){ </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  last_fit_pred <span class="ot">&lt;-</span> model <span class="sc">%&gt;%</span></span>
@@ -330,6 +364,8 @@ y_1 = \sigma_2\left(\sum_{i=1}^{n}w_{i1}^{(2)}h_i^{(1)}+b_2\right)
 <span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
 <p>For the following exercises, you can use the <code>contour_plot</code> function provided below, to plot the decision function of the specified model. Besides the model, you also have to specify the range of the data samples in order to get a full view of the decision function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>contour_plot <span class="ot">&lt;-</span><span class="cf">function</span>(model,axis_limit){</span>
@@ -365,6 +401,16 @@ y_1 = \sigma_2\left(\sum_{i=1}^{n}w_{i1}^{(2)}h_i^{(1)}+b_2\right)
 <section id="exercise-02a-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-02a-i">Exercise 02a i:</h4>
 <p>Using our knowledge about SVMs, train an RBF-Kernel SVM on the data <code>data</code>, where <code>x1</code> and <code>x2</code> are fitted on <code>label</code>. You do not have to tune any parameters and can in fact use all the default values. For the resulting model, create a ROC-Curve, a confusion matrix, and with the help of the <code>contour_plot</code> function a plot visualizing the boundary.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_res <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span></span>
@@ -389,6 +435,8 @@ y_1 = \sigma_2\left(\sum_{i=1}^{n}w_{i1}^{(2)}h_i^{(1)}+b_2\right)
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contour_plot</span>(svm_rbf_res, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -419,9 +467,19 @@ Computational engine: nnet </code></pre>
 </div>
 </div>
 <p>Set the engine to <code>"brulee"</code>, the mode to <code>"classification"</code>, and train the model using the <code>fit</code> function by fitting the variables <code>x1</code> and <code>x2</code> of the dataset <code>data</code> on the variable <code>label</code>. Calling the trained neural net <code>nnet_res</code> then returns an output similar to the one below.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nnet_res <span class="ot">&lt;-</span> <span class="fu">mlp</span>(<span class="at">epochs =</span> <span class="dv">1000</span>, <span class="at">hidden_units =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">learn_rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"brulee"</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>nnet_res <span class="ot">&lt;-</span> <span class="fu">mlp</span>(<span class="at">epochs =</span> <span class="dv">100</span>, <span class="at">hidden_units =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">learn_rate =</span> <span class="fl">0.1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"brulee"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(label <span class="sc">~</span> ., data)</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -439,10 +497,22 @@ weight decay: 0.001
 dropout proportion: 0 
 batch size: 45 
 learn rate: 0.1 
-validation loss after 1 epoch: 0.655 </code></pre>
+validation loss after 100 epochs: 0.565 </code></pre>
+</div>
+</div>
 </div>
 </div>
 <p>Similar to the exercise above, create a Roc-Curve, confusion matrix and a contour plot of the decision function.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">roc_plot</span>(nnet_res, <span class="st">"#556786"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">cm_plot</span>(nnet_res, <span class="st">"#556786"</span>)</span>
@@ -463,10 +533,25 @@ validation loss after 1 epoch: 0.655 </code></pre>
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="exercise-02a-iii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-02a-iii">Exercise 02a iii:</h4>
 <p>Compare the results of the models.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Both models seem to perform similarly with respect to their class discrimination. However, the decision curve of the neural net closely resembles a linear classifier.</p>
+</div>
+</div>
 </section>
 </section>
 <section id="exercise-02b" class="level3">
@@ -501,6 +586,16 @@ validation loss after 1 epoch: 0.655 </code></pre>
 <section id="exercise-02b-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-02b-i">Exercise 02b i:</h4>
 <p>Repeat Exercise 02a i for this new dataset.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>svm_rbf_res <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> <span class="st">"classification"</span></span>
@@ -527,13 +622,25 @@ validation loss after 1 epoch: 0.655 </code></pre>
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="exercise-02-b-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-02-b-ii">Exercise 02 b ii:</h4>
 <p>Repeat Exercise 02a ii for this new dataset.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>nnet_res <span class="ot">&lt;-</span> <span class="fu">mlp</span>(<span class="at">epochs =</span> <span class="dv">1000</span>, <span class="at">hidden_units =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="at">learn_rate =</span> <span class="fl">0.1</span>, <span class="at">activation =</span> <span class="st">"relu"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"brulee"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"brulee"</span>, <span class="at">verbose =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(label <span class="sc">~</span> ., data)</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -554,6 +661,8 @@ validation loss after 1 epoch: 0.655 </code></pre>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contour_plot</span>(nnet_res,<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -723,6 +832,16 @@ Warning
 <p>This model can also take around 10-15 minutes to train</p>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>nnet_model <span class="ot">&lt;-</span> <span class="fu">mlp</span>(</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">400</span>,</span>
@@ -743,10 +862,22 @@ Warning
 <span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">control =</span> ctrl_grid</span>
 <span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</div>
+</div>
 </section>
 <section id="exercise-3b-creating-a-stack" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3b-creating-a-stack">Exercise 3b: Creating a Stack</h3>
 <p>Once you have successfully tuned the neural net, set up the stack and fit the members similar to Exercise 3b on Sheet 08. make sure you use the <code>metric = metric_set(pr_auc)</code> and <code>mixture = 0.9</code> option.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ci_stack <span class="ot">&lt;-</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># initialize the stack</span></span>
@@ -768,6 +899,8 @@ tuning/resampling. Model stacking may fail due to these issues; see
 `collect_notes()` (`?tune::collect_notes()`) if so.</code></pre>
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="exercise-3c-evaluating-the-stack" class="level3">
 <h3 class="anchored" data-anchor-id="exercise-3c-evaluating-the-stack">Exercise 3c: Evaluating the stack</h3>
@@ -780,6 +913,16 @@ tuning/resampling. Model stacking may fail due to these issues; see
 <section id="exercise-3c-i" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-3c-i">Exercise 3c i:</h4>
 <p>Given the <code>stack_pred</code> tibble, create a ROC- and PR-Curve similar to Exercise 2d on Exercise Sheet 06.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>stack_roc <span class="ot">&lt;-</span> </span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  stack_pred <span class="sc">%&gt;%</span> </span>
@@ -810,15 +953,52 @@ tuning/resampling. Model stacking may fail due to these issues; see
 <p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</div>
+</div>
 </section>
 <section id="exercise-3c-ii" class="level4">
 <h4 class="anchored" data-anchor-id="exercise-3c-ii">Exercise 3c ii:</h4>
 <p>Similar to Exercise 2e on Exercise Sheet 06 and create a confusion matrix. How does the model hold up?</p>
-<p>cm_plot &lt;- function(last_fit_model,high){ last_fit_pred &lt;- data_test %&gt;% bind_cols(predict(last_fit_model, .))</p>
-<p>cm &lt;- last_fit_pred %&gt;% conf_mat(Attrition_Flag, .pred_class)</p>
-<p>cm_tib &lt;- as_tibble(cm$table)%&gt;% mutate( Prediction = factor(Prediction), Truth = factor(Truth), Prediction = factor(Prediction, levels = rev(levels(Prediction))) )</p>
-<p>cm_tib %&gt;% ggplot(aes(x = Prediction, y = Truth,fill = n)) + geom_tile( colour = “gray50”)+ geom_text(aes(label = n))+ scale_fill_gradient(low = “white”, high = high)+ theme_minimal()+ theme(legend.position = “none”) }</p>
-<p>cm_plot(ci_stack,“#506432”) ``</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Soluion:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>cm_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(last_fit_model,high){ </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  last_fit_pred <span class="ot">&lt;-</span> data_test <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(<span class="fu">predict</span>(last_fit_model, .))</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  cm <span class="ot">&lt;-</span> last_fit_pred <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(Attrition_Flag, .pred_class)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  cm_tib <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(cm<span class="sc">$</span>table)<span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prediction =</span> <span class="fu">factor</span>(Prediction),</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Truth =</span> <span class="fu">factor</span>(Truth),</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prediction =</span> <span class="fu">factor</span>(Prediction, </span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>                        <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(Prediction)))</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  cm_tib <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Prediction, <span class="at">y =</span> Truth,<span class="at">fill =</span> n)) <span class="sc">+</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>( <span class="at">colour =</span> <span class="st">"gray50"</span>)<span class="sc">+</span></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> n))<span class="sc">+</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"white"</span>, <span class="at">high =</span> high)<span class="sc">+</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cm_plot</span>(ci_stack,<span class="st">"#506432"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_09_Solution_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
 </section>
 </section>
 </section>
