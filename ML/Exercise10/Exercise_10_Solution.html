@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Problem Set 10: Solution</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Exercise_10_Solution_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exercise_10_Solution_files/libs/quarto-html/quarto.js"></script>
+<script src="Exercise_10_Solution_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exercise_10_Solution_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exercise_10_Solution_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exercise_10_Solution_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exercise_10_Solution_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exercise_10_Solution_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exercise_10_Solution_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exercise_10_Solution_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="3">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#foreword" id="toc-foreword" class="nav-link active" data-scroll-target="#foreword">Foreword</a></li>
+  <li><a href="#installing-tensorflow-for-r" id="toc-installing-tensorflow-for-r" class="nav-link" data-scroll-target="#installing-tensorflow-for-r">Installing TensorFlow for R</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a>
+  <ul>
+  <li><a href="#exercise-01-training-a-deep-neural-network-with-keras" id="toc-exercise-01-training-a-deep-neural-network-with-keras" class="nav-link" data-scroll-target="#exercise-01-training-a-deep-neural-network-with-keras">Exercise 01: Training a deep neural network with <code>keras</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-01a-data-preparation" id="toc-exercise-01a-data-preparation" class="nav-link" data-scroll-target="#exercise-01a-data-preparation">Exercise 01a: Data preparation</a>
+  <ul class="collapse">
+  <li><a href="#exercise-01a-i" id="toc-exercise-01a-i" class="nav-link" data-scroll-target="#exercise-01a-i">Exercise 01a i:</a></li>
+  <li><a href="#exercise-01a-ii" id="toc-exercise-01a-ii" class="nav-link" data-scroll-target="#exercise-01a-ii">Exercise 01a ii:</a></li>
+  <li><a href="#exercise-01a-iii" id="toc-exercise-01a-iii" class="nav-link" data-scroll-target="#exercise-01a-iii">Exercise 01a iii:</a></li>
+  <li><a href="#exercise-01a-iv" id="toc-exercise-01a-iv" class="nav-link" data-scroll-target="#exercise-01a-iv">Exercise 01a iv:</a></li>
+  <li><a href="#exercise-01a-v" id="toc-exercise-01a-v" class="nav-link" data-scroll-target="#exercise-01a-v">Exercise 01a v:</a></li>
+  </ul></li>
+  <li><a href="#exercise-01b-training-an-unregularized-dnn" id="toc-exercise-01b-training-an-unregularized-dnn" class="nav-link" data-scroll-target="#exercise-01b-training-an-unregularized-dnn">Exercise 01b: Training an unregularized DNN</a>
+  <ul class="collapse">
+  <li><a href="#exercise-01b-i-setting-up-the-model" id="toc-exercise-01b-i-setting-up-the-model" class="nav-link" data-scroll-target="#exercise-01b-i-setting-up-the-model">Exercise 01b i: Setting up the model</a></li>
+  <li><a href="#exercise-01b-ii-training-the-model" id="toc-exercise-01b-ii-training-the-model" class="nav-link" data-scroll-target="#exercise-01b-ii-training-the-model">Exercise 01b ii: Training the model</a></li>
+  <li><a href="#exercise-01b-iii-evaluating-the-model-on-the-test-set" id="toc-exercise-01b-iii-evaluating-the-model-on-the-test-set" class="nav-link" data-scroll-target="#exercise-01b-iii-evaluating-the-model-on-the-test-set">Exercise 01b iii: Evaluating the model on the test set</a></li>
+  </ul></li>
+  <li><a href="#exercise-01c-training-a-regularized-model" id="toc-exercise-01c-training-a-regularized-model" class="nav-link" data-scroll-target="#exercise-01c-training-a-regularized-model">Exercise 01c: Training a regularized model</a></li>
+  <li><a href="#exercise-1d" id="toc-exercise-1d" class="nav-link" data-scroll-target="#exercise-1d">Exercise 1d:</a></li>
+  </ul></li>
+  <li><a href="#exercise-02-theoretical-aspects-of-interpretable-machine-learning" id="toc-exercise-02-theoretical-aspects-of-interpretable-machine-learning" class="nav-link" data-scroll-target="#exercise-02-theoretical-aspects-of-interpretable-machine-learning">Exercise 02: Theoretical aspects of interpretable machine learning</a>
+  <ul class="collapse">
+  <li><a href="#exercise-02a" id="toc-exercise-02a" class="nav-link" data-scroll-target="#exercise-02a">Exercise 02a:</a></li>
+  <li><a href="#exercise-02b" id="toc-exercise-02b" class="nav-link" data-scroll-target="#exercise-02b">Exercise 02b:</a></li>
+  <li><a href="#exercise-2c" id="toc-exercise-2c" class="nav-link" data-scroll-target="#exercise-2c">Exercise 2c:</a></li>
+  </ul></li>
+  <li><a href="#exercise-03-practical-interpretable-ml" id="toc-exercise-03-practical-interpretable-ml" class="nav-link" data-scroll-target="#exercise-03-practical-interpretable-ml">Exercise 03: Practical interpretable ML</a>
+  <ul class="collapse">
+  <li><a href="#exercise-03a-creating-a-predictor" id="toc-exercise-03a-creating-a-predictor" class="nav-link" data-scroll-target="#exercise-03a-creating-a-predictor">Exercise 03a: Creating a predictor</a></li>
+  <li><a href="#exercise-03b-permutation-feature-importance" id="toc-exercise-03b-permutation-feature-importance" class="nav-link" data-scroll-target="#exercise-03b-permutation-feature-importance">Exercise 03b: Permutation feature importance</a></li>
+  <li><a href="#exercise-03c-ice-and-partial-dependence" id="toc-exercise-03c-ice-and-partial-dependence" class="nav-link" data-scroll-target="#exercise-03c-ice-and-partial-dependence">Exercise 03c: ICE and partial dependence</a></li>
+  <li><a href="#exercise-03d-local-surrugate-models" id="toc-exercise-03d-local-surrugate-models" class="nav-link" data-scroll-target="#exercise-03d-local-surrugate-models">Exercise 03d: Local surrugate models</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Problem Set 10: Solution</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="foreword" class="level1">
+<h1>Foreword</h1>
+<p>In this exercise, we will build and train deep neural networks using the TensorFlow for R framework. Furthermore, we will shortly discuss some theoretical concepts regarding interpretable machine learning and learn how to apply those concepts to the neural networks we trained in the previous exercises.</p>
+</section>
+<section id="installing-tensorflow-for-r" class="level1">
+<h1>Installing TensorFlow for R</h1>
+<p>In the last exercise session, we trained multi-layer perceptron models (MLP models, or neural networks) using the <code>{tidymodels}</code> framework. The <code>{brulee}</code> library provides an interface that allows the use of the already known <code>{tidymodels}</code> workflow. However, using more complex network structures and more versatile approaches for training an MLP model requires a different approach. The <code>{tensorflow}</code> library provides a high-level API like Keras for model development, that is easy to use and highly productive.</p>
+<p>To to get everything to work, you will need to follow the steps outlined below.</p>
+<ol type="1">
+<li><p>Install the <code>{tensorflow}</code> package using the <code>{remotes}</code> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("remotes")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/tensorflow"</span>)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Once the <code>{tensorflow}</code> package is installed and updated, we need to make sure that <code>Python</code> is installed on our machine. The reason is, that <code>TensoFflow</code> is written in <code>C++</code> and <code>CUDA</code> with <code>Python</code> being an interface to those languages. Since this interface has not yet been translated directly to R the most efficient approach was to create another interface that allows for <code>R</code> code to be translated into <code>Python</code> without having to write a single line of <code>Python</code> code. To check if <code>Python</code> is already installed, you can execute the following snippet. If the snipped returns an empty character then <code>Python</code> is likely not yet installed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.which</span>(<span class="st">"python"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><code>Python</code> can then be installed by utilizing the <code>{reticulate}</code> library:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("reticulate")</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reticulate<span class="sc">::</span><span class="fu">install_python</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>After installing <code>Python</code> and the <code>{tensorflow}</code> R library, we need to create a <code>Python</code> virtual environment and install the <code>TensorFlow</code> package in this virtual environment. This can be done by using the following snippet:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">envname =</span> <span class="st">"r-tensorflow"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>An additional layer on top of <code>TensorFlow</code> is provided by <code>Keras</code>. <code>Keras</code> is a <code>Python</code> interface that communicates with <code>TensorFlow</code> with the benefit of being simple, flexible, and powerful.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"keras"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">install_keras</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+</ol>
+<p>In summary, the process can be illustrated by the following diagram:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="API_Structure.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>If everything was installed successfully, the following snippet should run without any issues:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">constant</span>(<span class="st">"Hello TensorFlow!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(b'Hello TensorFlow!', shape=(), dtype=string)</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Troubleshooting">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Troubleshooting
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>There are several common problems you can run into while trying to install <code>Python</code> and TensorFlow which will be listed below with a potential solution.</p>
+<ul>
+<li><p>Installation of <code>{tensorflow}</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"rstudio/tensorflow"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the return value is</p>
+<blockquote class="blockquote">
+<p>Skipping install of ‘tensorflow’ from a github remote, the SHA1 (eeb1e66b) has not changed since last install. Use <code>force = TRUE</code> to force installation</p>
+</blockquote>
+<p>then <code>{tensorflow}</code> has already been installed.</p></li>
+<li><p>Installation of the <code>Python</code> package <code>tensorflow</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_tensorflow</span>(<span class="at">envname =</span> <span class="st">"r-tensorflow"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the return value is</p>
+<blockquote class="blockquote">
+<p>Error in install_tensorflow(envname = “r-tensorflow”) : You should call install_tensorflow()/install_keras() only in a fresh R session that has not yet initialized Keras and TensorFlow (this is to avoid DLL in use errors during installation)</p>
+</blockquote>
+<p>then restart the R under <code>Session -&gt; Restart R</code>. It is likely that the <code>Python</code> package has already been installed, so instead of calling <code>install_tensorflow(envname = "r-tensorflow")</code> again, try the following snippet instead:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">constant</span>(<span class="st">"Hello TensorFlow!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(b'Hello TensorFlow!', shape=(), dtype=string)</code></pre>
+</div>
+</div></li>
+<li><p>Installation of the <code>Python</code> package <code>keras</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install_keras</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If the return value is</p>
+<blockquote class="blockquote">
+<p>Error in tensorflow::install_tensorflow(method = method, conda = conda, : You should call install_tensorflow()/install_keras() only in a fresh R session that has not yet initialized Keras and TensorFlow (this is to avoid DLL in use errors during installation)</p>
+</blockquote>
+<p>then restart the R under <code>Session -&gt; Restart R</code>. It is likely that the <code>Python</code> package has already been installed, so instead of calling <code>install_keras()</code> again, try the following snippet instead:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tensorflow)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(keras)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tf<span class="sc">$</span><span class="fu">constant</span>(<span class="st">"Hello TensorFlow!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tf.Tensor(b'Hello TensorFlow!', shape=(), dtype=string)</code></pre>
+</div>
+</div></li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises" class="level1">
+<h1>Exercises</h1>
+<p>Besides the <code>keras</code> and <code>tensorflow</code> library we will need the following as well:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-01-training-a-deep-neural-network-with-keras" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-01-training-a-deep-neural-network-with-keras">Exercise 01: Training a deep neural network with <code>keras</code></h2>
+<p>In this first exercise, we want to create and train deep neural networks with <code>keras</code>. The underlying dataset will be the <code>rent_aux</code> dataset we have considered in the second exercise session.</p>
+<p>Recall that it contains roughly 850 rental listings for flats in Augsburg sourced from the online platform <a href="https://www.immobilienscout24.de/">ImmoScout24</a> on three different dates in 2018 and 2019.</p>
+<section id="exercise-01a-data-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01a-data-preparation">Exercise 01a: Data preparation</h3>
+<section id="exercise-01a-i" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01a-i">Exercise 01a i:</h4>
+<p>Read the dataset and preprocess it similarly to Exercise 2a on Exercise Sheet 03.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data_aux <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"rent_aux.csv"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>data_aux_filtered <span class="ot">&lt;-</span> data_aux <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span><span class="fu">c</span>(<span class="st">"serviceCharge"</span>,<span class="st">"heatingType"</span>,<span class="st">"picturecount"</span>,<span class="st">"totalRent"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">"firingTypes"</span>,<span class="st">"typeOfFlat"</span>,<span class="st">"noRoomsRange"</span>, <span class="st">"petsAllowed"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"livingSpaceRange"</span>,<span class="st">"regio3"</span>,<span class="st">"heatingCosts"</span>, <span class="st">"floor"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"date"</span>, <span class="st">"pricetrend"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  na.omit <span class="sc">%&gt;%</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">interiorQual =</span> <span class="fu">factor</span>(</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>      interiorQual,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"simple"</span>, <span class="st">"normal"</span>, <span class="st">"sophisticated"</span>, <span class="st">"luxury"</span>),</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"simple"</span>, <span class="st">"normal"</span>, <span class="st">"sophisticated"</span>, <span class="st">"luxury"</span>),</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">condition =</span> <span class="fu">factor</span>(</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>      condition,</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"need_of_renovation"</span>, <span class="st">"negotiable"</span>,<span class="st">"well_kept"</span>,<span class="st">"refurbished"</span>,</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"first_time_use_after_refurbishment"</span>,</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"modernized"</span>, <span class="st">"fully_renovated"</span>, <span class="st">"mint_condition"</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"first_time_use"</span>),</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">ordered =</span> <span class="cn">TRUE</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">geo_plz =</span> <span class="fu">factor</span>(geo_plz)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.logical, <span class="sc">~</span> <span class="fu">as.numeric</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(baseRent <span class="sc">&lt;=</span> <span class="dv">4000</span>, livingSpace <span class="sc">&lt;=</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01a-ii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01a-ii">Exercise 01a ii:</h4>
+<p>Create a training and test split for the data.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(data_aux_filtered)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>data_train <span class="ot">&lt;-</span> <span class="fu">training</span>(split)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>data_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01a-iii" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01a-iii">Exercise 01a iii:</h4>
+<p>Once the split is successfully created, write a recipe that preprocesses the training data as follows:</p>
+<ul>
+<li><code>baseRent</code> is fit on every other variable.</li>
+<li><code>scoutId</code> is assigned a new role <code>"ID"</code>.</li>
+<li><code>interiorQual</code> and <code>condition</code> are turned into ordinal scores.</li>
+<li>Dummy variables for <code>geo_plz</code> are created.</li>
+<li>A zero variance filter is applied to all predictors</li>
+<li>all numeric predictors are normalized.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rent_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">formula =</span> baseRent <span class="sc">~</span>., </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> data_train</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update_role</span>(scoutId, <span class="at">new_role =</span> <span class="st">"ID"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_ordinalscore</span>(interiorQual, condition)<span class="sc">%&gt;%</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_dummy</span>(geo_plz)<span class="sc">%&gt;%</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_zv</span>(<span class="fu">all_predictors</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_normalize</span>(<span class="fu">all_numeric_predictors</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01a-iv" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01a-iv">Exercise 01a iv:</h4>
+<p>At this point during our model preparation the approach starts to differ from the usual <code>{tidymodels}</code> procedure. We will now have to use the <code>prep</code> and <code>bake</code> functions on the training data to create a preprocessed dataset. This preprocessed dataset then needs to be split into training features and training labels. When creating the training features, don’t forget to remove the variable <code>scoutId</code> as it should not be used as a predictor.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data_train_nn <span class="ot">&lt;-</span> rent_rec <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(data_train)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>train_features <span class="ot">&lt;-</span> data_train_nn <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"scoutId"</span>, <span class="st">"baseRent"</span>))</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>train_labels <span class="ot">&lt;-</span> data_train_nn <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">"baseRent"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01a-v" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01a-v">Exercise 01a v:</h4>
+<p>Repeat the exercise above for the test data.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data_test_nn <span class="ot">&lt;-</span>rent_rec <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bake</span>(data_test) </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>test_features <span class="ot">&lt;-</span> data_test_nn <span class="sc">%&gt;%</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"scoutId"</span>, <span class="st">"baseRent"</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>test_labels <span class="ot">&lt;-</span> data_test_nn <span class="sc">%&gt;%</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"baseRent"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-01b-training-an-unregularized-dnn" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01b-training-an-unregularized-dnn">Exercise 01b: Training an unregularized DNN</h3>
+<p>Once we have successfully set up our data, we can move on to specifying our neural network architecture. We will start out by training an unregularized neural network and then compare it to a network with dropout and weight decay.</p>
+<section id="exercise-01b-i-setting-up-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01b-i-setting-up-the-model">Exercise 01b i: Setting up the model</h4>
+<p>Write a function <code>build_model</code> that takes the following inputs:</p>
+<ul>
+<li><code>n_input</code>: input dimension (number of training labels).</li>
+<li><code>h1</code>: dimension of the first hidden layer.</li>
+<li><code>h2</code>: dimension of the second hidden layer.</li>
+<li><code>n_output</code>: output dimension.</li>
+<li><code>d1</code>: dropout rate of the first hidden layer.</li>
+<li><code>d2</code>: dropout rate of the second hidden layer.</li>
+</ul>
+<p>Given those inputs, the function should then define a sequential model with 3 dense layers (where the first two are equipped with the <code>"relu"</code> activation function) and 2 dropout layers in between.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A similar model has been specified on slide 150 in the lecture notes. The goal here is to write a simple wrapper function that allows to specify the network parameters.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>build_model <span class="ot">&lt;-</span> <span class="cf">function</span>(n_input, h1,h2,n_output,d1,d2) {</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">keras_model_sequential</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(h1, <span class="at">activation =</span> <span class="st">'relu'</span>, <span class="at">input_shape =</span> n_input) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dropout</span>(<span class="at">rate =</span> d1) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(h2, <span class="at">activation =</span> <span class="st">'relu'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dropout</span>(<span class="at">rate =</span> d2) <span class="sc">%&gt;%</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">layer_dense</span>(n_output) </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  model</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-01b-ii-training-the-model" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01b-ii-training-the-model">Exercise 01b ii: Training the model</h4>
+<p>Define a model called <code>dnn_model</code> with the newly written function from the previous exercise to which you pass the following inputs:</p>
+<ul>
+<li><code>n_input</code>= <code>ncol(training_features)</code> (note, that the variable name might differ in your implementation)</li>
+<li><code>h1= 50</code></li>
+<li><code>h2= 200</code></li>
+<li><code>n_output = 1</code></li>
+<li><code>d1 =  0</code></li>
+<li><code>d2 = 0</code></li>
+</ul>
+<p>Once the model is specified, compile the model using the <code>compile</code> function with loss specified as <code>"mae"</code> and optimizer <code>"optimizer_adam"</code>, where the learning rate is equal to <code>0.001</code> and the weight decay equal to <code>0</code>.</p>
+<p>After compiling the model, we need to train it by using the <code>fit</code> function. As input parameters for the <code>fit</code> function, use the previously defined training features and training labels. Furthermore, set the validation split to <code>0.2</code> and the number of epochs to <code>200</code>.</p>
+<p>After fitting the model, plot the history of the training procedure using the <code>plot</code> function.</p>
+<p>What can be said in terms of overfitting?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>dnn_model <span class="ot">&lt;-</span> <span class="fu">build_model</span>(<span class="fu">ncol</span>(train_features), <span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>dnn_model <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compile</span>(</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> <span class="st">'mae'</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.001</span>, <span class="at">weight_decay =</span> <span class="dv">0</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(train_features),</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(train_labels),</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_split =</span> <span class="fl">0.2</span>,</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="dv">0</span>,</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">200</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>After the 50th epoch it seems like the training and test loss are both stabilizing. However, the gap between training and test loss seems to grow further which is an indicator for overfitting.</p>
+</div>
+</div>
+</section>
+<section id="exercise-01b-iii-evaluating-the-model-on-the-test-set" class="level4">
+<h4 class="anchored" data-anchor-id="exercise-01b-iii-evaluating-the-model-on-the-test-set">Exercise 01b iii: Evaluating the model on the test set</h4>
+<p>Evaluate the model on the test set using the <code>keras::evaluate</code> function.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span> keras<span class="sc">::</span><span class="fu">evaluate</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(test_features),</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(test_labels)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4/4 - 0s - loss: 107.5782 - 36ms/epoch - 9ms/step</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-01c-training-a-regularized-model" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-01c-training-a-regularized-model">Exercise 01c: Training a regularized model</h3>
+<p>Repeat Exercise 01b but set the dropout rate for both layers to <code>0.1</code> and the weight decay parameter to <code>0.001</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dnn_model <span class="ot">&lt;-</span> <span class="fu">build_model</span>(<span class="fu">ncol</span>(train_features), <span class="dv">50</span>, <span class="dv">200</span>, <span class="dv">1</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>dnn_model <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">compile</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">loss =</span> <span class="st">'mae'</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">optimizer =</span> <span class="fu">optimizer_adam</span>(<span class="fl">0.001</span>, <span class="at">weight_decay =</span> <span class="fl">0.001</span>)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>history <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span> <span class="fu">fit</span>(</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(train_features),</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(train_labels),</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">validation_split =</span> <span class="fl">0.2</span>,</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="dv">0</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">epochs =</span> <span class="dv">200</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(history)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>test_results <span class="ot">&lt;-</span> dnn_model <span class="sc">%&gt;%</span> keras<span class="sc">::</span><span class="fu">evaluate</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(test_features),</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.matrix</span>(test_labels),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4/4 - 0s - loss: 103.4952 - 23ms/epoch - 6ms/step</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-1d" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-1d">Exercise 1d:</h3>
+<p>Compare both models. What can be observed from the plots?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Considering both plots, we can observe that the regularized model seems to be more instable in terms of loss convergence, which is caused by the dropout layers and weight decay. The distance between the training and test loss in the regularized model is smaller compared to the vanilla MLP network which is an indicator that the regularized model generalizes well.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-02-theoretical-aspects-of-interpretable-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-02-theoretical-aspects-of-interpretable-machine-learning">Exercise 02: Theoretical aspects of interpretable machine learning</h2>
+<section id="exercise-02a" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-02a">Exercise 02a:</h3>
+<p>Explain in your own words the difference between global interpretability models and local interpretability models.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>The goal of local interpretability is to explain the model’s behavior for a specific input, or a single observation in general.</p></li>
+<li><p>The goal of global interpretability models is to explain the model’s behavior on the whole input data.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="exercise-02b" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-02b">Exercise 02b:</h3>
+<p>Explain in your own words the meaning of “post-hoc” interpretation mehtods.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Post-hoc intepretation refers to the process of interpreting the model’s behavior subsequent to model training. The goal is to make use of the predifined structure of the model without modifying the training process itself.</p>
+</div>
+</div>
+</section>
+<section id="exercise-2c" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-2c">Exercise 2c:</h3>
+<p>Explain in your own words the difference between individual conditional expectation (ICE) for a feature and partial dependence on a feature.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>ICE is used to model the relationship between a single input feature and the model’s predictions. Partial dependence is a modification of ICE, as it simply takes the average of ICE over the whole sample.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-03-practical-interpretable-ml" class="level2">
+<h2 class="anchored" data-anchor-id="exercise-03-practical-interpretable-ml">Exercise 03: Practical interpretable ML</h2>
+<p>For the following exercises we will use the model <code>dnn_model_reg</code> from Exercise 01 c to explore different interpretability methods. The package that provides these methods is <code>{iml}</code> which stands for “interpretable machine learning”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#install.packages("iml")</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(iml)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="exercise-03a-creating-a-predictor" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-03a-creating-a-predictor">Exercise 03a: Creating a predictor</h3>
+<p>Create a new <code>Predictor</code> object called <code>mod</code> by piping the model <code>dnn_model_reg</code> into the <code>Predictor$new</code> function with additional arguments <code>data = train_features, y = train_labels</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> Predictor<span class="sc">$</span><span class="fu">new</span>(dnn_model, <span class="at">data =</span> train_features, <span class="at">y =</span> train_labels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>This predictor <code>mod</code> will be used throughout the remaining exercises.</p>
+</section>
+<section id="exercise-03b-permutation-feature-importance" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-03b-permutation-feature-importance">Exercise 03b: Permutation feature importance</h3>
+<p>Familiarize yourself with the <code>FeatureImp</code> function and plot the feature importance by setting the loss to <code>"mae"</code>and number of repetitions to <code>10</code>. Which features is the most and least important feature?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fi <span class="ot">&lt;-</span> mod <span class="sc">%&gt;%</span> FeatureImp<span class="sc">$</span><span class="fu">new</span>(<span class="at">loss =</span> <span class="st">"mae"</span>,<span class="at">n.repetitions=</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>According to the generated plot, the most important feature is <code>livingSpace</code> and the least important feature <code>geo_plz_X86169</code>.</p>
+</div>
+</div>
+</section>
+<section id="exercise-03c-ice-and-partial-dependence" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-03c-ice-and-partial-dependence">Exercise 03c: ICE and partial dependence</h3>
+<p>Familiarize yourself with the <code>FeatureEffect</code> function. Then, for the two features identified in the previous exercise create and plot two FeatureEffect plots where the first pair is created using the method <code>"ice"</code> and the second pair created by using the method <code>"pdp"</code>.</p>
+<p>Once you created the plots for the features, explain the differences within each pair.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ICE </span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>p1_fe <span class="ot">&lt;-</span> mod <span class="sc">%&gt;%</span> FeatureEffect<span class="sc">$</span><span class="fu">new</span>(<span class="at">feature =</span> <span class="st">"livingSpace"</span>, <span class="at">method =</span> <span class="st">"ice"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>p2_fe <span class="ot">&lt;-</span> mod <span class="sc">%&gt;%</span> FeatureEffect<span class="sc">$</span><span class="fu">new</span>(<span class="at">feature =</span> <span class="st">"geo_plz_X86162"</span>, <span class="at">method =</span> <span class="st">"ice"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Partial dependence plot</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>p3_fe <span class="ot">&lt;-</span>FeatureEffect<span class="sc">$</span><span class="fu">new</span>(mod, <span class="at">feature =</span> <span class="st">"livingSpace"</span>, <span class="at">method =</span> <span class="st">"pdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>p4_fe <span class="ot">&lt;-</span>FeatureEffect<span class="sc">$</span><span class="fu">new</span>(mod, <span class="at">feature =</span> <span class="st">"geo_plz_X86162"</span>, <span class="at">method =</span> <span class="st">"pdp"</span>) <span class="sc">%&gt;%</span> <span class="fu">plot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>p1_fe <span class="sc">+</span> p2_fe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>p3_fe <span class="sc">+</span> p4_fe</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-29-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-03d-local-surrugate-models" class="level3">
+<h3 class="anchored" data-anchor-id="exercise-03d-local-surrugate-models">Exercise 03d: Local surrugate models</h3>
+<p>Familiarize yourself with the <code>LocalModel</code> function and create a local surrogate model for the second observation of the training features by using the <code>"gower"</code> distance. Make sure to create the surrogate model for every feature. After creating the model, use the <code>plot</code> function to visualize the model and identify the feature that has the largest effect on the outcome variable <code>baseRent</code>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>loc.mod <span class="ot">=</span> LocalModel<span class="sc">$</span><span class="fu">new</span>(mod, <span class="at">x.interest =</span> train_features[<span class="dv">2</span>, ], <span class="at">dist.fun =</span> <span class="st">"gower"</span>, <span class="at">k =</span> <span class="dv">26</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Lade nötiges Paket: glmnet</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loaded glmnet 4.1-8</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>11/11 - 0s - 20ms/epoch - 2ms/step</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>loc.mod</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Interpretation method:  LocalModel 
+
+
+Analysed predictor: 
+Prediction task: unknown 
+
+
+Analysed data:
+Sampling from data.frame with 338 rows and 26 columns.
+
+
+Head of results:
+                      beta  x.recoded     effect         x.original
+newlyConst       31.491323 -0.4591774 -14.460104 -0.459177399858873
+balcony           7.010509  0.6106368   4.280874   0.61063678162116
+yearConstructed   7.998062  0.6561698   5.248086   0.65616976312048
+hasKitchen       19.290860  0.7649302  14.756161   0.76493019570076
+cellar           -3.290371  0.5696729  -1.874435  0.569672895030681
+livingSpace     292.152449  1.6095221 470.225829   1.60952211880735
+                        feature                    feature.value
+newlyConst           newlyConst    newlyConst=-0.459177399858873
+balcony                 balcony         balcony=0.61063678162116
+yearConstructed yearConstructed yearConstructed=0.65616976312048
+hasKitchen           hasKitchen      hasKitchen=0.76493019570076
+cellar                   cellar         cellar=0.569672895030681
+livingSpace         livingSpace     livingSpace=1.60952211880735</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(loc.mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1/1 - 0s - 24ms/epoch - 24ms/step</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exercise_10_Solution_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
