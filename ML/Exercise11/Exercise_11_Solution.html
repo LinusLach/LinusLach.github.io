@@ -169,13 +169,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="Exercise_11_Solution_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="960"></p>
 </div>
 </div>
-<div class="callout callout-style-default callout-tip callout-titled" title="&quot;Solution">
+<div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-“Solution
+Solution
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -219,23 +219,28 @@ Solution
 \end{align*}\]</span>
 <p>Next, we need to find the eigenvectors for each eigenvalue by solving the system of linear equations <span class="math inline">\((\Sigma - \lambda I) \nu = 0\)</span>, where <span class="math inline">\(\nu\)</span> is the eigenvector corresponding to eigenvalue <span class="math inline">\(\lambda\)</span>.</p>
 <p><strong>For <span class="math inline">\(\lambda = 2\)</span>:</strong></p>
-<p>Substitute <span class="math inline">\(\lambda = 2\)</span> into <span class="math inline">\((\Sigma - \lambda I)\nu = 0\)</span> and solve for <span class="math inline">\(\mathbf{v}\)</span>:</p>
+<p>Note, that for <span class="math inline">\(\lambda = 2\)</span> we need two eigenvectors, since the characteristic polynomial has a root of degree two at <span class="math inline">\(\lambda = 2\)</span>. By substituting <span class="math inline">\(\lambda = 2\)</span> into <span class="math inline">\((\Sigma - \lambda I)\nu = 0\)</span> and solving for <span class="math inline">\(\nu_{1,2}\)</span> we obtain:</p>
 <p><span class="math display">\[
-(\Sigma - 2I)\mathbf{v} = \begin{pmatrix}
+(\Sigma - 2I)\nu = \begin{pmatrix}
             0 &amp; 0 &amp; 1\\
             0 &amp; 0 &amp; 0\\
             0 &amp; 0 &amp; 1
-\end{pmatrix} \mathbf{v} = 0
+\end{pmatrix} \nu = 0.
 \]</span></p>
 <p>The general solution is:</p>
 <p><span class="math display">\[
-\nu = \begin{pmatrix}
+\nu_1 = \begin{pmatrix}
             x_1\\
             x_2\\
             0
-\end{pmatrix}
+\end{pmatrix} \quad
+\nu_2 = \begin{pmatrix}
+            x_3\\
+            x_4\\
+            0
+\end{pmatrix},
 \]</span></p>
-<p>where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> are arbitrary real constants.</p>
+<p>where <span class="math inline">\(x_1,x_2, x_3, x_4\)</span> are arbitrary real constants.</p>
 <p><strong>For <span class="math inline">\(\lambda = 3\)</span>:</strong></p>
 <p>Substitute <span class="math inline">\(\lambda = 3\)</span> into <span class="math inline">\((\Sigma - \lambda I)\nu=0\)</span> and solve for <span class="math inline">\(\nu\)</span>: <span class="math display">\[
 (\Sigma - 3I)\nu = \begin{pmatrix}
@@ -247,13 +252,13 @@ Solution
 <p>The general solution is:</p>
 <p><span class="math display">\[
 \nu = \begin{pmatrix}
-            x_1\\
+            x_5\\
             0\\
-            x_3
+            x_6
 \end{pmatrix}
 \]</span></p>
-<p>where <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_3\)</span> are arbitrary real constants.</p>
-<p>Thus, the eigenvectors for the matrix <span class="math inline">\(\Sigma\)</span> are:</p>
+<p>where <span class="math inline">\(x_5\)</span> and <span class="math inline">\(x_6\)</span> are arbitrary real constants.</p>
+<p>We have to ensure, that the vectors are orthonormal, i.e.&nbsp;<span class="math inline">\(\|\nu_i\| = 1\)</span> for <span class="math inline">\(i=1,2,3\)</span> and <span class="math inline">\(\langle \nu_i, \nu_j\rangle = 0\)</span> if <span class="math inline">\(i\neq j\)</span>. Thus, the eigenvectors for the matrix <span class="math inline">\(\Sigma\)</span> are:</p>
 <p><span class="math display">\[
 \nu_1 =\begin{pmatrix}
             1\\
@@ -265,12 +270,12 @@ Solution
             1\\
             0
 \end{pmatrix} \quad
-\nu_3 = = \begin{pmatrix}
+\nu_3 = \begin{pmatrix}
             0\\
             0\\
             1
 \end{pmatrix}
-\]</span> Note, that the Eigenvectors have to be orthonormal! Those also correspond to the Principal components of the sample that generated <span class="math inline">\(\Sigma\)</span>.</p>
+\]</span> Those also correspond to the Principal components of the sample that generated <span class="math inline">\(\Sigma\)</span>.</p>
 </div>
 </div>
 </section>
@@ -304,24 +309,24 @@ Solution
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>gtExtras<span class="sc">::</span><span class="fu">gt_plt_summary</span>(pen)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="wnafkxsbqf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="bhteqjhuxz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-#wnafkxsbqf table {
+#bhteqjhuxz table {
   font-family: Lato, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wnafkxsbqf thead, #wnafkxsbqf tbody, #wnafkxsbqf tfoot, #wnafkxsbqf tr, #wnafkxsbqf td, #wnafkxsbqf th {
+#bhteqjhuxz thead, #bhteqjhuxz tbody, #bhteqjhuxz tfoot, #bhteqjhuxz tr, #bhteqjhuxz td, #bhteqjhuxz th {
   border-style: none;
 }
 
-#wnafkxsbqf p {
+#bhteqjhuxz p {
   margin: 0;
   padding: 0;
 }
 
-#wnafkxsbqf .gt_table {
+#bhteqjhuxz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -347,12 +352,12 @@ Solution
   border-left-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_caption {
+#bhteqjhuxz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wnafkxsbqf .gt_title {
+#bhteqjhuxz .gt_title {
   color: #333333;
   font-size: 24px;
   font-weight: initial;
@@ -364,7 +369,7 @@ Solution
   border-bottom-width: 0;
 }
 
-#wnafkxsbqf .gt_subtitle {
+#bhteqjhuxz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -376,7 +381,7 @@ Solution
   border-top-width: 0;
 }
 
-#wnafkxsbqf .gt_heading {
+#bhteqjhuxz .gt_heading {
   background-color: #FFFFFF;
   text-align: left;
   border-bottom-color: #FFFFFF;
@@ -388,13 +393,13 @@ Solution
   border-right-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_bottom_border {
+#bhteqjhuxz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 0px;
   border-bottom-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_col_headings {
+#bhteqjhuxz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 0px;
   border-top-color: #D3D3D3;
@@ -409,7 +414,7 @@ Solution
   border-right-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_col_heading {
+#bhteqjhuxz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -429,7 +434,7 @@ Solution
   overflow-x: hidden;
 }
 
-#wnafkxsbqf .gt_column_spanner_outer {
+#bhteqjhuxz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -441,15 +446,15 @@ Solution
   padding-right: 4px;
 }
 
-#wnafkxsbqf .gt_column_spanner_outer:first-child {
+#bhteqjhuxz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wnafkxsbqf .gt_column_spanner_outer:last-child {
+#bhteqjhuxz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wnafkxsbqf .gt_column_spanner {
+#bhteqjhuxz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -461,11 +466,11 @@ Solution
   width: 100%;
 }
 
-#wnafkxsbqf .gt_spanner_row {
+#bhteqjhuxz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wnafkxsbqf .gt_group_heading {
+#bhteqjhuxz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -491,7 +496,7 @@ Solution
   text-align: left;
 }
 
-#wnafkxsbqf .gt_empty_group_heading {
+#bhteqjhuxz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -506,15 +511,15 @@ Solution
   vertical-align: middle;
 }
 
-#wnafkxsbqf .gt_from_md > :first-child {
+#bhteqjhuxz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wnafkxsbqf .gt_from_md > :last-child {
+#bhteqjhuxz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wnafkxsbqf .gt_row {
+#bhteqjhuxz .gt_row {
   padding-top: 7px;
   padding-bottom: 7px;
   padding-left: 5px;
@@ -533,7 +538,7 @@ Solution
   overflow-x: hidden;
 }
 
-#wnafkxsbqf .gt_stub {
+#bhteqjhuxz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 80%;
@@ -546,7 +551,7 @@ Solution
   padding-right: 5px;
 }
 
-#wnafkxsbqf .gt_stub_row_group {
+#bhteqjhuxz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -560,15 +565,15 @@ Solution
   vertical-align: top;
 }
 
-#wnafkxsbqf .gt_row_group_first td {
+#bhteqjhuxz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wnafkxsbqf .gt_row_group_first th {
+#bhteqjhuxz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wnafkxsbqf .gt_summary_row {
+#bhteqjhuxz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -578,16 +583,16 @@ Solution
   padding-right: 5px;
 }
 
-#wnafkxsbqf .gt_first_summary_row {
+#bhteqjhuxz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_first_summary_row.thick {
+#bhteqjhuxz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wnafkxsbqf .gt_last_summary_row {
+#bhteqjhuxz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -597,7 +602,7 @@ Solution
   border-bottom-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_grand_summary_row {
+#bhteqjhuxz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -607,7 +612,7 @@ Solution
   padding-right: 5px;
 }
 
-#wnafkxsbqf .gt_first_grand_summary_row {
+#bhteqjhuxz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -617,7 +622,7 @@ Solution
   border-top-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_last_grand_summary_row_top {
+#bhteqjhuxz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -627,11 +632,11 @@ Solution
   border-bottom-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_striped {
+#bhteqjhuxz .gt_striped {
   background-color: #FAFAFA;
 }
 
-#wnafkxsbqf .gt_table_body {
+#bhteqjhuxz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -640,7 +645,7 @@ Solution
   border-bottom-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_footnotes {
+#bhteqjhuxz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -654,7 +659,7 @@ Solution
   border-right-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_footnote {
+#bhteqjhuxz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -663,7 +668,7 @@ Solution
   padding-right: 5px;
 }
 
-#wnafkxsbqf .gt_sourcenotes {
+#bhteqjhuxz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -677,7 +682,7 @@ Solution
   border-right-color: #D3D3D3;
 }
 
-#wnafkxsbqf .gt_sourcenote {
+#bhteqjhuxz .gt_sourcenote {
   font-size: 12px;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -685,63 +690,63 @@ Solution
   padding-right: 5px;
 }
 
-#wnafkxsbqf .gt_left {
+#bhteqjhuxz .gt_left {
   text-align: left;
 }
 
-#wnafkxsbqf .gt_center {
+#bhteqjhuxz .gt_center {
   text-align: center;
 }
 
-#wnafkxsbqf .gt_right {
+#bhteqjhuxz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wnafkxsbqf .gt_font_normal {
+#bhteqjhuxz .gt_font_normal {
   font-weight: normal;
 }
 
-#wnafkxsbqf .gt_font_bold {
+#bhteqjhuxz .gt_font_bold {
   font-weight: bold;
 }
 
-#wnafkxsbqf .gt_font_italic {
+#bhteqjhuxz .gt_font_italic {
   font-style: italic;
 }
 
-#wnafkxsbqf .gt_super {
+#bhteqjhuxz .gt_super {
   font-size: 65%;
 }
 
-#wnafkxsbqf .gt_footnote_marks {
+#bhteqjhuxz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wnafkxsbqf .gt_asterisk {
+#bhteqjhuxz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wnafkxsbqf .gt_indent_1 {
+#bhteqjhuxz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wnafkxsbqf .gt_indent_2 {
+#bhteqjhuxz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wnafkxsbqf .gt_indent_3 {
+#bhteqjhuxz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wnafkxsbqf .gt_indent_4 {
+#bhteqjhuxz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wnafkxsbqf .gt_indent_5 {
+#bhteqjhuxz .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -976,7 +981,7 @@ Solution
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dendro_data</span>(<span class="at">type =</span> <span class="st">"rectangle"</span>)</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">segment</span>(dhc) <span class="sc">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y<span class="sc">&gt;=</span><span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&gt;=</span> <span class="dv">500</span> ) <span class="sc">%&gt;%</span></span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x=</span>x,<span class="at">y=</span>y,<span class="at">xend=</span>xend,<span class="at">yend=</span>yend)</span>
