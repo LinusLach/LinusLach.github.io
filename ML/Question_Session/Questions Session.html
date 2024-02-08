@@ -486,11 +486,7 @@ Linus Lach
 </div>
 </div><div class="column" style="width:50%;">
 <div style="font-size:16pt">
-<ol type="1">
-<li><p>After some preprocessing, use the <code>initial_split</code> function to create an <code>rsplit</code> obejct (usually named <code>split</code>).</p></li>
-<li><p>Using the <code>training</code> and <code>testing</code> function to create a training and test split (usually named <code>data_train</code> and <code>data_test</code>).</p></li>
-</ol>
-<p>Note, that we do not need cross-validation here since we do not tune any hyperparameters.</p>
+<p>The data splitting procedure is the same as with hyperparameter tuning. See Slide 5 for details. However, in some cases (e.g.&nbsp;small sample size) we do not want to apply cross-validation which is why we will explain this approach in the following slides.</p>
 </div>
 </div>
 </div>
@@ -527,7 +523,7 @@ Linus Lach
 </section>
 <section id="summary-1" class="slide level2">
 <h2>Summary</h2>
-<p>In summary, the steps for developing a model without tuning are fairly similar to its counterpart. We do not need to perform cross validation since there are no hyperparameters to tune.</p>
+<p>In summary, the steps for developing a model without tuning are fairly similar to its counterpart.</p>
 <div class="footer footer-default">
 
 </div>
@@ -743,44 +739,6 @@ Linus Lach
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
