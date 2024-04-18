@@ -1,0 +1,454 @@
+---
+title: "Data Mining: Übung 01"
+format:
+  revealjs:
+    theme: [solarized, custom.scss]
+    include-in-header: 
+      text: |
+        <style>
+        .center-xy {
+          margin: 0;
+          position: absolute;
+          top: 0%;
+          left: 27%;
+          -ms-transform: translateY(-50%), translateX(-50%);
+          transform: translateY(-50%), translateX(-50%);
+        }
+        </style>
+        
+---
+
+# ![](pictures/Rlogo.png){width="10%"}: Eine kurze Einführung und Motivation
+
+## Ziel dieser Vorlesung
+
+![[Quelle: R4DS](https://r4ds.had.co.nz/introduction.html)](pictures/Program.png){fig-align="center"}
+
+:::{.notes}
+*   data (science) mining und machine learning ist zu umfangreich für eine Vorlesung allein.
+*   Ziel ist es deshalb die wichtigsten und grundlegensten Aspekte abzudecken.
+*   Schritte zusammengefasst:
+    * **Import**: Daten in R importieren, entweder als File von einer Datenbank oder         API (application programming interface).
+    * **Tidy** (Ordentliches Format): Wenn die Daten tidy sind, ist jede Spalte eine         Variable und jede Zeile eine Beobachtung.
+    * **Understand**:
+      * *Transform*: Eingrenzung der Beobachtungen, die von Interesse sind,
+                     Erstellung neuer Variablen, die einen Funktionalen Zusammenhang                        vorhandener Variablen haben, zusammenfassenden Statistiken.
+      * *Visualise*: Eine gute Visualisierung kann Dinge zeigen, die nicht                                  erwartet werden, oder neue Fragen zu den Daten aufwerfen. Oder                         Gegenteil!
+      * *Model*:     Wenn Fragen hinreichend präzise formuliert sind, können sie mit                        Hilfe eines Modells beantwortet werden.
+
+
+:::
+
+## Installation von R
+
+:::::{.columns}
+
+::::{.column width="30%"}
+
+:::{.fragment fragment-index=1}
+- [R-Projekt](https://cloud.r-project.org/)
+:::
+
+:::{.fragment fragment-index=2}
+- [RStudio](https://posit.co/downloads/)
+:::
+
+::::
+
+::::{.column width="70%"}
+:::{.fragment fragment-index=3}
+![[Quelle: Reddit](https://www.reddit.com/r/ProgrammerHumor/comments/sgzlei/best_ide_ever/)](pictures/IDE_meme.jpg){fig-align="center" width="60%"}
+:::
+::::
+
+:::::
+
+:::{.notes}
+* **R** ist eine Programmiersprache für statistische Berechnungen und Datenvisualisierung. Sie wurde in den Bereichen Data Mining, Bioinformatik und Datenanalyse eingesetzt.
+* **IDE:** integrated development environment (IDE)
+  *  you want to bake cookies right? You would need some tools like a bowl, spoons, stuff like that right? that's your IDE, a set of tools to ease the work.
+
+**SWITCH ZU VM**
+:::
+
+## RStudio
+
+![](pictures/IDE.jpg){fig-align="center"}
+
+
+## Benutzung der Konsole
+
+Libraries wie [`praise`](https://github.com/rladies/praise) können das Leben erleichtern.
+
+:::{.fragment fragment-index=1}
+
+```{r}
+#| echo: true
+#| eval: false
+
+install.packages("praise")
+library("praise")
+
+```
+:::
+```{r}
+#| output: false
+library(praise)
+library(tidyverse)
+```
+
+:::{.fragment fragment-index=2}
+Funktionen werden durch das Aufrufen ihres Namens ausgeführt.
+:::
+
+:::{.fragment fragment-index=3}
+```{r}
+#| echo: true
+praise()
+```
+:::
+
+## R als Taschenrechner
+:::{.fragment fragment-index=1}
+```{r}
+#| echo: true
+1 + 2 - 3            # Sum and difference
+```
+:::
+
+:::{.fragment fragment-index=2}
+```{r}
+#| echo: true
+(2 * 3) / 2          # Product and Quotient
+```
+:::
+
+:::{.fragment fragment-index=3}
+```{r}
+#| echo: true
+sqrt(2)              # Square root     
+```
+:::
+
+:::{.fragment fragment-index=4}
+```{r}
+#| echo: true
+exp(1)               # Exponential function
+```
+:::
+
+:::{.fragment fragment-index=5}
+```{r}
+#| echo: true
+log(2)               # Natural logarithm
+```
+:::
+
+:::{.fragment fragment-index=6}
+```{r}
+#| echo: true
+sin(pi)              # Sine
+```
+:::
+
+## Variablen 
+:::{.fragment fragment-index=1}
+Durch den `<-` Operator können wir Variablen deklarieren:
+
+
+```{r}
+#| echo: true
+sqr_root <- sqrt(100)
+```
+:::
+
+\
+
+:::{.fragment fragment-index=2}
+![](pictures/output_meme.jpg){fig-align="center"}
+:::
+
+## Zugriff auf Variablen
+
+:::{.fragment fragment-index=1}
+```{r}
+#| echo: true
+sqr_root # Output by variable name
+```
+:::
+
+:::{.fragment fragment-index=2}
+```{r}
+#| echo: true
+print(sqr_root) # Output by print
+```
+:::
+
+:::{.fragment fragment-index=3}
+
+```{r}
+#| echo: true
+(sqr_root <- sqrt(100)) # Declaration and output 
+```
+:::
+
+## Vektoren
+:::::: {style="font-size: 65%;"}
+:::::{.columns}
+
+::::{.column width="60%"}
+:::{.fragment fragment-index=1}
+![](pictures/Vector_hierarchy.png){fig-align="center" width="70%"}
+:::
+::::
+
+::::{.column width="40%"}
+:::{.fragment fragment-index=2}
+```{r}
+#| echo: true
+(numbers <- c(1, 15.0, 6.3))
+```
+:::
+:::{.fragment fragment-index=3}
+```{r}
+#| echo: true
+(characters <- c("1001" ,"Ali", "Baba"))
+```
+:::
+:::{.fragment fragment-index=4}
+```{r}
+#| echo: true
+(mixed <- c(40, "Thieves"))
+```
+:::
+:::{.fragment fragment-index=5}
+```{r}
+#| echo: true
+(concatenated <- c(characters, mixed))
+```
+:::
+:::{.fragment fragment-index=6}
+```{r}
+#| echo: true
+(first_list <- list(numbers, concatenated))
+```
+:::
+::::
+:::::
+::::::
+
+:::{.notes}
+Es gibt zwei Arten von Vektoren:
+
+* **Atomare Vektoren**, von denen es sechs Typen gibt:
+  * logische Vektoren,
+  * ganzzahlige Vektoren,
+  * Double Vektoren,
+  * Character Vektoren,
+  * komplexe Vektoren, (Complex numbers)
+  * und Raw Vektoren. (The raw type is intended to hold raw bytes.)
+* **Listen**, die manchmal als **rekursive Vektoren** bezeichnet werden, weil Listen andere Listen enthalten können.
+Der Hauptunterschied zwischen atomaren Vektoren und Listen besteht darin, dass atomare Vektoren homogen sind, während Listen heterogen sein können.
+
+Frage zu mixed: Warum Atomic Vektor?
+:::
+
+## Die `help` Funktion
+
+:::::{.columns}
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=1}
+Die `help` Funktion ruft die Dokumentation für Libraries und Funktionen auf.
+
+```{r}
+#| echo: true
+#| eval: false
+
+help(seq)
+?seq
+```
+:::
+::::
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=2}
+![](pictures/seq_doc.png){fig-align="center"}
+:::
+::::
+
+:::::
+
+## Der `%>%` Operator
+:::::{style="font-size: 65%;"}
+
+```{r}
+#| echo: true
+X <- c(1, 7, 5, 9, 10, 12, 8)
+```
+
+\
+
+:::::{.columns}
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=1}
+```{r}
+#| echo: true
+
+# Compute the maximum, here 12
+m <- max(X)   
+
+# Generate sequence of even integers
+even_ints <- seq(from = 2, by = 2, length.out = m)
+
+# Compute the sum of the sequence
+sum(even_ints) 
+
+```
+:::
+:::{.fragment fragment-index=2}
+```{r}
+#| echo: true
+
+sum(seq(from = 2, by = 2, length.out = max(X)))
+```
+:::
+::::
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=3}
+```{r}
+#| echo: true
+X %>%                     # Take X
+  max() %>%               # Find the maximum
+  seq(
+    from = 2, 
+    by = 2, 
+    length.out = .
+  ) %>%                   # Use max as length.out via '.'
+  sum()                   # Compute sum
+```   
+:::
+::::
+:::::
+::::::
+
+## Speichern und Ausführen von Code
+::::{.columns}
+
+:::{.column width="50%"}
+![](pictures/Script_example.jpg){fig-align="center"}
+
+:::
+
+:::{.column width="50%"}
+![](pictures/RMD_example.jpg){fig-align="center"}
+
+:::
+
+::::
+
+## Data Frames and Tibbles
+::::::{style="font-size: 65%;"}
+:::::{.columns}
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=1}
+```{r}
+#| echo: true
+(data <- data.frame(a = 1:3,
+                    b = letters[1:3],
+                    c = Sys.Date() - 1:3)
+  )
+```
+:::
+:::{.fragment fragment-index=2}
+```{r}
+#| echo: true
+(data <- as_tibble(data))
+```
+:::
+::::
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=3}
+```{r}
+#| echo: true
+data %>% select(b)
+```
+:::
+:::{.fragment fragment-index=4}
+```{r}
+#| echo: true
+data %>% filter(a<=2)
+```
+:::
+:::{.fragment fragment-index=5}
+```{r}
+#| echo: true
+data %>% mutate(b = factor(b,
+                            levels = c("a","b","c")
+                            )
+                 )
+```
+:::
+::::
+:::::
+::::::
+
+:::{.notes}
+Tibbles sind data.frames, die faul und mürrisch sind: Sie tun weniger (d.h. sie ändern keine Variablennamen oder -typen und führen keine partielle Anpassung durch) und beschweren sich mehr (z.B. wenn eine Variable nicht existiert). Dadurch werden Sie gezwungen, Probleme früher zu erkennen, was in der Regel zu einem saubereren, aussagekräftigeren Code führt.
+:::
+
+## Plotting with \{ggplot2\}
+
+:::::{.columns}
+::::{.column width="50%"}
+:::{.fragment fragment-index=1}
+```{r}
+#| eval: false
+#| echo: true
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+![](pictures/gglayers.png){fig-align="center"}
+:::
+::::
+
+::::{.column width="50%"}
+:::{.fragment fragment-index=2}
+```{r}
+plot_data <- palmerpenguins::penguins
+```
+
+```{r}
+#| echo: true
+
+plot_data %>% 
+  ggplot(.) +
+  geom_bar(
+    mapping = aes(x = species,
+                  fill = sex),
+    stat = "count"
+  )+
+  coord_flip() +
+  ggtitle("Number of observed penguins for each species grouped by their observed sex")+
+  theme_minimal()
+  
+```
+:::
+::::
+:::::
+
+## [Danke fürs vorbei schauen!]{style="color:red;"}<br> {background-image="pictures/racoon-pedro.gif" data-background-size="1000px 1000px" data-background-repeat="repeat"}
+
+
+
