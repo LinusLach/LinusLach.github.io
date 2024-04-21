@@ -519,7 +519,7 @@
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">praise</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "You are solid!"</code></pre>
+<pre><code>[1] "You are astonishing!"</code></pre>
 </div>
 </div>
 </div>
@@ -765,14 +765,18 @@
 </div><div class="column" style="width:50%;">
 <div class="fragment" data-fragment-index="3">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>X <span class="sc">%&gt;%</span>                     <span class="co"># Take X</span></span>
-<span id="cb39-2"><a href="#cb39-2"></a>  <span class="fu">max</span>() <span class="sc">%&gt;%</span>               <span class="co"># Find the maximum</span></span>
-<span id="cb39-3"><a href="#cb39-3"></a>  <span class="fu">seq</span>(</span>
-<span id="cb39-4"><a href="#cb39-4"></a>    <span class="at">from =</span> <span class="dv">2</span>, </span>
-<span id="cb39-5"><a href="#cb39-5"></a>    <span class="at">by =</span> <span class="dv">2</span>, </span>
-<span id="cb39-6"><a href="#cb39-6"></a>    <span class="at">length.out =</span> .</span>
-<span id="cb39-7"><a href="#cb39-7"></a>  ) <span class="sc">%&gt;%</span>                   <span class="co"># Use max as length.out via '.'</span></span>
-<span id="cb39-8"><a href="#cb39-8"></a>  <span class="fu">sum</span>()                   <span class="co"># Compute sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a><span class="co">#install tidyverse if not already installed:</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a><span class="co">#install.packages("tidyverse")</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a></span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb39-5"><a href="#cb39-5"></a>X <span class="sc">%&gt;%</span>                     <span class="co"># Take X</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>  <span class="fu">max</span>() <span class="sc">%&gt;%</span>               <span class="co"># Find the maximum</span></span>
+<span id="cb39-7"><a href="#cb39-7"></a>  <span class="fu">seq</span>(</span>
+<span id="cb39-8"><a href="#cb39-8"></a>    <span class="at">from =</span> <span class="dv">2</span>, </span>
+<span id="cb39-9"><a href="#cb39-9"></a>    <span class="at">by =</span> <span class="dv">2</span>, </span>
+<span id="cb39-10"><a href="#cb39-10"></a>    <span class="at">length.out =</span> .</span>
+<span id="cb39-11"><a href="#cb39-11"></a>  ) <span class="sc">%&gt;%</span>                   <span class="co"># Use max as length.out via '.'</span></span>
+<span id="cb39-12"><a href="#cb39-12"></a>  <span class="fu">sum</span>()                   <span class="co"># Compute sum</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 156</code></pre>
 </div>
@@ -813,22 +817,26 @@
 <span id="cb41-4"><a href="#cb41-4"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  a b          c
-1 1 a 2024-04-18
-2 2 b 2024-04-17
-3 3 c 2024-04-16</code></pre>
+1 1 a 2024-04-20
+2 2 b 2024-04-19
+3 3 c 2024-04-18</code></pre>
 </div>
 </div>
 </div>
 <div class="fragment" data-fragment-index="2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>(data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="co">#install tidyverse if not already installed:</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="co">#install.packages("tidyverse")</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a><span class="co">#library(tidyverse)</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a></span>
+<span id="cb43-5"><a href="#cb43-5"></a>(data <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
       a b     c         
   &lt;int&gt; &lt;chr&gt; &lt;date&gt;    
-1     1 a     2024-04-18
-2     2 b     2024-04-17
-3     3 c     2024-04-16</code></pre>
+1     1 a     2024-04-20
+2     2 b     2024-04-19
+3     3 c     2024-04-18</code></pre>
 </div>
 </div>
 </div>
@@ -853,8 +861,8 @@
 <pre><code># A tibble: 2 × 3
       a b     c         
   &lt;int&gt; &lt;chr&gt; &lt;date&gt;    
-1     1 a     2024-04-18
-2     2 b     2024-04-17</code></pre>
+1     1 a     2024-04-20
+2     2 b     2024-04-19</code></pre>
 </div>
 </div>
 </div>
@@ -868,9 +876,9 @@
 <pre><code># A tibble: 3 × 3
       a b     c         
   &lt;int&gt; &lt;fct&gt; &lt;date&gt;    
-1     1 a     2024-04-18
-2     2 b     2024-04-17
-3     3 c     2024-04-16</code></pre>
+1     1 a     2024-04-20
+2     2 b     2024-04-19
+3     3 c     2024-04-18</code></pre>
 </div>
 </div>
 </div>
@@ -915,16 +923,20 @@
 </div><div class="column" style="width:50%;">
 <div class="fragment" data-fragment-index="2">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a>plot_data <span class="sc">%&gt;%</span> </span>
-<span id="cb52-2"><a href="#cb52-2"></a>  <span class="fu">ggplot</span>(.) <span class="sc">+</span></span>
-<span id="cb52-3"><a href="#cb52-3"></a>  <span class="fu">geom_bar</span>(</span>
-<span id="cb52-4"><a href="#cb52-4"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> species,</span>
-<span id="cb52-5"><a href="#cb52-5"></a>                  <span class="at">fill =</span> sex),</span>
-<span id="cb52-6"><a href="#cb52-6"></a>    <span class="at">stat =</span> <span class="st">"count"</span></span>
-<span id="cb52-7"><a href="#cb52-7"></a>  )<span class="sc">+</span></span>
-<span id="cb52-8"><a href="#cb52-8"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb52-9"><a href="#cb52-9"></a>  <span class="fu">ggtitle</span>(<span class="st">"Number of observed penguins for each species grouped by their observed sex"</span>)<span class="sc">+</span></span>
-<span id="cb52-10"><a href="#cb52-10"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="co">#install palmerpenguins if not already installed:</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="co">#install.packages("palmerpenguins")</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a></span>
+<span id="cb52-4"><a href="#cb52-4"></a>plot_data <span class="ot">&lt;-</span> palmerpenguins<span class="sc">::</span>penguins</span>
+<span id="cb52-5"><a href="#cb52-5"></a>plot_data <span class="sc">%&gt;%</span> </span>
+<span id="cb52-6"><a href="#cb52-6"></a>  <span class="fu">ggplot</span>(.) <span class="sc">+</span></span>
+<span id="cb52-7"><a href="#cb52-7"></a>  <span class="fu">geom_bar</span>(</span>
+<span id="cb52-8"><a href="#cb52-8"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> species,</span>
+<span id="cb52-9"><a href="#cb52-9"></a>                  <span class="at">fill =</span> sex),</span>
+<span id="cb52-10"><a href="#cb52-10"></a>    <span class="at">stat =</span> <span class="st">"count"</span></span>
+<span id="cb52-11"><a href="#cb52-11"></a>  )<span class="sc">+</span></span>
+<span id="cb52-12"><a href="#cb52-12"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb52-13"><a href="#cb52-13"></a>  <span class="fu">ggtitle</span>(<span class="st">"Number of observed penguins for each species grouped by their observed sex"</span>)<span class="sc">+</span></span>
+<span id="cb52-14"><a href="#cb52-14"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img data-src="Einführung_files/figure-revealjs/unnamed-chunk-31-1.png" width="960"></p>
 </div>
