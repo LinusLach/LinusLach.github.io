@@ -1,0 +1,6 @@
+/*-- scss:defaults --*/
+
+body {
+  background-color: #f1efef;
+  background: url("pictures/TUe-logo.svg") right 1.75vh bottom 1.75vh/auto 10.5vh no-repeat, #f1efef url("pictures/TUe-white.svg") bottom/auto 14vh no-repeat;
+  background-color: #f1efef; }
