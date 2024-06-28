@@ -1,0 +1,675 @@
+---
+title: "Data Mining: Übung 10 <br> Klassifizierung und Clustering"
+format:
+  revealjs:
+    theme: [solarized, custom.scss]
+    toc: true
+    toc-title: "Inhalt"
+    toc-depth: 1
+    fig-cap-location: top
+    include-in-header: 
+      text: |
+        <style>
+        .center-xy {
+          margin: 0;
+          position: absolute;
+          top: 0%;
+          left: 27%;
+          -ms-transform: translateY(-50%), translateX(-50%);
+          transform: translateY(-50%), translateX(-50%);
+        }
+        </style>
+    logo: pictures/Logo_cc.svg
+    execute:
+      echo: true
+    footer: "Übung 10"
+---
+
+# Theoretische Grundlagen Klassifikation
+
+## Grundlagen
+
+-   Feature Matrix $X\in \mathbb{R}^{n\times j}$ und Zielvariable $y=\{0,1\}^n$.
+
+-   Finde Klassifizierer (Classifier) $\hat f(x)=\hat{y}$, so dass für möglichst viele $\hat{y}$ gilt $\hat{y} = y$.
+
+-   I.d.R. wird die Wahrscheinlichkeit 
+    \begin{equation}
+      P(y_i|x_i) = p \in [0,1]
+    \end{equation}
+    geschätzt.
+-   Falls $p \geq \tilde p$ (threshold), dann gilt $\hat{y}=1$, sonst $\hat{y}=0$.    
+
+## Modellgüte Klassifikation
+
+Wie sollte $\tilde p$ gewählt werden?
+
+:::{.columns}
+::::{.column width="50%"}
+
+![](pictures/CM.svg){fig-align="center"}
+:::
+:::{.column width="50%"}
+:::{style="font-size:24pt;"}
+
+\begin{align}
+  \mathrm{Accuracy} &= \frac{TP+TN}{P+N}\\
+  \mathrm{Precision} &= \frac{TP}{PP}\\
+  \mathrm{Sensibility} &= \frac{TP}{P}\\
+  \mathrm{Specificity} &= \frac{TN}{N}\\
+  \mathrm{FPR} &= 1-\mathrm{Specificity}
+\end{align}
+
+:::
+:::
+::::
+
+## ROC-Curve
+
+Idee: Variiere den Threshold $\tilde p$ und vergleiche verschiedene Kennzahlen miteinander:
+
+<center>
+```{r echo=FALSE}
+library(tidyverse)
+library(tidymodels)
+data("two_class_example")
+
+thresh_opt <- two_class_example %>%
+  roc_curve(truth, Class1) %>%
+  mutate( sumsenesspec = specificity+sensitivity) %>%
+  filter(sumsenesspec == max(sumsenesspec))%>%
+  select(.threshold) %>%
+  pluck(".threshold")
+ 
+
+roc_tib <- two_class_example %>%
+  roc_curve(truth, Class1)
+
+roc_tib %>%
+  ggplot(aes(x = 1-specificity,y=sensitivity))+
+  geom_path(lwd = 1, alpha = 0.8)+
+  geom_abline(lty = 3) +
+  geom_point(aes(x=1-specificity,y=sensitivity),
+             data = roc_tib %>%
+               filter(
+                 .threshold >= 0.5 & .threshold <= 0.505
+                 ),
+             color = "red"
+             )+
+  annotate("text",
+           x = 0.35,
+           y = 0.8,
+           label = "threshold ~p = 0.5")+
+  annotate("segment",
+           x = 0.35,
+           xend = 0.21,
+           y = 0.8,
+           yend = 0.875,
+           arrow = arrow( type="closed",
+                          length = unit(0.02, "npc"))
+           )+
+  geom_point(aes(x=1-specificity,y=sensitivity),
+             data = roc_tib %>%
+               filter(
+                 .threshold >= 0.9 & .threshold <= 0.905
+                 ),
+             color = "red"
+             )+
+  annotate("text",
+           x = 0.25,
+           y = 0.6,
+           label = "threshold ~p = 0.9")+
+  annotate("segment",
+           x = 0.25,
+           xend = 0.04,
+           y = 0.6,
+           yend = 0.67,
+           arrow = arrow( type="closed",
+                          length = unit(0.02, "npc"))
+           )+
+  geom_point(aes(x=1-specificity,y=sensitivity),
+             data = roc_tib %>%
+               filter(
+                 .threshold >= thresh_opt &
+                   .threshold <= thresh_opt+0.005
+                 ),
+             color = "cyan4"
+             )+
+  annotate("text",
+           x = 0.35,
+           y = 1.05,
+           label = glue::glue("optimal threshold ~p = {round(thresh_opt,3)}"))+
+  annotate("segment",
+           x = 0.05,
+           xend = 0.07,
+           y = 1,
+           yend = 0.82,
+           arrow = arrow( type="closed",
+                          length = unit(0.02, "npc"))
+           )+
+  coord_equal() +
+  coord_fixed()+
+  theme(legend.position = "none")+
+  theme_minimal()
+
+```
+</center>
+
+## Übersicht
+:::::{style="font-size:24pt;"}
+::::{.columns}
+:::{.column width="33%"}
+
+### Logistische Regression
+
+:::{style="font-size:18pt;"}
+**Vorteil:**
+<br>
+Interpretierbare Modellparameter
+<br>
+**Nachteil:**
+<br>
+Annahme einer linearen Trennbarkeit der Daten
+:::
+
+:::
+:::{.column width="33%"}
+
+### Klassifikationsbäume
+
+:::{style="font-size:18pt;"}
+
+**Vorteil:**
+<br>
+Hohe grafische Interpretierbarkeit
+<br>
+**Nachteil:**
+<br>
+Können komplexe Zusammenhänge nur bedingt gut Beschreiben
+:::
+
+
+:::
+:::{.column width="33%"}
+
+### MLP-Modelle
+
+:::{style="font-size:18pt;"}
+
+**Vorteil:**
+<br>
+Können sehr komplexe Zusammenhänge beschreiben
+<br>
+**Nachteil:**
+<br>
+Modellparameter nicht interpretierbar
+
+:::
+
+
+:::
+::::
+:::::
+
+## Logistische Regression
+
+:::{style="font-size:24pt;"}
+
+Für $Y_i\in\{0,1\}$ ist die Wahrscheinlichkeit von $Y_i$ gegeben $X_i$ definiert als
+\begin{equation}
+  P(Y_i=1|X_i) = \frac{1}{1+\exp(-z_i)}
+\end{equation}
+wobei 
+\begin{equation}
+  z_i = b_0 + \sum_{k=1}^{j} b_kX_{kj},\quad \{b_k\}_{k=1}^{j}\in\mathbb{R}^n
+\end{equation}
+
+$z_i$ wird *Logit* genannt.
+
+Die *Odds* sind definiert als
+
+\begin{equation}
+  \mathrm{Odds} = \frac{P(Y=1|X)}{P(Y=0|X)} = \exp(z).
+\end{equation}
+
+:::
+
+## Interpretation der Modellparameter
+
+|              | Logit (z) | Odds       | $P (Y = 1|X)$ |  
+|-----------|:-----------:|:-------------:|:---------:|  
+| b > 0     | steigt um b | steigt um $e^b$ |  steigt   |
+| b < 0     | sinkt um b | sinkt um $e^b$ |  sinkt      |
+
+## Annahmen Logistische Regression
+
+-   Binärität der Zielvariable ($Y_i\in\{0,1\}$)
+-   Keine Multikollinearität
+-   Aggregation der unabhägigen Variablen $X_k,\, k=1,...,j$ zu Logits $z$ unter der Annahme einer linearen Beziehung.
+-   Datensatz ist ausreichend groß und enthält keine starken Ausreißer.
+
+
+# Klassifikikationsmodelle in R
+
+## Daten(-Split) und Libraries
+
+:::{style="font-size:24pt;"}
+### Libraries
+```{r message=FALSE}
+library(tidyverse)
+library(tidymodels)
+```
+
+### Daten 
+```{r}
+data_pen <- palmerpenguins::penguins %>% na.omit() %>% select(-year)
+data_pen %>% glimpse()
+```
+
+### Training- und Test-Split
+```{r}
+set.seed(1)
+split <- initial_split(data_pen)
+data_train <- training(split)
+data_test <- testing(split)
+```
+:::
+
+## Trainieren eines logistischen Regressionsmodells
+
+:::{style="font-size:24pt;"}
+```{r}
+model_logistic <- logistic_reg() %>% 
+  fit(sex~., data=data_train)
+```
+<br>
+```{r}
+model_logistic$fit %>% summary()
+```
+
+:::
+
+## Evaluieren des Logistischen Regressionsmodells {.scrollable}
+
+<center>
+```{r}
+model_logistic %>%
+  augment(data_test) %>%
+  conf_mat(sex, .pred_class) %>%
+  autoplot(type="heatmap")
+```
+
+
+```{r}
+model_logistic %>% 
+  augment(data_test) %>%
+  yardstick::accuracy(.pred_class,sex)
+
+```
+
+```{r}
+model_logistic %>% 
+  augment(data_test) %>%
+  roc_curve(sex, .pred_female) %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity)) +
+    geom_path() +
+    geom_abline(lty = 3) +
+    coord_equal() +
+    theme_minimal()
+```
+
+</center>
+
+## Trainieren eines Klassifikationsbaums{.scrollable}
+
+:::{style="font-size:24pt;"}
+<center>
+```{r}
+model_tree <- decision_tree(mode = "classification") %>% 
+  fit(sex~., data=data_train)
+```
+<br>
+```{r}
+library(rattle)
+model_tree$fit %>% fancyRpartPlot(caption="")
+```
+
+</center>
+
+:::
+
+## Evaluieren des Klassifikationsbaums{.scrollable}
+
+<center>
+```{r}
+model_tree %>%
+  augment(data_test) %>%
+  conf_mat(sex, .pred_class) %>%
+  autoplot(type="heatmap")
+```
+
+```{r}
+model_tree %>% 
+  augment(data_test) %>%
+  yardstick::accuracy(.pred_class,sex)
+
+```
+
+```{r}
+model_tree %>% 
+  augment(data_test) %>%
+  roc_curve(sex, .pred_female) %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity)) +
+    geom_path() +
+    geom_abline(lty = 3) +
+    coord_equal() +
+    theme_minimal()
+
+```
+
+</center>
+
+## Trainieren eines MLP-Classifiers
+
+```{r}
+rec_pen <- recipe(sex ~.,data=data_train) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_normalize(all_predictors())
+```
+<br>
+```{r}
+set.seed(3)
+
+model_mlp <- rec_pen %>%
+  brulee::brulee_mlp(
+    mode = "classification",
+    data = data_train,
+    epochs = 300,
+    stop_iter = 20,
+    hidden_units = c(12,24,48),
+    learn_rate = 0.1,
+    penalty = 0,
+    optimzer = "SGD") 
+```
+
+## Evaluieren des MLP-Modells{.scrollable}
+
+<center>
+```{r}
+model_mlp %>%
+  predict(data_test) %>%
+  bind_cols(data_test) %>%
+  conf_mat(sex, .pred_class) %>%
+  autoplot(type="heatmap")
+```
+
+```{r}
+model_mlp %>%
+  predict(data_test) %>%
+  bind_cols(data_test) %>%
+  yardstick::accuracy(.pred_class,sex)
+```
+
+```{r}
+model_mlp %>% 
+  predict(data_test, type="prob") %>%
+  bind_cols(data_test) %>%
+  roc_curve(sex, .pred_female) %>%
+    ggplot(aes(x = 1 - specificity, y = sensitivity)) +
+    geom_path() +
+    geom_abline(lty = 3) +
+    coord_equal() +
+    theme_minimal()
+
+```
+
+</center>
+
+# Clustering
+
+## Theoretische Grundlagen Clustering
+
+**Unsupervised Learning:** Keine Zielvariable mehr vorhanden (unlabled data).
+
+**Intuition:** Finde Gruppen von Daten, deren Punkte zu sich selbst *ähnlich* sind, aber *unterschiedlich* zu Punkten aus anderen Gruppen.
+
+Wie ist *ähnlich* und *unterschiedlich* definiert?
+
+## Distanzmaße für metrische Merkmale
+
+:::{style="font-size:24pt;"}
+\begin{align}
+  d_M(x_m,x_l) &= \sum_{i=1}^j |x_{m,i}-x_{l,i}|\quad\text{(Manhatten-Distanz)}\\
+  d_E(x_m,x_l) &= \sqrt{\sum_{i=1}^j (x_{m,i}-x_{l,i})^2} = \|x_m-x_l\| \quad\text{(Euklidische-Distanz)}
+\end{align}
+:::
+
+## Distanzmaße für gemischte Merkmale
+
+:::{style="font-size:24pt;"}
+\begin{equation}
+  d_G(x_m,x_l) = \frac{\sum_{i=1}^j \delta(x_{m,i},x_{l,i})d(x_{m,i},x_{l,i})}{\sum_{i=1}^j \delta(x_{m,i},x_{l,i})} \quad\text{(Gower-Distanz)}
+\end{equation}
+wobei
+\begin{align}
+  d(x_{m,i},x_{l,i}) &= \begin{cases} &1,\quad x_{m,i}\neq x_{l,i},\\ &0,\quad \text{sonst}  \end{cases}\qquad x_i\text{ nominal }\\
+  d(x_{m,i},x_{l,i}) &= \frac{|x_{m,i}-x_{l,i}|}{\max_{m}x_{m,i}-\min_{m}x_{m,i}}\qquad x_i\text{ metrisch }
+\end{align}
+
+und $\delta$ eine Gewichtungsfunktion der Merkmale $i=1,...,j$ ist.
+:::
+
+# Clustering (Hierarchisch)
+
+## Idee
+
+Konstruieren einer Folge von Gruppierungen der Objekte:
+
+-   Divisive Verfahren: Anforderungen an die Homogenität der Klassen schrittweise erhöht.
+-   Agglomorative Verfahren: Anforderungen an die Homogenität der Klassen schrittweise verringert.
+
+## Fusionierungsalgorithmen
+
+\begin{align*}
+  D(C_i,C_j) &= \min_{l\in C_i, m\in C_j} d_{l,m} \quad\text{Single - Linkage}\\
+  D(C_i,C_j) &= \max_{l\in C_i, m\in C_j} d_{l,m} \quad\text{Complete - Linkage}\\
+  D(C_i,C_j) &=\frac{1}{n_in_j} \sum_{l\in C_i} \sum_{m\in C_j} d_{l,m} \quad\text{Average - Linkage}
+\end{align*}
+
+
+## Beispiel Fusionierungsalgorithmen
+
+<center>
+![](pictures/Cluster_raw 2024-06-27 13_34_38.svg){width=60%}
+</center>
+
+```{r}
+#| echo: false
+#| output: false
+set.seed(1)
+n <-10
+data_fusion <- tibble(
+  x = c(rnorm(n,1,0.05),rnorm(n,1.5,0.05),rnorm(n,1,0.05)),
+  y = c(rnorm(n,1,0.05),rnorm(n,1.5,0.05),rnorm(n,2,0.1)),
+  lab = factor(rep(seq.int(1,3),each=n))
+)
+
+data_fusion %>% ggplot(aes(x=x,y=y, color = lab))+
+  geom_point(size = 1.5, alpha=0.5)+
+  scale_color_discrete(
+    name = "Cluster"
+  )+
+  theme_minimal()
+```
+
+## Datenaufbereitung und Bestimmung der Distanzmatrizen
+
+### Skalieren der Daten
+```{r}
+library(cluster)
+data_pen_num <- data_pen %>%
+  select_if(is.numeric) %>%
+  scale()
+```
+
+### Berechnen der Distanzmatrizen
+```{r}
+daisy_euclid<-data_pen_num %>% daisy(metric = "euclidean")
+daisy_manhatten<-data_pen_num %>% daisy(metric = "manhattan")
+```
+
+## Dendrogramme
+
+::::{.columns}
+:::{.column width="50%"}
+
+### Average Linkage
+
+```{r}
+daisy_euclid %>%
+  hclust(method = "average") %>%
+  plot()
+```
+
+:::
+:::{.column width="50%"}
+
+### Single Linkage
+
+```{r}
+daisy_manhatten %>%
+  hclust(method = "single") %>%
+  plot()
+
+```
+
+:::{style="font-size:24pt;"}
+Identifikation der Ausreißer durch Cluster welche große Sprünge erzeugen.
+:::
+:::
+::::
+
+
+## Scree-Plot
+
+::::{style="font-size:24pt;"}
+
+Identifizierung der optimalen Clusteranzahl durch kleinsten Winkel zwischen Punkten.
+
+<center>
+
+:::{.panel-tabset}
+
+## Plot
+```{r out.width="70%"}
+#| echo: false
+avg_clust <- daisy_euclid %>%
+  hclust(method = "average") 
+avg_clust <- avg_clust$height %>%
+  as_tibble() %>%
+  add_column(groups = length(avg_clust$height):1) %>%
+  rename(height=value)
+
+avg_clust %>% 
+  filter(groups <= 10) %>%
+  ggplot(aes(x=groups, y=height)) +
+     geom_point() +
+     geom_line()+
+     scale_x_discrete(
+       labels = seq.int(1,10),
+       limits = seq.int(1,10)
+     )+
+  coord_fixed(2)+
+  theme_minimal()
+```
+
+## Code
+
+```{r}
+#| output: false
+avg_clust <- daisy_euclid %>%
+  hclust(method = "average") 
+avg_clust <- avg_clust$height %>%
+  as_tibble() %>%
+  add_column(groups = length(avg_clust$height):1) %>%
+  rename(height=value)
+
+avg_clust %>% 
+  filter(groups <= 10) %>%
+  ggplot(aes(x=groups, y=height)) +
+     geom_point() +
+     geom_line()+
+     scale_x_discrete(
+       labels = seq.int(1,10),
+       limits = factor(seq.int(1,10))
+     )+
+  coord_fixed(2)+
+  theme_minimal()
+```
+
+:::
+</center>
+::::
+
+# Clustering (Partitionierend)
+
+## Idee
+
+Vorgegebene Zahl der Cluster: Die einzelnen Elemente werden mithilfe eines
+Tauschalgorithmus verschiedenen Clustern zugeordnet, bis die
+Zielfunktion ein Optimum erreicht.
+
+## K-Means
+
+::::{.columns}
+:::{.column width="50%"}
+
+<center>
+![[Quelle](https://upload.wikimedia.org/wikipedia/commons/e/ea/K-means_convergence.gif)](https://upload.wikimedia.org/wikipedia/commons/e/ea/K-means_convergence.gif){width=70%}
+</center>
+
+:::
+
+:::{.column width="50%"}
+:::{style="font-size:18pt;"}
+```{r}
+#| eval: false
+for (step in Steps){
+  if (step == 0) {
+    Wähle zufällige Clusterzentren 1,...,C
+  }else{
+    for (x in X) {
+      Ordne x Cluster c zu deren Zentrum am nähsten zu x ist 
+    }
+    for (c in C){
+      berechne neues Clusterzentrum
+    }
+  } 
+}
+```
+:::
+:::
+::::
+
+## K-Means in R
+
+```{r}
+library(tidyclust)
+set.seed(123)
+kmeans_spec <- k_means(num_clusters = 3)
+kmeans_fit <- kmeans_spec %>% fit(~ bill_length_mm+bill_depth_mm,
+                    data = data_pen)
+
+kmeans_fit %>%
+  augment(data_pen) %>%
+  ggplot(aes(x = bill_length_mm, y =bill_depth_mm, color = .pred_cluster))+
+  geom_point()
+```
+
+# Session info 
+
+## Packages uvm. {.scrollable}
+
+```{r}
+sessionInfo()
+```
