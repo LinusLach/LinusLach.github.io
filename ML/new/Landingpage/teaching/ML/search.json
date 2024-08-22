@@ -1,0 +1,112 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Machine Learning Supplementary Material",
+    "section": "",
+    "text": "Preface\nThis (exercise) manuscript supplements the lecture notes provided for Prof. Dr. Yarema Okhrin’s lecture Machine Learning at the University of Augsburg.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n1 + 1\n\n[1] 2\n\n\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "summary.html",
+    "href": "summary.html",
+    "title": "2  Summary",
+    "section": "",
+    "text": "In summary, this book has no content whatsoever.\n\n1 + 1\n\n[1] 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "index.html#what-this-manuscript-is",
+    "href": "index.html#what-this-manuscript-is",
+    "title": "Machine Learning Supplementary Material",
+    "section": "What this manuscript is",
+    "text": "What this manuscript is\nThe manuscript intends to provide more context to different areas usually neglected in lecture and exercise sessions. The exercise sessions can especially suffer from an imbalance between repeating the theoretical aspects of the lecture and applying the concepts thoroughly. Moreover, this manuscript is comprehensive, containing every exercise and solution presented in the exercise sessions. The solutions will be more detailed than the ones presented in the in-person sessions, which can help you prepare for the exam.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#what-this-manuscript-isnt",
+    "href": "index.html#what-this-manuscript-isnt",
+    "title": "Machine Learning Supplementary Material",
+    "section": "What this manuscript isn’t",
+    "text": "What this manuscript isn’t\nThe manuscript is not a replacement for the lecture and exercise sessions. It should not be considered a comprehensive summary or guide for the exam. By only reading the proposed material, skipping the exercises, and only considering the solutions, you will need to catch up on what to prioritize regarding exam preparation. Another important aspect that this manuscript lacks is the interaction between the students and lecturers. Discussions that arise during the in-person sessions will validate whether you have understood an underlying concept thoroughly or not.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#structure-of-the-manuscript",
+    "href": "index.html#structure-of-the-manuscript",
+    "title": "Machine Learning Supplementary Material",
+    "section": "Structure of the manuscript",
+    "text": "Structure of the manuscript\nDepending on the complexity of the topic, each chapter starts with a more or less comprehensive summary. Those summaries cover theoretical aspects such as definitions and algorithms but also contain code snippets that will be helpful for solving the subsequent exercises.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html",
+    "href": "prerequisites.html",
+    "title": "1  A brief summary of R",
+    "section": "",
+    "text": "2 Exercises\nThe following libraries include most packages we will need throughout this exercise sheet.\nlibrary(\"tidyverse\")\nlibrary(\"tidymodels\")\nThroughout this exercise, we will be working with the Credit Card customers dataset. The dataset consists of 10,127 entries that represent individual customers of a bank including but not limited to their age, salary, credit card limit, and credit card category.\ncredit_info &lt;- read.csv(\"data/BankChurners.csv\")",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>A brief summary of R</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#exercise-1-visual-data-exploration",
+    "href": "prerequisites.html#exercise-1-visual-data-exploration",
+    "title": "1  A brief summary of R",
+    "section": "2.1 Exercise 1: Visual Data Exploration",
+    "text": "2.1 Exercise 1: Visual Data Exploration\nIn this first exercise, we want to familiarize ourselves with the data set. ggplot2 will be our primary library for visualizations as it offers a vast framework of plot types and customizations. If you are not yet familiar with ggplot2, you can check out the R Graphics Cookbook, which is an open-source practical guide for generating high-quality graphs with R, and in particular with ggplot2.\n\n2.1.1 Exercise 1a:\nWe first want to explore some of the demographics in our data set. The following code generates a histogram for the age of the customers.\n\nggplot(data = credit_info, aes(x = Customer_Age))+geom_histogram()\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\n\n\n\n\nUsing the binwidth option, create a histogram for the age of the customers such that each age has its own bin. The output of your code should look as follows:\n\nggplot(data = credit_info, aes(Customer_Age))+geom_histogram(binwidth = 1)\n\n\n\n\n\n\n\n\n\n\n2.1.2 Exercise 1b:\nNow that the histogram looks a bit less messy, we want to add more information. For example, by setting the fill option to Gender, we can get an initial feeling for the distribution between male and female customers within each age group in the data set.\n\nggplot(data = credit_info, aes(Customer_Age, fill = Gender))+geom_histogram(binwidth = 1)\n\n\n\n\n\n\n\n\nInstead of visualizing the Gender as in the plot above, create a histogram with the Attrition_Flag as the fill option. Note, that in this context an attrited customer is someone who is either planning to cancel the credit card or has already handed in the cancellation form. The resulting plot should look like this:\n\nggplot(data = credit_info, aes(Customer_Age, fill = Attrition_Flag))+\n  geom_histogram(binwidth = 1)\n\n\n\n\n\n\n\n\n\n\n2.1.3 Exercise 1c:\nThe histograms above only provide limited insight to the demographics and customer status as it is relatively difficult to figure out the proportions of each group. To takes this one step further, consider the following histogram, which shows the Education_Level within every bin.\n\nggplot(data = credit_info, aes(Customer_Age, fill = Education_Level))+\n  geom_histogram(binwidth = 1)\n\n\n\n\n\n\n\n\nInstead of using a stacked histogram, we can resort to the facet_wrap function, which generates a subplot for each group.\n\nggplot(data = credit_info, aes(Customer_Age, fill = Education_Level))+\n  geom_histogram(binwidth = 1) +\n  facet_wrap(\"Education_Level\")\n\n\n\n\n\n\n\n\n\n2.1.3.1 Exercise 1c i:\nCreate a histogram as above, but instead of grouping the Education_Level, group for the different credit card categories. The result should look like the following plot:\n\nggplot(data = credit_info, aes(Customer_Age, fill = Income_Category))+\n  geom_histogram(binwidth = 1) +\n  facet_wrap(\"Income_Category\")\n\n\n\n\n\n\n\n\n\n\n2.1.3.2 Exercise 1c ii:\nThe legend in our generated plot is in no particular order. Familiarize yourself with the factor function, which helps solve that problem. By overwriting the Income_Category with the output of the factor function, we can order the income categories. Assign levels to the Income_Category using the factor function and generate a new plot with ordered labels. The new plot should look similar to the following:\n\ncredit_info$Income_Category&lt;-factor(credit_info$Income_Category,\n          levels = c(\"Unknown\",\"Less than $40K\",\n                     \"$40K - $60K\",\"$60K - $80K\",\"$80K - $120K\",\"$120K +\"),\n          labels = c(\"Unknown\",\"Less than $40K\",\n                     \"$40K - $60K\",\"$60K - $80K\",\"$80K - $120K\",\"$120K +\"))\n\nggplot(data = credit_info, aes(Customer_Age, fill = Income_Category))+\n  geom_histogram(binwidth = 1) +\n  facet_wrap(\"Income_Category\")",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>A brief summary of R</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#exercise-2-statistical-data-exploration-and-manipulation",
+    "href": "prerequisites.html#exercise-2-statistical-data-exploration-and-manipulation",
+    "title": "1  A brief summary of R",
+    "section": "2.2 Exercise 2: Statistical Data Exploration and Manipulation",
+    "text": "2.2 Exercise 2: Statistical Data Exploration and Manipulation\n\n2.2.1 Exercise 2a:\nOne important aspect of Data Exploration is already visible in Exercise 1. The Income_Category of many customers is not known. That is not only the case for this variable but many others! However, instead of using the standard values NA or NaN, missing values are encoded by Unknown. The following code converts all the “Unknown” values to NA. By changing the values to NA we can filter them more conveniently in the later exercises.\n\ncredit_info_clean &lt;-credit_info %&gt;%\n  mutate(across(where(is.character), ~na_if(.,\"Unknown\")),\n         Income_Category = factor(Income_Category,\n                                  levels = c(NA,\"Less than $40K\",\n                                            \"$40K - $60K\",\"$60K - $80K\",\n                                            \"$80K - $120K\",\"$120K +\")))\n\n\n2.2.1.1 Exercise 2a i:\nGiven the cleaned data set credit_info_clean, find out which columns contain missing values. You can check your answer with the output below:\n\ncredit_info_clean %&gt;% select_if(function(col) sum(is.na(col))&gt;0) %&gt;% names\n\n[1] \"Education_Level\" \"Marital_Status\"  \"Income_Category\"\n\n\n\n\n2.2.1.2 Exercise 2a ii:\nFor the same data set, find out how many of the values are missing. You can check your answer with the output below:\n\nmissing &lt;- credit_info_clean %&gt;% select_if(function(col) sum(is.na(col))&gt;0) %&gt;% names\ncolSums(is.na(credit_info_clean[missing]))\n\nEducation_Level  Marital_Status Income_Category \n           1519             749            1112 \n\n\n\n\n\n2.2.2 Exercise 2b:\nInstead of visualizing our data, it is sometimes more convenient to directly examine numerical representations. Consider the following code chunk which groups the different income categories and applies the mean and median function to the data set.\n\nby_inc &lt;- credit_info_clean %&gt;% group_by(Income_Category) %&gt;%\n  summarise(\n    meanlim = mean(Credit_Limit),\n    medlim = median(Credit_Limit)\n  )\nby_inc\n\n# A tibble: 6 × 3\n  Income_Category meanlim medlim\n  &lt;fct&gt;             &lt;dbl&gt;  &lt;dbl&gt;\n1 Less than $40K    3754.   2766\n2 $40K - $60K       5462.   3682\n3 $60K - $80K      10759.   7660\n4 $80K - $120K     15810.  12830\n5 $120K +          19717.  18442\n6 &lt;NA&gt;              9517.   6380\n\n\n\n2.2.2.1 Exercise 2b i:\nModify the code snippet above to include the \\(25\\%\\) and \\(75 \\%\\) quantile. A solution could look like this:\n\nby_inc &lt;- credit_info_clean %&gt;% group_by(Income_Category) %&gt;%\n  summarise(\n    \"mean\" = mean(Credit_Limit),\n    \"median\" = median(Credit_Limit),\n    \"1stQlim\" = quantile(Credit_Limit,probs = 0.25),\n    \"3rdQlim\" = quantile(Credit_Limit,probs = 0.75)\n  )\nby_inc\n\n# A tibble: 6 × 5\n  Income_Category   mean median `1stQlim` `3rdQlim`\n  &lt;fct&gt;            &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;\n1 Less than $40K   3754.   2766     2021      4271 \n2 $40K - $60K      5462.   3682     2436.     6725 \n3 $60K - $80K     10759.   7660     3661.    15220.\n4 $80K - $120K    15810.  12830     5511     25182.\n5 $120K +         19717.  18442     8466.    34516 \n6 &lt;NA&gt;             9517.   6380     3137     12420.\n\n\n\n\n2.2.2.2 Exercise 2b ii:\nModify your code to omit the NA values.\n\nby_inc &lt;- credit_info_clean %&gt;% group_by(Income_Category) %&gt;%\n  summarise(\n    \"mean\" = mean(Credit_Limit),\n    \"median\" = median(Credit_Limit),\n    \"1stQlim\" = quantile(Credit_Limit,probs = 0.25),\n    \"3rdQplim\" = quantile(Credit_Limit,probs = 0.75)\n  ) %&gt;% na.omit\nby_inc\n\n\n\n\n2.2.3 Exercise 2c:\nSometimes we only want to infer results for certain subgroups. The Blue Credit Card is by far the most common type of credit card. Gaining insights for this particular group allows us to retrieve information that might be useful in later analyses.\nHint: For the following exercises (especially ii and iii) the dplyr function filter will be useful.\n\n2.2.3.1 Exercise 2c i:\nFind out how many customers have a Blue credit card.\n\ncount(credit_info_clean, Card_Category)[\"n\"] %&gt;% max\n\n\n\n2.2.3.2 Exercise 2c ii:\nCreate a new tibble or data frame called credit_info_blue containing all customers that hold a Blue credit card.\n\ncredit_info_blue &lt;- credit_info_clean %&gt;% filter(Card_Category == \"Blue\")\n\n\n\n2.2.3.3 Exercise 2c iii:\nFind the number of Female Customers holding the Blue Card, that are at most 40 years old and have a credit limit above 10,000 USD.\n\ntib &lt;- credit_info_blue %&gt;% filter(Gender == \"F\" & Customer_Age &lt;= 40 & Credit_Limit &gt; 10000) %&gt;% count()",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>A brief summary of R</span>"
+    ]
+  },
+  {
+    "objectID": "prerequisites.html#exercise-3-losses",
+    "href": "prerequisites.html#exercise-3-losses",
+    "title": "1  A brief summary of R",
+    "section": "2.3 Exercise 3: Losses",
+    "text": "2.3 Exercise 3: Losses\n\n2.3.1 Exercise 3a:\nIn the lecture, we talked about different loss functions, as well as their advantages and disadvantages. The goal of this exercise is to review some of the loss functions introduced.\n\n2.3.1.1 Exercise 3a i:\nWrite three different functions loss_mse, loss_mae, and loss_rmse that calculate the respective loss value. Each function should take two vectors y and yhat as an input and return the respective loss value.\n\nloss_mse &lt;- function(y, yhat){\n  mean((y - yhat)^2)\n}\nloss_mae &lt;- function(y, yhat){\n  mean(abs(y - yhat))\n}\nloss_rmse &lt;- function(y, yhat){\n  sqrt(mean((y - yhat)^2))\n}\n\nTest the loss functions with the following inputs. You can check your answers below.\n\ntargets &lt;- c(120, 97, 4, 25, 15)\npredictions &lt;- c(111, 92, 9, 29, 20)\n\nloss_mse(targets, predictions)\n\n[1] 34.4\n\nloss_mae(targets, predictions)\n\n[1] 5.6\n\nloss_rmse(targets, predictions)\n\n[1] 5.865151\n\n\n\n\n2.3.1.2 Exercise 3a ii:\nWrite a function loss_huber that returns the Huber loss for two given vectors y, yhat, and a threshold \\(\\delta\\). The Huber loss of two vectors can be calculated as follows:\n\\[\n\\mathrm{loss_{huber}} =\\frac{1}{\\text{length(y)}} \\sum_{i=1}^{\\mathrm{length(y)}} \\mathcal{L}(y_i,\\hat y_i)\n\\]\nwhere\n\\[\n\\mathcal{L}(y_i,\\hat y_i) = \\begin{cases} \\frac{1}{2}(y_i-\\hat y_i)^2, \\quad&\\text{if } |y_i-\\hat y_i| &lt;\\delta\\\\ \\delta (|y_i-\\hat y_i|-\\frac{1}{2}\\delta),\\quad &\\text{else}.   \\end{cases}\n\\]\n\nloss_huber &lt;-function(y, yhat, d){\n  res &lt;- 0\n  for (i in seq_along(y)) {\n    if(abs(y[i] - yhat[i]) &lt; d){\n      res = res + 0.5 * (y[i] - yhat[i])^2\n    } else{\n      res = res + d * (abs(y[i] - yhat[i]) - 0.5 * d)\n    }\n  }\n    return(res/length(y))\n}\n\n\nloss_huber_alternative &lt;- function(y, yhat, d) {\n  residual &lt;- (y - yhat)\n\n  L &lt;- if_else(\n    abs(residual) &lt; d, \n    residual^2 / 2, \n    d * (abs(residual) - d / 2)\n  )\n  \n  mean(L)\n}\n\nYou can test your function with the vectors targets and predictions with d=1.\n\nloss_huber_alternative(targets, predictions, 1)\n\n[1] 5.1\n\n\n\n\n\n2.3.2 Exercise 3b:\nThe goal of this exercise is to gain a deeper understanding of the different loss types calculated in the previous exercises. Consider the following scenarios and argue which loss function should be used.\n\n2.3.2.1 Exercise 3b i:\nDecide between MSE and RMSE:\n\nYou are developing a predictive model for housing prices. Given various features of a house like size (in \\(m^2\\)) , number of floors, and the name of the neighborhood. You want to estimate its market value in EUR.\n\n\n#RMSE should be used to measure the average prediction error. This is the case\n#since by using RMSE the error is in the same units as the target variable (e.g.,\n#EUR). This helps in quantifying the magnitude of prediction errors accurately.\n\n\n\n2.3.2.2 Exercise 3b ii:\nDecide between MAE and MSE:\n\nImagine you are working on a weather prediction model, where you aim to forecast daily temperatures for a location with strong and sudden changes in weather. The data contains average wind velocity, air pressure, humidity, and many more. You also have historical temperature data for training and the overall goal is to minimize prediction errors.\n\n\n#MAE should be used to measure the predictive error since it is more robust with\n#respect to outliers. Weather data can sometimes contain outliers due to extreme\n#weather events, sensor malfunctions, or other factors.\n\n\n\n2.3.2.3 Exercise 3b iii:\nDecide between MAE, MSE, and Huber loss\n\nYou are building a machine-learning model for autonomous vehicle control. The vehicles have to navigate through complex environments with all sorts of different obstacles varying in size and shape. The goal is to ensure the vehicle makes safe decisions based on some numerical value calculated based on the obstacles observed.\n\n\n# Huber Loss is the ideal choice because it strikes a balance between the\n#robustness of MAE and the sensitivity to larger errors of MSE. Especially for\n#varying values of delta a well balanced loss function can be achieved.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>A brief summary of R</span>"
+    ]
+  }
+]

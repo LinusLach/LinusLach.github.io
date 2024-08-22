@@ -1,0 +1,298 @@
+/*
+--text: #060605;
+--background: #fdfdfc;
+--primary: #9eab5f;
+--secondary: #ced7a1;
+--accent: #c2d275;
+*/
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F7F5;
+    text-align: center;
+    margin : 0;
+    padding: 0;
+    min-width: 1300px;
+    max-width: 1700px
+
+}
+
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns of equal width */
+  height: 5vh;
+}
+
+.banner {
+  width: 100%;
+  height: auto;
+}
+
+
+.container {
+  display: flex;
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three columns of equal width */
+  position: relative;
+  padding: 0;
+  height: 60vh;
+  overflow: hidden;
+
+}
+
+.container-teaching {
+  display: flex;
+  justify-self: center;
+  width: 100%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  padding: 0;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.pp {
+  grid-column: 1 / 3; 
+  justify-self: center; 
+  position: absolute;
+  bottom: 0%;
+  height:50vh;
+  width: auto;
+  z-index: 1; 
+}
+
+.intro {
+  position: absolute;
+  grid-column: 2 / 3; 
+  margin-left: 40vw;
+  margin-top: 15vh;
+  font-family: "Roboto", sans-serif;
+  text-align: left;
+  justify-self: center; 
+  height:50vh;
+  width: 40vw;
+  z-index: 1; 
+
+}
+
+
+.grid-green {
+  background-color: #A2A963;
+}
+
+.grid-white {
+  background-color: #F7F7F5;
+}
+
+.centered-pp {
+  position: absolute;
+  top:0%;
+  margin-right: 0;
+  transform: translate(-100%);
+  width: auto;
+  height: auto;
+  z-index: 1;
+}
+
+.hero-h1 {
+    text-align: left;
+    font-size: 40pt;
+    margin-bottom: -1%;
+}
+
+.teaching-h1 {
+    text-align: center;
+    font-size: 32pt;
+    margin-bottom: -1%;
+}
+
+.hero-p {
+    text-align: left;
+    font-size: 20pt;
+    text-shadow: -1px -1px 0 #f7f7f5, 1px -1px 0 #f7f7f5, -1px 1px 0 #f7f7f5, 1px 1px 0 #f7f7f5;
+}
+.teaching-p {
+    text-align: left;
+    font-size: 20pt;
+}
+
+h2 {
+    text-align: left;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+.cta {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.cta span {
+  padding-bottom: 7px;
+  font-family: "Roboto" sans-serif;
+  font-size: 20px;
+  padding-right: 0px;
+}
+
+
+.hover-underline-animation {
+  position: relative;
+  color: #0E0E0D;
+  padding-bottom: 20px;
+  
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 10px;
+  bottom: 4px;
+  left: 0;
+  background-color: #A2A963;
+  opacity: 0.4;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.cta:hover .hover-underline-animation:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Card */
+
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 190px;
+  height: 254px;
+  border-radius: 20px;
+  background: #f5f5f5;
+  position: relative;
+  padding: 1.8rem;
+  border: 2px solid #c3c6ce;
+  transition: 0.5s ease-out;
+  overflow: visible;
+ }
+ 
+ .card-details {
+  color: black;
+  height: 100%;
+  gap: .5em;
+  display: grid;
+  place-content: center;
+ }
+ 
+ .card-button {
+  transform: translate(-50%, 125%);
+  width: 60%;
+  border-radius: 1rem;
+  border: none;
+  background-color: #CDD393;
+  color: #0e0e0d;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  opacity: 0;
+  transition: 0.3s ease-out;
+ }
+ 
+ .text-body {
+  color: rgb(134, 134, 134);
+ }
+ 
+ /*Text*/
+ .text-title {
+  font-size: 1.5em;
+  font-weight: bold;
+ }
+ 
+ /*Hover*/
+ .card:hover {
+  border-color: #CDD393;
+  box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+ }
+ 
+ .card:hover .card-button {
+  transform: translate(-50%, 50%);
+  opacity: 1;
+ }
+ 
+ /* BTT BUtton */
+
+ /* From Uiverse.io by vinodjangid07 */ 
+.Btn {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(#CDD673, #A2A963);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  border: none;
+}
+
+.arrow path {
+  fill: white;
+}
+
+.text {
+  font-size: 0.7em;
+  width: 100px;
+  position: absolute;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  bottom: -18px;
+  opacity: 0;
+  transition-duration: .7s;
+}
+
+.Btn:hover .text {
+  opacity: 1;
+  transition-duration: .7s;
+}
+
+.Btn:hover .arrow {
+  animation: slide-in-bottom .7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/*
+<button class="Btn">
+  <svg height="1.2em" class="arrow" viewBox="0 0 512 512"><path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"></path></svg>
+<p class="text">Back to Top</p>
+</button>
+
+*/
