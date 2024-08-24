@@ -15,8 +15,6 @@ body {
     text-align: center;
     margin : 0;
     padding: 0;
-    min-width: 1300px;
-    max-width: 1700px
 
 }
 
@@ -32,18 +30,46 @@ header {
   height: auto;
 }
 
-
 .container {
   display: flex;
-  width: 100%;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Three columns of equal width */
-  position: relative;
-  padding: 0;
-  height: 60vh;
-  overflow: hidden;
+  width: 80%;
+  height: 40vh; /* Adjust height as needed */
+  background-color: #F7F7F5; /* Background color of the rectangle */
+  border-radius: 1rem; /* Radius of corners */
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  overflow: hidden; /* Ensures content stays within rounded corners */
+  margin: 0 auto; /* Center the rectangle horizontally */
+}
 
+.left-section,
+.right-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Add padding as needed */
+  color: #fff;
+}
+
+.left-section {
+  background-color: #F7F7F5; /* Background color of the left section */
+}
+
+.right-section {
+  background-color: #F7F7F5; /* Background color of the right section */
+}
+
+.circle {
+  position: relative;
+  width: 30vh;
+  height: 30vh;
+  border-radius: 50%;
+  background: linear-gradient(to bottom,#A2A963,#F0F7EE );
+  box-shadow: 3px 3px 10px 3px #dddddd;
+  overflow: hidden; /* Ensures the image stays inside the circle */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-teaching {
@@ -60,37 +86,23 @@ header {
 }
 
 .pp {
-  grid-column: 1 / 3; 
-  justify-self: center; 
-  position: absolute;
-  bottom: 0%;
-  height:50vh;
-  width: auto;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   z-index: 1; 
 }
 
 .intro {
-  position: absolute;
-  grid-column: 2 / 3; 
-  margin-left: 40vw;
-  margin-top: 15vh;
+  margin-left: 5%;
   font-family: "Roboto", sans-serif;
-  text-align: left;
+  text-align: center;
   justify-self: center; 
-  height:50vh;
-  width: 40vw;
+  justify-content: center;
+  overflow: hidden;
   z-index: 1; 
 
 }
 
-
-.grid-green {
-  background-color: #A2A963;
-}
-
-.grid-white {
-  background-color: #F7F7F5;
-}
 
 .centered-pp {
   position: absolute;
@@ -103,9 +115,12 @@ header {
 }
 
 .hero-h1 {
-    text-align: left;
-    font-size: 40pt;
-    margin-bottom: -1%;
+  position: relative;
+  margin-bottom: -0.25em;
+  justify-self: start;
+  text-align: left;
+  color: #0E0E0D;
+  font-size: 4vh;
 }
 
 .teaching-h1 {
@@ -115,10 +130,12 @@ header {
 }
 
 .hero-p {
+    position: center;
     text-align: left;
-    font-size: 20pt;
-    text-shadow: -1px -1px 0 #f7f7f5, 1px -1px 0 #f7f7f5, -1px 1px 0 #f7f7f5, 1px 1px 0 #f7f7f5;
+    font-size: 2vh;
+    color: #0E0E0D;
 }
+
 .teaching-p {
     text-align: left;
     font-size: 20pt;
