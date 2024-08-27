@@ -29,6 +29,7 @@ header {
   header {
     flex-direction: column; /* Stack the sections vertically, with right section on top */
     height: auto;
+    padding-top: 3vh;
   }
 
 
