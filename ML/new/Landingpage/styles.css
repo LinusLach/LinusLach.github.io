@@ -29,9 +29,6 @@ header {
   header {
     flex-direction: column; /* Stack the sections vertically, with right section on top */
     height: auto;
-    position: fixed;
-    top: 0;
-    right: 0;
   }
 
 
@@ -42,7 +39,7 @@ header {
   @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;}}
 
   #overlay-button {
-    position: absolute;
+    position: fixed;
     right: 1vw;
     top: 1vh;
     padding: 26px 11px;
