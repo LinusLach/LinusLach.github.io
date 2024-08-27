@@ -25,6 +25,91 @@ header {
   grid-template-columns: 1fr 1fr 1fr; /* Three columns of equal width */
 }
 
+/*-Menu Desktop-*/
+@media (min-width: 750px) {
+  header{
+    /*
+    background-color: #F7F7F5;
+    */
+    background-color: #ced7a1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 5vh;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  main{
+    padding-top: 7vh;
+  }
+
+  #overlay-input {
+      display: none;
+  }
+
+  #overlay ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: left;
+  }
+
+  #overlay li {
+      padding-left: 1vw;
+  }
+
+  /* Style the links */
+  #overlay li a {
+      text-decoration: none;
+      font-size: 2vh;
+      color: #333;
+      transition: color 0.3s ease, transform 0.3s ease;
+  }
+
+  .overlay-link{
+    position: relative;
+    color: #0E0E0D;
+    padding-bottom: 10px; 
+  }
+  /* Hover effect */
+
+  .overlay-link:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 10px;
+    bottom: 4px;
+    left: 0;
+    background-color: #A2A963;
+    opacity: 0.4;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+
+  #overlay li a.overlay-link:hover:after{
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+  /* Optional: Adjust the overlay button (if needed) */
+  #overlay-button {
+    display: none; /* Hide the overlay button */
+  }
+
+  /* Optional: Style for the overlay div */
+  #overlay {
+      background: transparent;
+      padding-top: 1vh;
+      padding-bottom: 1vh;
+      text-align: left;
+  }
+}
+
+/*-Menu Mobile-*/
+
 @media (max-width: 750px) { /* Adjust the max-width as needed */
   header {
     flex-direction: column; /* Stack the sections vertically, with right section on top */
@@ -34,8 +119,7 @@ header {
 
 
 
-  /*-Menu 2-*/
-
+  
   @keyframes bugfix { from {padding:0;} to {padding:0;}}
   @-webkit-keyframes bugfix { from {padding:0;} to {padding:0;}}
 
@@ -99,61 +183,101 @@ header {
         }
       }
     }
-}
-
-#overlay {
-  height: 100vh;
-  width: 100vw;
-  background: #A2A963;
-  z-index: 2;
-  visibility: hidden;
-  position: fixed;
-  &.active {
-    visibility: visible;
   }
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
+
+  #overlay {
     height: 100vh;
-    padding-left: 0;
-    list-style-type: none;
-    li {
-      padding: 1em;
-      a {
-        color: #0E0E0D;
-        text-decoration: none;
-        font-size: 1.5em;
-        &:hover {
-          color: #F7F7F5;
+    width: 100vw;
+    background: #A2A963;
+    z-index: 2;
+    visibility: hidden;
+    position: fixed;
+    &.active {
+      visibility: visible;
+    }
+    ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      height: 100vh;
+      padding-left: 0;
+      list-style-type: none;
+      li {
+        padding: 1em;
+        a {
+          color: #0E0E0D;
+          text-decoration: none;
+          font-size: 1.5em;
+          &:hover {
+            color: #F7F7F5;
+          }
         }
       }
     }
   }
 }
-}
-/*-----------------*/
-
-
 
 .container {
   display: flex;
   flex-direction: row;
   width: 80vw;
-  height: 40vh; /* Adjust height as needed */
+  height: auto; /* Adjust height as needed */
   background-color: #F7F7F5; /* Background color of the rectangle */
   border-radius: 1rem; /* Radius of corners */
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
   overflow: hidden; /* Ensures content stays within rounded corners */
   margin: 0 auto; /* Center the rectangle horizontally */
+  margin-bottom: 4vh;
+}
+
+.container-teaching {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  flex-direction: row;
+  width: 80vw;
+  height: auto; /* Adjust height as needed */
+  background-color: #F7F7F5; /* Background color of the rectangle */
+  border-radius: 1rem; /* Radius of corners */
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  overflow: hidden; /* Ensures content stays within rounded corners */
+  margin: 0 auto; /* Center the rectangle horizontally */
+  margin-bottom: 4vh;
+}
+
+.container-blog {
+  display: flex;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  flex-direction: row;
+  width: 80vw;
+  height: auto; /* Adjust height as needed */
+  background-color: #F7F7F5; /* Background color of the rectangle */
+  border-radius: 1rem; /* Radius of corners */
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+  overflow: hidden; /* Ensures content stays within rounded corners */
+  margin: 0 auto; /* Center the rectangle horizontally */
+  margin-bottom: 4vh;
 }
 
 
 @media (max-width: 750px) { /* Adjust the max-width as needed */
   .container {
     flex-direction: column; /* Stack the sections vertically, with right section on top */
+    height: auto;
+  }
+  .container-teaching{
+    flex-direction: column;
+    height: auto;
+  }
+  .container-blog{
+    flex-direction: column;
     height: auto;
   }
 }
@@ -189,18 +313,6 @@ header {
   align-items: center;
 }
 
-.container-teaching {
-  display: flex;
-  justify-self: center;
-  width: 100%;
-  margin: auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  position: relative;
-  padding: 0;
-  height: 50vh;
-  overflow: hidden;
-}
 
 .pp {
   width: 100%;
@@ -240,12 +352,6 @@ header {
   font-size: 4vh;
 }
 
-.teaching-h1 {
-    text-align: center;
-    font-size: 32pt;
-    margin-bottom: -1%;
-}
-
 .hero-p {
     position: center;
     text-align: left;
@@ -253,9 +359,31 @@ header {
     color: #0E0E0D;
 }
 
+.teaching-desc{
+  flex: 1;
+  padding: 0 20px 0 20px;
+  align-self: center;
+}
+.cards{
+  flex: 1;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  align-self: center;
+  padding-bottom: 1vh;
+
+}
+
+.teaching-h1 {
+    grid-column: 1/3;
+    text-align: center;
+    font-size: 4vh;
+    margin-bottom: 1vh;
+}
+
 .teaching-p {
     text-align: left;
-    font-size: 20pt;
+    font-size: 2vh;
+    margin-left: 20px;
 }
 
 h2 {
@@ -267,54 +395,15 @@ a {
     text-decoration: none;
 }
 
-.cta {
-  border: none;
-  background: none;
-  cursor: pointer;
-  margin-right: 20px;
-}
-
-.cta span {
-  padding-bottom: 7px;
-  font-family: "Roboto" sans-serif;
-  font-size: 20px;
-  padding-right: 0px;
-}
-
-
-.hover-underline-animation {
-  position: relative;
-  color: #0E0E0D;
-  padding-bottom: 20px;
-  
-}
-
-.hover-underline-animation:after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 10px;
-  bottom: 4px;
-  left: 0;
-  background-color: #A2A963;
-  opacity: 0.4;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
-.cta:hover .hover-underline-animation:after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
 /* Card */
 
 .card {
-  margin-left: auto;
-  margin-right: auto;
-  width: 190px;
-  height: 254px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  margin-right: 20px;
+  align-self: center;
+  width: 25vw;
+  height:  min(10vh, auto);
   border-radius: 20px;
   background: #f5f5f5;
   position: relative;
@@ -348,16 +437,20 @@ a {
   transition: 0.3s ease-out;
  }
  
- .text-body {
-  color: rgb(134, 134, 134);
- }
- 
  /*Text*/
  .text-title {
-  font-size: 1.5em;
+  font-size: 2vh;
+  margin-bottom: 0;
   font-weight: bold;
  }
  
+ .text-body {
+  color: rgb(134, 134, 134);
+  font-size: 1.5vh;
+  margin-top: 0;
+ }
+ 
+
  /*Hover*/
  .card:hover {
   border-color: #CDD393;

@@ -15,14 +15,14 @@
         <label for="overlay-input" id="overlay-button"><span></span></label>
           <div id="overlay">
             <ul>
-              <li><a href="#Hero" class="overlay-link">Home</a></li>
+              <li><a href="#Home" class="overlay-link">Home</a></li>
               <li><a href="#Teaching" class="overlay-link">Teaching</a></li>
               <li><a href="#Blog" class="overlay-link">Blog</a></li>
             </ul>
           </div>
     </header>   
     <main> 
-        <section id="Hero">
+        <section id="Home">
             <div class="container">
                 <div class="left-section">
                     <div class="circle">
@@ -45,10 +45,18 @@
             </div>   
         </section>
         <section id="Teaching">
-            <div cla>
-                <h1 class="teaching-h1">Teaching</h1>
-                <p class="teaching-p">Lorem</p>
-                <div class="container-teaching">
+            <div class="container-teaching">
+                <div class="teaching-desc">
+                    <h1 class="teaching-h1">Teaching</h1>
+                    <p class="teaching-p">
+                   Besides my research, I am pretty passionate about teaching
+                   as it not only helps deepen my understanding of fundamental concepts through repetition
+                   but it also brings me a lot of joy to see students develop an interest in Data Science 
+                   and Machine Learning.
+                    Some of the resources I use for teaching in this section can be found.
+                    </p>
+                </div>
+                <div class="cards">
                     <div class="card" style="cursor: pointer;" onclick="window.location='teaching/ML/index.html';">
                         <div class="card-details">
                           <p class="text-title">Machine Learning</p>
@@ -67,15 +75,33 @@
             </div>
         </section>
         <section id="Blog">
-            <div>
-                <h1 class="teaching-h1">Blog</h1>
-                <p class="teaching-p"> Some featured blog posts.</p>
-            </div>
-
-        </section>
-</main>
-
-<script src="menu.js"></script>
+            <div class="container-blog">
+                    <div class="teaching-desc">
+                        <h1 class="teaching-h1">Blog</h1>
+                        <p class="teaching-p">
+                            I sometimes find the time to explore topics that go beyond my research, which I like to write about in short (more or less technical) posts.
+                            These topics range from optimal control theory to basics of statistical learning using PyTorch. 
+                        </p>
+                    </div>
+                    <div class="cards">
+                        <div class="card">
+                            <div class="card-details">
+                              <p class="text-title">Optimal Control</p>
+                              <p class="text-body">Exploring the Lottka-Volterra equations and how a control function can influence them
+                              </p>
+                            </div>
+                        </div>    
+                        <div class="card">
+                            <div class="card-details">
+                              <p class="text-title">An Introduction to PyTorch</p>
+                              <p class="text-body"> A starting point for simple statistical learning concepts in PyTorch</p>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </section>
+    </main>
+    <script src="menu.js"></script>
 
 </body>
 </html>
