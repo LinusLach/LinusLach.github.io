@@ -8,9 +8,9 @@
 <link href="Fragestunde_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="Fragestunde_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="Fragestunde_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.5.57">
 
-  <title>Data Mining: Übung 11   Fragestunde</title>
+  <title>Data Mining: Fragestunde</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -28,71 +28,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="Fragestunde_files/libs/revealjs/dist/theme/quarto.css">
   <link href="Fragestunde_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -220,7 +155,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -392,6 +328,7 @@
     -ms-transform: translateY(-50%), translateX(-50%);
     transform: translateY(-50%), translateX(-50%);
   }
+
   </style>
 </head>
 <body class="quarto-light">
@@ -399,7 +336,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Data Mining: Übung 11 <br> Fragestunde</h1>
+  <h1 class="title">Data Mining: Fragestunde</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -415,208 +352,248 @@
 <section>
 <section id="fragen-aus-digicampus" class="title-slide slide level1 center">
 <h1>Fragen aus Digicampus</h1>
+<!-- 
+## Frage 1
 
-</section>
-<section id="frage-1" class="slide level2">
-<h2>Frage 1</h2>
+
 <blockquote style="font-size:16pt; color: black">
-Zu Übung 11 Blatt 5 Aufgabe 1b):<br> Wann spricht man von einem balancierten und wann von einem unbalancierten Datensatz?<br>
+
+Zu Übung 11 Blatt 5 Aufgabe 1b):<br>
+Wann spricht man von einem balancierten und wann von einem unbalancierten Datensatz?<br>
 </blockquote>
+
 <div style="font-size:18pt;">
-<p>Ein Datensatz ist balanciert, wenn das Verhältnis aller Ausprägungen der Zielvariablen gleich ist. Bei einer Zielvariablen, welche zwei Ausprägung hat heißt das, dass das Verhältnis 1:1 sein muss.</p>
+Ein Datensatz ist balanciert, wenn das Verhältnis aller Ausprägungen der Zielvariablen gleich ist.
+Bei einer Zielvariablen, welche zwei Ausprägung hat heißt das, dass das Verhältnis 1:1 sein muss.
 </div>
-<blockquote style="font-size:16pt; color: black">
+
+<blockquote style="font-size:16pt; color: #FF0000;">
 Gibt es da feste Vorgaben?<br>
 </blockquote>
+
 <div style="font-size:18pt;">
-<p>Nein. Bei <a href="https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data?hl=de">Google Developers</a> wird zum Beispiel folgende Daumenregel gegeben:</p>
-<table>
-<thead>
-<tr class="header">
-<th>Grad des Ungleichgewichts</th>
-<th>Anteil der Minderheitsklasse</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Niedrig</td>
-<td>20%-40%</td>
-</tr>
-<tr class="even">
-<td>Mittel</td>
-<td>1%-20%</td>
-</tr>
-<tr class="odd">
-<td>Extrem</td>
-<td>&lt;1%</td>
-</tr>
-</tbody>
-</table>
+Nein. Bei [Google Developers](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data?hl=de) wird zum Beispiel folgende Daumenregel gegeben:
+
+| Grad des Ungleichgewichts | Anteil der Minderheitsklasse|
+|---------------------------|-----------------------------|
+| Niedrig                   | 20\%-40\%                   |
+| Mittel                    | 1\%-20\%                    |
+| Extrem                    | <1\%                        |
+
+: Einteilung von Ungleichgewichtsgraden {#tbl-lorem}
+
 </div>
 <blockquote style="font-size:16pt; color: black">
 Ist beispielsweise ein Datensatz mit einer im Verhälnis 61:39 verteilten Variable schon unbalanciert oder noch balanciert und wo zieht man die Grenze?<br>
 </blockquote>
+
 <div style="font-size:18pt;">
-<p>S.o.</p>
+S.o.
 </div>
+
+-->
 </section>
-<section id="frage-2" class="slide level2">
-<h2>Frage 2</h2>
+<section id="frage-1" class="slide level2">
+<h2>Frage 1</h2>
 <blockquote style="font-size:16pt; color: black">
-Könnten Sie bitte nochmal den R-Output der Cross-Validation Beispiele aus Übung 5 erläutern?
+Hallo, ich hätte eine Frage zum zeichnen der Regressionsbäume/Feature Spaces. Ich und einige Kommilitonen verstehen nicht ganz, wie man vorgeht. In der Altklausur gab es eine Aufgabe, bei der man aus einem Baum den Graphen zeichnen sollte. Ich verstehe das Vorgehen aber nicht und kann auch im Internet nichts dazu finden. Könnten Sie das nochmal erklären?<br>
 </blockquote>
-<div style="font-size:18pt;">
-<p>Erstellen eines Training- und Testsplits und eines Crossvalidation Objekts:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb1-2"><a href="#cb1-2"></a>split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(<span class="at">data =</span> data_poke, <span class="at">prop =</span> <span class="fl">0.9</span>) </span>
-<span id="cb1-3"><a href="#cb1-3"></a>data_train <span class="ot">&lt;-</span> split <span class="sc">%&gt;%</span> <span class="fu">training</span>()</span>
-<span id="cb1-4"><a href="#cb1-4"></a>data_test <span class="ot">&lt;-</span> split <span class="sc">%&gt;%</span> <span class="fu">testing</span>()</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a>folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(data_train, <span class="at">v =</span> <span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Zugriff auf den ersten von fünf Splits durch das <code>$split</code> Attribut:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>folds<span class="sc">$</span>splits[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">analysis</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 108 × 8
-   combat_power    hp attack defense sp_atk sp_def speed legendary
-          &lt;int&gt; &lt;int&gt;  &lt;int&gt;   &lt;int&gt;  &lt;int&gt;  &lt;int&gt; &lt;int&gt; &lt;lgl&gt;    
- 1          205    45     25      50     25     25    35 FALSE    
- 2          320    45     67      60     35     50    63 FALSE    
- 3          600   100    100     100    100    100   100 TRUE     
- 4          600    91    134      95    100    100    80 FALSE    
- 5          525    50     95     180     85     45    70 FALSE    
- 6          580    90     85     100     95    125    85 TRUE     
- 7          310    30     35      30    100     35    80 FALSE    
- 8          395    65     60      70     85     75    40 FALSE    
- 9          475    55    130     115     50     50    75 FALSE    
-10          335    40     40      35     50    100    70 FALSE    
-# ℹ 98 more rows</code></pre>
+<p>Betrachte <a href="https://linus-lach.de/teaching/dm/04_regressions_baeume#exr-create_tree_plot">Aufgabe 4.4.1</a>:</p>
+<div id="exr-create_tree_plot" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 1</strong></span> Gegeben sei folgender Feautre Space eines geschätzten Baummodells:</p>
+<div class="cell" data-layout-align="center" data-fig.bg="transparent">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-2-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+</figure>
 </div>
 </div>
-<p><em>Doppelte Klammern greifen auf ein Listenelement zu, während eine einfache Klammer eine Liste mit einem einzelnen Element zurückgibt.</em></p>
+</div>
+<p>Skizziere für die Abbildung den entsprechenden Binärbaum unter der Angabe der Splitting-Variable, des Schwellenwertes und des <strong>Schätzwertes in den Blattknoten</strong>.</p>
 </div>
 </section>
-<section id="frage-2-1" class="slide level2">
-<h2>Frage 2</h2>
-<div style="font-size:18pt;">
-<p>Modellspezifikation und Aufsetzen eines Rezepts:</p>
+<section id="lösung" class="slide level2">
+<h2>Lösung</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>lin_model_tidy <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>()</span>
-<span id="cb4-2"><a href="#cb4-2"></a></span>
-<span id="cb4-3"><a href="#cb4-3"></a>rec_lin_model <span class="ot">&lt;-</span> <span class="fu">recipe</span>(attack <span class="sc">~</span>., <span class="at">data =</span> data_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
 </div>
-<p><code>fit_resamples</code> berechnet eine Reihe von Performancemetriken für eine oder mehrere Wiederholungsstichproben. Der Defaultwert für die Performancemetriken eines Regressionsmodells ist durch <code>rmse</code> und <code>rsq</code> gegeben.</p>
-<p>Mithilfe der <code>collect_metrics</code> werden für die verschiedene Metriken die gemittelten Cross-Validation OOS (CVOOS) Werte gegeben.</p>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Gesuchte Darstellung:</p>
+<p><img data-src="pictures/Tree_diagram.svg"></p>
+</div></div>
+</section>
+<section id="lösung-möglichkeit-1" class="slide level2">
+<h2>Lösung: Möglichkeit 1</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>lin_model_tidy_fit_resample <span class="ot">&lt;-</span> <span class="fu">fit_resamples</span>(lin_model_tidy, rec_lin_model, folds)</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>lin_model_tidy_fit_resample<span class="sc">%&gt;%</span> <span class="fu">collect_metrics</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 6
-  .metric .estimator  mean     n  std_err .config             
-  &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;               
-1 rmse    standard   0.702     5 0.308    Preprocessor1_Model1
-2 rsq     standard   0.999     5 0.000851 Preprocessor1_Model1</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</figure>
 </div>
 </div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<p><img data-src="pictures/step_11.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="2">
+<p><img data-src="pictures/step_21.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="3">
+<p><img data-src="pictures/step_31.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="4">
+<p><img data-src="pictures/step_41.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="5">
+<p><img data-src="pictures/step_51.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="6">
+<p><img data-src="pictures/step_61.svg"></p>
+</div>
+<div class="fragment" data-fragment-index="7">
+<p><img data-src="pictures/tree_final_11.svg"></p>
+</div>
+</div>
+</div></div>
+</section>
+<section id="lösung-möglichkeit-2" class="slide level2">
+<h2>Lösung: Möglichkeit 2</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-5-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<p><img data-src="pictures/step_12.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="2">
+<p><img data-src="pictures/step_22.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="3">
+<p><img data-src="pictures/step_32.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="4">
+<p><img data-src="pictures/step_42.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="5">
+<p><img data-src="pictures/step_52.svg"></p>
+</div>
+<div class="fragment" data-fragment-index="7">
+<p><img data-src="pictures/tree_final_12.svg"></p>
+</div>
+</div>
+</div></div>
+</section>
+<section id="frage-1-1" class="slide level2">
+<h2>Frage 1</h2>
+<div id="exr-lorem2" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 2</strong></span> Gegeben sei folgender Feautre Space eines geschätzten Baummodells:</p>
+<div class="cell" data-layout-align="center" data-fig.bg="transparent">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Skizziere für die Abbildung den entsprechenden Binärbaum unter der Angabe der Splitting-Variable, des Schwellenwertes und des <strong>Schätzwertes in den Blattknoten</strong>.</p>
 </div>
 </section>
-<section id="frage-3" class="slide level2 scrollable">
+<section id="lösung-1" class="slide level2">
+<h2>Lösung</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="Fragestunde_files/figure-revealjs/unnamed-chunk-7-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="r-stack">
+<div class="fragment fade-in-then-out" data-fragment-index="1">
+<p><img data-src="pictures/step_111.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="2">
+<p><img data-src="pictures/step_112.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="3">
+<p><img data-src="pictures/step_113.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="4">
+<p><img data-src="pictures/step_114.svg"></p>
+</div>
+<div class="fragment fade-in-then-out" data-fragment-index="5">
+<p><img data-src="pictures/step_115.svg"></p>
+</div>
+<div class="fragment" data-fragment-index="6">
+<p><img data-src="pictures/tree_final_21.svg"></p>
+</div>
+</div>
+</div></div>
+</section>
+<section id="frage-23" class="slide level2">
+<h2>Frage 2/3</h2>
+<blockquote style="font-size:16pt; color: black">
+wie berechne ich die Koeffizienten von einem NN mit 9 Input Layer, zwei mal 18 Hidden layer und 1 Outputlayer. Addiere ich am ende immer 1 dazu für den Outputlayer ?<br>
+</blockquote>
+<blockquote style="font-size:16pt; color: black">
+Übung 5.1.3 Können Sie das nochmal in Bezug auf die Formel im Skript erläutern
+</blockquote>
+<p>Für die Anzahl der Parameter eines NN gilt die Formel:</p>
+<p><span class="math display">\[\begin{equation*}
+(J+1)N_1+\left(\sum_{k=1}^{K} (N_k+1)\cdot N_{k+1}\right)
+\end{equation*}\]</span></p>
+<p>Hierbei steht der Index <span class="math inline">\(k = 1,\ldots,K\)</span> für die verschiedenen Hidden Layer des FFNN. Somit beschreiben wir mit <span class="math inline">\(J\)</span> die Anzahl der Input-Neuronen, <span class="math inline">\(N_k\)</span>, <span class="math inline">\(k=1\ldots,K\)</span>, die Anzahl der Neuronen in den Hidden-Layern und mit <span class="math inline">\(N_{K+1}\)</span> die Anzahl der Output-Neuronen. Die Addition mit <code>1</code> steht in den entsprechenden Layern für den Biasterm, da dieser ebenso mit jedem Neuron der nächsten Layer verbunden ist.</p>
+<p><span class="math inline">\(\implies\)</span></p>
+<p>Die Anzahl der Parameter ist gegeben durch <span class="math display">\[\begin{equation}
+(9+1)\cdot 18+(18+1)\cdot 18+(18+1)\cdot 1 = 541
+\end{equation}\]</span></p>
+</section>
+<section id="frage-3" class="slide level2">
 <h2>Frage 3</h2>
 <blockquote style="font-size:16pt; color: black">
-Könnten Sie bitte erneut die Graphen bei der Datenanalyse aus Übung 8 erklären?
+Übung 5.1.4 Warum ganz R, eigentlich ist ReLu als nur postiv definiert
 </blockquote>
-<div style="font-size:24pt;">
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Code</a></li><li><a href="#tabset-1-2">Plot</a></li><li><a href="#tabset-1-3">Erklärung</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(performance)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>model_linear_fit <span class="ot">&lt;-</span> <span class="fu">linear_reg</span>(</span>
-<span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">mode =</span> <span class="st">"regression"</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>    ) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a>  <span class="fu">fit</span>(eur_sqm<span class="sc">~</span>., <span class="at">data =</span> data_muc_filtered) </span>
-<span id="cb7-6"><a href="#cb7-6"></a></span>
-<span id="cb7-7"><a href="#cb7-7"></a>model_linear_fit<span class="sc">$</span>fit <span class="sc">%&gt;%</span> <span class="fu">check_model</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-1-2">
-<p><img data-src="pictures/check_model_final.svg"></p>
-</div>
-<div id="tabset-1-3">
-<div style="font-size:18pt;">
-<p><em>Hinweis: Es handelt sich um visuelle Tests! Für quantitative Analysen, führe statistische Tests durch.</em></p>
+<div id="exr-nn01" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 3</strong></span> Angenommen es liegt ein FFDNN mit einem Inputneuron, zwei Hidden Layer bestehend aus zwei bzw. drei Neuronen und einem Outputneuron vor.</p>
 <ol type="1">
-<li><p>Posterior predictive checks: Ähnlich wie das Prüfen der Zielvariable auf Normalität (nur allgemeiner). .</p></li>
-<li><p>Gefittete Werte (<span class="math inline">\(\hat y\)</span>) werden gegen die Residuen ( <span class="math inline">\(u=y-\hat y\)</span> ) geplottet. Lineares Modell ist gute Wahl, falls diese <em>zufällig</em> um die <span class="math inline">\(0\)</span>-Linie liegen, ein horizontales Band um die <span class="math inline">\(0\)</span>-Linie bilden und keine Ausreißer erkennbar sind.</p></li>
-<li><p>Gefittete Werte gegen Quadratwurzel der standardisierten Residuen: Ähnlich wie 2., allerdings wurden Residuen normalisiert, d.h. <span class="math inline">\(\bar{\hat y} = 0, s_{\hat y} = 1\)</span>. Kann helfen, falls Einheit der Zielvariable schwer zu interpretieren ist. Ebenso hilfreich um Heteroskedastizität und Autokorellation festzustellen.</p></li>
-<li><p>Plotte Einfluss gegen standardisierte Residuen. Ausreißer mit großen Einfluss sollten entfernt werden. Alternativ: Cook’s distance.</p></li>
-<li><p>Variance Inflation Factor: Hinweis auf Kollinearität, falls VIF zu hoch. Hier nicht standardisiert <span class="math inline">\(\implies\)</span> verwende <code>vif</code> Funktion.</p></li>
-<li><p>Normalität der Residuen: Prüfen der Annnahme, dass <span class="math inline">\(\varepsilon \sim N(0,1)\)</span>.</p></li>
+<li>[…]</li>
+<li>[…] Gehe dabei davon aus, dass <strong>die Aktivierungsfunktion der ersten und zweiten Hidden Layer “ReLU” sind.</strong></li>
 </ol>
 </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="frage-45" class="slide level2">
-<h2>Frage 4/5</h2>
-<div style="font-size:18pt;">
-<blockquote style="font-size:16pt; color: black">
-<p>Er würde mir sehr weiterhelfen, wenn Sie bitte eine ausführlichere Lösung zum letzten Übungsblatt 5 (v.a. zur Aufgabe 1 u. 2) hochladen könnten. Dankeschön!</p>
-</blockquote>
-<p>Ist in Teilen erledigt. Bei speziellen Fragen bitte nochmal auf mich zukommen.</p>
-<blockquote style="font-size:16pt; color: black">
-Ist die Klausur und der Stoff im WS 24/25 bzw. im SS 25 in Data Mining genau gleich? Ich würde die Klausur nämlich wegen meinem eher beginnendem Auslandssemester erst nächstes oder übernächstes Semester schreiben.
-</blockquote>
-<p>Übung wird nochmal überarbeitet (verbessert). Vorlesungsskript bleibt großteils gleich.</p>
-</div>
-</section>
-<section id="frage-6" class="slide level2">
-<h2>Frage 6</h2>
-<div style="font-size:18pt;">
-<blockquote style="font-size:16pt; color: black">
-SS2023 Aufgabe 3 b) Wieso sind 11 inputs gegeben, aber wenn ich die Neuronen der Eingabeschicht berechne erhalte ich 12 ?
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="pictures/Daten_SS23.png"></p>
-</figure>
-</div>
-</div>
-</section>
-<section id="frage-7" class="slide level2">
-<h2>Frage 7</h2>
-<div style="font-size:18pt;">
-<blockquote style="font-size:16pt; color: black">
-SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beobachtung (ist es : yendknoten= 1/n* Summe aller Endknoten yi???)
-</blockquote>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="pictures/SS21_A2.png" style="width:50.0%"></p>
-</figure>
-</div>
-<p>Für einen Endknoten <span class="math inline">\(V_k\)</span> gilt: <span class="math display">\[\begin{equation}
-\hat{y} = \frac{1}{|V_k|}\sum_{y\in V_k} y
-\end{equation}\]</span></p>
-</div>
-</section>
-<section id="frage-8" class="slide level2">
-<h2>Frage 8</h2>
-<div style="font-size:18pt;">
-<blockquote style="font-size:16pt; color: black">
-<p>SS2021 5 d ii) ist die Lösung: Eine erhöhung der Variable year um eine Einheit, erhöht die Odds-Ratio um den Faktor e^0.8625 ?</p>
-</blockquote>
-<p><img data-src="pictures/Log_coef_SS21.png" style="width:50.0%" data-fig-align="center"> <img data-src="pictures/A5_dii_SS21.png" style="width:50.0%" data-fig-align="center"></p>
-<p>Steigt der Wert der Variablen <code>year</code> um eine Einheit, so steigt (<span class="math inline">\(\exp(0.8625)\approx 2.369 &gt; 1\)</span>) das Chancenverhältnis (Odds) um den Faktor <span class="math inline">\(\exp(0.8625)\)</span>.</p>
-</div>
+<p>Die Aktivierungsfunktionen sind hier nur für beide Hidden-Layer spezifiziert! Da keine Aktivierungsfunktion auf den Output-Layer angewendet wird, kann dieser Werte in ganz <span class="math inline">\(\mathbb{R}\)</span> annehmen.</p>
+<div class="quarto-auto-generated-content">
 <p><img src="pictures/Logo_cc.svg" class="slide-logo"></p>
 <div class="footer footer-default">
 <p>Fragestunde</p>
+</div>
 </div>
 </section></section>
     </div>
@@ -645,7 +622,6 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -831,42 +807,80 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -900,18 +914,7 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -943,11 +946,50 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
-      function tippyHover(el, contentFn) {
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -957,8 +999,17 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -972,7 +1023,11 @@ SS2021 Aufgabe 2a) wie berrechne ich hier den Prognosewert einer beliebigen Beob
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

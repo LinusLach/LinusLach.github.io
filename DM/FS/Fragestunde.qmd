@@ -1,0 +1,412 @@
+---
+title: "Data Mining: Fragestunde"
+format:
+  revealjs:
+    theme: [solarized, custom.scss]
+    toc: true
+    toc-title: "Inhalt"
+    toc-depth: 1
+    fig-cap-location: top
+    include-in-header: 
+      text: |
+        <style>
+        .center-xy {
+          margin: 0;
+          position: absolute;
+          top: 0%;
+          left: 27%;
+          -ms-transform: translateY(-50%), translateX(-50%);
+          transform: translateY(-50%), translateX(-50%);
+        }
+        
+        </style>
+    logo: pictures/Logo_cc.svg
+    execute:
+      echo: true
+    footer: "Fragestunde"
+---
+
+# Fragen aus Digicampus
+
+```{r}
+#| echo: false
+#| message: false
+#| output: false
+
+library(tidyverse)
+library(tidymodels)
+library(ggtext)
+
+```
+
+<!-- 
+## Frage 1
+
+
+<blockquote style="font-size:16pt; color: black">
+
+Zu Übung 11 Blatt 5 Aufgabe 1b):<br>
+Wann spricht man von einem balancierten und wann von einem unbalancierten Datensatz?<br>
+</blockquote>
+
+<div style="font-size:18pt;">
+Ein Datensatz ist balanciert, wenn das Verhältnis aller Ausprägungen der Zielvariablen gleich ist.
+Bei einer Zielvariablen, welche zwei Ausprägung hat heißt das, dass das Verhältnis 1:1 sein muss.
+</div>
+
+<blockquote style="font-size:16pt; color: #FF0000;">
+Gibt es da feste Vorgaben?<br>
+</blockquote>
+
+<div style="font-size:18pt;">
+Nein. Bei [Google Developers](https://developers.google.com/machine-learning/data-prep/construct/sampling-splitting/imbalanced-data?hl=de) wird zum Beispiel folgende Daumenregel gegeben:
+
+| Grad des Ungleichgewichts | Anteil der Minderheitsklasse|
+|---------------------------|-----------------------------|
+| Niedrig                   | 20\%-40\%                   |
+| Mittel                    | 1\%-20\%                    |
+| Extrem                    | <1\%                        |
+
+: Einteilung von Ungleichgewichtsgraden {#tbl-lorem}
+
+</div>
+<blockquote style="font-size:16pt; color: black">
+Ist beispielsweise ein Datensatz mit einer im Verhälnis 61:39 verteilten Variable schon unbalanciert oder noch balanciert und wo zieht man die Grenze?<br>
+</blockquote>
+
+<div style="font-size:18pt;">
+S.o.
+</div>
+
+-->
+
+## Frage 1
+
+
+<blockquote style="font-size:16pt; color: black">
+Hallo, ich hätte eine Frage zum zeichnen der Regressionsbäume/Feature Spaces. Ich und einige Kommilitonen verstehen nicht ganz, wie man vorgeht. In der Altklausur gab es eine Aufgabe, bei der man aus einem Baum den Graphen zeichnen sollte. Ich verstehe das Vorgehen aber nicht und kann auch im Internet nichts dazu finden. Könnten Sie das nochmal erklären?<br>
+</blockquote>
+
+Betrachte [Aufgabe 4.4.1](https://linus-lach.de/teaching/dm/04_regressions_baeume#exr-create_tree_plot):
+
+:::{#exr-create_tree_plot}
+
+Gegeben sei folgender Feautre Space eines geschätzten Baummodells:
+
+```{r fig.dim=c(6,3)}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-bg: transparent
+#| fig-align: center
+
+library(parttree)
+library(patchwork)
+
+
+
+
+data_penguin_cleaned <- palmerpenguins::penguins %>% na.omit()
+
+tree_fit <- decision_tree(mode = "regression",tree_depth = 6) %>%
+  fit(data = data_penguin_cleaned,
+      formula = body_mass_g~flipper_length_mm)
+
+tree_pred <- tree_fit %>% augment(tibble(flipper_length_mm = seq(171,233,length.out = 500)))
+
+number_ticks <- function(n) {function(limits) pretty(limits, n)}
+
+p1 <- data_penguin_cleaned %>% ggplot(aes(x=flipper_length_mm))+
+  geom_point(aes(y=body_mass_g), color = "cyan4", alpha = 0.5)
+
+
+p1 <- p1+ geom_line(aes(y=.pred),
+            color = "red",
+            linewidth = 1.5,
+            data = tree_pred)+
+  scale_y_continuous(breaks = number_ticks(10),
+                     sec.axis = sec_axis(
+                       trans=~.,
+                       name="y",
+                       breaks = number_ticks(10)))+
+  scale_x_continuous(breaks = number_ticks(10))+
+  theme_minimal()
+  
+  
+## 2D
+
+text_coords <- tibble(x = c(182,202,187.5,211,225,225),
+                      y=c(20,20,15,17.5,14,18.5),
+                      grp = factor(
+                        c(3748.077,4042.411,3449.713,
+                          4614.796,5038.333,5511.957)
+                        )
+                      )
+
+p2 <- data_penguin_cleaned %>% ggplot(aes(x=flipper_length_mm, y = bill_depth_mm))+
+  geom_point(color = "cyan4", alpha = 0.5)+
+  theme_minimal()
+
+tree_fit <- decision_tree(mode = "regression",tree_depth = 6) %>%
+  fit(data = data_penguin_cleaned,
+      formula = body_mass_g~flipper_length_mm+bill_depth_mm) %>%
+      extract_fit_engine()
+
+p2 <- p2+ 
+  geom_parttree(data = tree_fit, aes(fill = body_mass_g), alpha = 0.4)+
+  geom_text(data = text_coords, aes(x=x,y=y,label = grp), color = "red")+
+  scale_y_continuous(breaks = number_ticks(10),
+                     sec.axis = sec_axis(
+                       trans=~.,
+                       name="bill_depth_mm",
+                       breaks = number_ticks(10)))+
+  scale_x_continuous(breaks = number_ticks(10),
+                     sec.axis = sec_axis(
+                       trans=~.,
+                       name="bill_depth_mm",
+                       breaks =  number_ticks(10)))+
+  theme(
+    legend.position = "none"
+  )
+
+p1
+
+```
+
+Skizziere für die Abbildung den entsprechenden Binärbaum unter der Angabe der Splitting-Variable, des Schwellenwertes und des **Schätzwertes in den Blattknoten**.
+
+:::
+
+
+## Lösung
+
+:::::{.columns}
+
+::::{.column width="50%"}
+```{r}
+#| echo: false
+p1
+```
+::::
+
+::::{.column width="50%"}
+Gesuchte Darstellung:
+
+
+![](pictures/Tree_diagram.svg)
+
+
+::::
+
+:::::
+
+## Lösung: Möglichkeit 1
+
+:::::{.columns}
+
+::::{.column width="50%"}
+```{r}
+#| echo: false
+p1
+```
+::::
+
+::::{.column width="50%"}
+
+::::{.r-stack}
+
+::: {.fragment .fade-in-then-out fragment-index=1}
+![](pictures/step_11.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=2}
+![](pictures/step_21.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=3}
+![](pictures/step_31.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=4}
+![](pictures/step_41.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=5}
+![](pictures/step_51.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=6}
+![](pictures/step_61.svg)
+:::
+
+::: {.fragment fragment-index=7}
+![](pictures/tree_final_11.svg)
+:::
+
+
+::::
+
+
+::::
+
+:::::
+
+## Lösung: Möglichkeit 2
+
+:::::{.columns}
+
+::::{.column width="50%"}
+```{r}
+#| echo: false
+p1
+```
+::::
+
+::::{.column width="50%"}
+
+::::{.r-stack}
+
+::: {.fragment .fade-in-then-out fragment-index=1}
+![](pictures/step_12.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=2}
+![](pictures/step_22.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=3}
+![](pictures/step_32.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=4}
+![](pictures/step_42.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=5}
+![](pictures/step_52.svg)
+:::
+
+::: {.fragment fragment-index=7}
+![](pictures/tree_final_12.svg)
+:::
+
+
+::::
+
+
+::::
+
+:::::
+
+## Frage 1
+
+:::{#exr-lorem2}
+
+Gegeben sei folgender Feautre Space eines geschätzten Baummodells:
+
+```{r fig.dim=c(6,3)}
+#| echo: false
+#| warning: false
+#| message: false
+#| fig-bg: transparent
+#| fig-align: center
+
+p2
+
+```
+
+Skizziere für die Abbildung den entsprechenden Binärbaum unter der Angabe der Splitting-Variable, des Schwellenwertes und des **Schätzwertes in den Blattknoten**.
+
+:::
+
+
+## Lösung
+
+:::::{.columns}
+
+::::{.column width="50%"}
+```{r}
+#| echo: false
+p2
+```
+::::
+
+::::{.column width="50%"}
+
+::::{.r-stack}
+
+::: {.fragment .fade-in-then-out fragment-index=1}
+![](pictures/step_111.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=2}
+![](pictures/step_112.svg)
+:::
+::: {.fragment .fade-in-then-out fragment-index=3}
+![](pictures/step_113.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=4}
+![](pictures/step_114.svg)
+:::
+
+::: {.fragment .fade-in-then-out fragment-index=5}
+![](pictures/step_115.svg)
+:::
+
+::: {.fragment fragment-index=6}
+![](pictures/tree_final_21.svg)
+:::
+
+
+::::
+
+
+::::
+
+:::::
+
+## Frage 2/3
+
+<blockquote style="font-size:16pt; color: black">
+wie berechne ich die Koeffizienten von einem NN mit 9 Input Layer, zwei mal 18 Hidden layer und 1 Outputlayer. Addiere ich am ende immer 1 dazu für den Outputlayer ?<br>
+</blockquote>
+
+<blockquote style="font-size:16pt; color: black">
+Übung 5.1.3 Können Sie das nochmal in Bezug auf die Formel im Skript erläutern
+</blockquote>
+
+Für die Anzahl der Parameter eines NN gilt die Formel:
+
+\begin{equation*}
+(J+1)N_1+\left(\sum_{k=1}^{K} (N_k+1)\cdot N_{k+1}\right)
+\end{equation*}
+
+Hierbei steht der Index $k = 1,\ldots,K$ für die verschiedenen Hidden Layer des FFNN.
+Somit beschreiben wir mit $J$ die Anzahl der Input-Neuronen, $N_k$, $k=1\ldots,K$, die Anzahl der Neuronen in den Hidden-Layern und mit $N_{K+1}$ die Anzahl der Output-Neuronen.
+Die Addition mit `1` steht in den entsprechenden Layern für den Biasterm, da dieser ebenso mit jedem Neuron der nächsten Layer verbunden ist.
+
+$\implies$
+
+Die Anzahl der Parameter ist gegeben durch
+\begin{equation}
+(9+1)\cdot 18+(18+1)\cdot 18+(18+1)\cdot 1 = 541
+\end{equation}
+
+
+## Frage 3
+
+<blockquote style="font-size:16pt; color: black">
+Übung 5.1.4 Warum ganz R, eigentlich ist ReLu als nur postiv definiert
+</blockquote>
+
+:::{#exr-nn01}
+
+Angenommen es liegt ein FFDNN mit einem Inputneuron, zwei Hidden Layer bestehend aus zwei bzw. drei Neuronen und einem Outputneuron vor.
+
+1.    [...]
+2.    [...] Gehe dabei davon aus, dass **die Aktivierungsfunktion der ersten und zweiten Hidden Layer "ReLU" sind.**
+
+:::
+
+Die Aktivierungsfunktionen sind hier nur für beide Hidden-Layer spezifiziert! Da keine Aktivierungsfunktion auf den Output-Layer angewendet wird, kann dieser Werte in ganz $\mathbb{R}$ annehmen.
+
+
+
+
+
